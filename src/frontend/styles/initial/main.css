@@ -1,0 +1,38 @@
+*,
+*::before,
+*::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box
+}
+
+html{
+  height: 100vh;
+}
+
+header {
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  grid-area: footer;
+}
+
+body {
+  height: inherit;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 4em auto max-content;
+  grid-template-areas: 
+  "header header header"
+  "main main main"
+  "footer footer footer";
+
+  font-family: "Open sans", "Segoe UI", "Segoe WP", Helvetica, Arial, sans-serif;
+  font-size: 0.6em;
+  background-color: #f5f5f5;
+}

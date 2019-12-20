@@ -1,0 +1,34 @@
+.comprovante__container {
+  grid-area: receipt;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 5px;
+}
+
+.comprovante__lista {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 3em auto;
+}
+
+.comprovante__lista--conteudo {
+  text-align: left;
+  border: 1px dashed;
+  padding: 5px;
+  font-family: 'Courier New';
+  font-size: 11px;
+  white-space: pre;
+  max-width: fit-content;
+  background-color: rgba(248, 245, 172, 1);
+}
+
+.comprovante__lista--titulo {
+  margin: 2px 5em;
+  padding: 5px;
+  align-self: center;
+  font-size: 1.5em;
+  list-style: none;
+  text-align: center;
+}

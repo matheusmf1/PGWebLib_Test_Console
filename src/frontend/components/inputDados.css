@@ -1,0 +1,46 @@
+.main__container {
+  padding: 0.5em;
+}
+
+.file__container {
+  width: 50vw;
+  min-width: fit-content;
+  background: #FFF;
+  padding: .5em;
+  margin: 25px auto;
+  border-top: 5px solid #483D8B;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
+
+.file__form {
+  padding: 5px;
+  margin: 5px;
+  font-size: 1.1em;
+}
+
+.file__form--label {
+  margin: 5px;
+}
+
+.file__form--checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2px;
+  padding: 3px
+}
+
+.file__form--input {
+  font-size: 0.95em;
+  vertical-align: middle;
+  margin: auto;
+}
+
+#informationArea {
+  margin: 5px;
+  padding: 5px;
+  min-height: 150px;
+  border: solid 1px #888;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 1.4em;
+}

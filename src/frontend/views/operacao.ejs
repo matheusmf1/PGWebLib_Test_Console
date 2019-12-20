@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <%- include( 'partials/head', {
+    pageTitle: 'Console Web',
+    styles: ['operacao', 'components']
+  } ) %>
+</head>
+
+<body>
+  <header>
+    <%- include( '../components/header' ) %>
+  </header>
+
+  <main>
+    <section class='main__container'>
+      <%- include( 'partials/divisor', {title: 'Entrada de Dados'} )%>
+
+      <%- include( '../components/inputDados', {
+        content: {
+          title: "Escolha entre as opções a seguir:",
+          subTitle: "Tipo de Teste:"
+        },
+        radioBtn: [ 
+          {titulo: 'Operação', name: 'inputData', value: 'transacao'},
+          {titulo: 'Validação', name: 'inputData', value: 'validacao'}
+        ],
+        button: {
+          type: 'submit',
+          extraClass: 'button',
+          value: 'submit',
+          id: 'inputData'
+        },
+        infoArea: infoArea
+      }) %>
+    </section>
+  </main>
+
+  <section class='comprovante__container' id='comprovante__container' >
+    <%- include( 'partials/divisor', {title: 'Resultados'} )%>
+
+  </section>
+
+  <section class='validacao__container' id='validacao__container'>
+    <%- include( 'partials/divisor', {title: 'Validação'} )%>
+ 
+  </section>
+
+  <footer>   
+    <%- include( 'partials/footer' ) %>
+  </footer>
+
+  <%- include( 'partials/scripts', {
+    scripts: ['operacao', 'components']
+  }) %>
+  
+</body>
+</html>

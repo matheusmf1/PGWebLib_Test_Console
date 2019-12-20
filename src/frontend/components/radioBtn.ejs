@@ -1,0 +1,13 @@
+<div class="radioBtn__container">
+  <% opcoes.forEach( ( opcao ) => { %>
+    <%- include( 'input', {
+      type: 'radio',
+      id: '',
+      extraClass: 'file__form--input',
+      name: opcao.name,
+      value: opcao.value
+    }) %>
+
+  <label class="radioBtn__label" for=<%= opcao.titulo %>> <%= opcao.titulo %> </label>
+<% }); %>
+</div>

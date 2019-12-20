@@ -1,0 +1,12 @@
+<% console.log('This is receipt ejs', comprovantes ); %>
+
+<% if( comprovantes.comprovante ) { %>
+  <ul class="comprovante__lista">
+    <% comprovantes.comprovante.forEach( ( c ) => { %>
+      <li class="comprovante__lista--titulo" > <%= Object.keys( c ).toString().replace(/_/g,' ') %>
+        <div class="comprovante__lista--conteudo"><%= Object.values( c ) %></div> 
+      </li>
+    
+    <% }) %>
+  </ul>
+<% }; %>

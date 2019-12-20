@@ -1,0 +1,35 @@
+<div id="signup">   
+  <h1>PayGoWeb</h1>
+  
+  <form action="http://localhost:3000/auth/register" method="post" id="form-sign">
+  
+    <div class="top-row">
+      <div class="form__content">
+
+        <label class="form__content--label"> Nome </label>
+        <input type="text" name="name" required autocomplete="off"/>
+
+      </div>
+  
+      <div class="form__content">
+        <label class="form__content--label"> Sobrenome </label>
+        <input type="text" name="middlename" required autocomplete="off"/>
+      </div>
+
+    </div>
+
+    <div class="form__content">
+      <label class="form__content--label"> Email </label>
+      <input type="email" name="email" required autocomplete="off"/>  
+    </div>
+    
+    <div class="form__content">
+      <label class="form__content--label"> Defina uma Senha </label>
+      <input type="password" name="password" required autocomplete="off"/>
+    </div>
+    
+    <button type="submit" class="button-login button-block"/> Começar </button>
+  
+  </form>
+
+</div>

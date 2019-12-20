@@ -1,0 +1,37 @@
+<section class='file__container'>
+
+  <h3><%= content.title %></h3>
+
+  <form action='/operacao' method='post' class='file__form' >
+
+    <div class='file__form--checkbox'>
+      <label for='subTitle' class="file__form--label"> <%= content.subTitle %> </label>
+
+      <%- include( 'radioBtn', {
+        opcoes: radioBtn
+      }); %>
+
+      <%- include( 'input', {
+        type: 'file',
+        id: 'fileInput',
+        extraClass: 'file__form--input',
+        name: '',
+        value: ''
+      }); %>
+
+    </div>
+    
+    <pre id='informationArea'>
+      <p><%= infoArea  %></p>   
+    </pre>
+
+    <%- include( 'button', {
+      type: button.type,
+      extraClass: button.extraClass,
+      name: 'jsonData',
+      value: button.value,
+      id: button.id
+    }); %>
+  
+  </form>
+</section>

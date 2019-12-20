@@ -1,0 +1,27 @@
+<% if( val.validacao ) { %>
+  <% console.log(val) %>
+
+  <table class="table__container table_container--shadow">
+
+    <thead>
+      <tr class="table__title">
+        <th class="table__title--border">ID</th>
+        <th class="table__title--border">Validação</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% val.validacao.forEach( ( item, index ) => { %>
+        <tr class="table__content">
+          <td class="table__content--border"> <%= index %> </td>
+
+          <td class="table__content--border">
+            <%= Object.keys(item) + ' ' + Object.values(item); %>
+          </td>
+
+        </tr>
+      }) %>
+    </tbody>
+
+  </table>
+<% }; %>
