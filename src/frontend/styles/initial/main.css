@@ -1,12 +1,12 @@
 *,
 *::before,
-*::after{
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box
 }
 
-html{
+html {
   height: 100vh;
 }
 
@@ -16,6 +16,7 @@ header {
 
 main {
   grid-area: main;
+  align-self: center;
 }
 
 footer {
@@ -26,7 +27,7 @@ body {
   height: inherit;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 4em auto max-content;
+  grid-template-rows: 5em auto max-content;
   grid-template-areas: 
   "header header header"
   "main main main"

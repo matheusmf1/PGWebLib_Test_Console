@@ -10,13 +10,20 @@
 
 <body>
   <header>
-    <%- include( '../components/header' ) %>
+   
+    <%- include( '../components/menu', {
+      elements: [
+        { ref: '#input', content: 'Dados' },
+        { ref: '#comprovante__container', content: 'Resultados' },
+        { ref: '#validacao__container', content: 'Validação' },
+        { ref: 'http://localhost:3000/operacao/logout', content: 'Sair'}
+      ]
+    }) %>
+
   </header>
 
   <main>
-    <section class='main__container'>
-      <%- include( 'partials/divisor', {title: 'Entrada de Dados'} )%>
-
+    <section class='main__container' id="input">
       <%- include( '../components/inputDados', {
         content: {
           title: "Escolha entre as opções a seguir:",
@@ -44,7 +51,6 @@
 
   <section class='validacao__container' id='validacao__container'>
     <%- include( 'partials/divisor', {title: 'Validação'} )%>
- 
   </section>
 
   <footer>   

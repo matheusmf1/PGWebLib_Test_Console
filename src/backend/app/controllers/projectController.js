@@ -34,7 +34,7 @@ router.post('/', ( req, res, next ) => {
 
   fireBaseMsg.sendData( operacao, dados, token ).then( (message) => {
     res.status(200).render( 'operacao', { 
-      infoArea: 'Success message sent to the device ' } );
+      infoArea: 'Success message sent to the device '} );
 
   }).catch( (error) => { 
     console.log( 'Erro monstruoso ' + error.name + ' ' + error.message );

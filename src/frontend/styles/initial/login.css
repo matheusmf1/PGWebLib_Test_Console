@@ -1,18 +1,20 @@
 *, *:before, *:after {
   box-sizing: border-box;
+  margin: 0px;
 }
 
 a {
   text-decoration: none;
-  color: #1ab188;
+  color: #FFFFFF;
+  font-size: 1.5em;
   transition: .5s ease;
 }
 a:hover {
-  color: #179b77;
+  color: #2196F3;
 }
 
 .form {
-  background: rgba(19, 35, 47, 0.9);
+  background: rgba(19, 35, 47, 0.75);
   padding: 40px;
   max-width: 600px;
   margin: 40px auto;
@@ -37,7 +39,7 @@ a:hover {
 }
 
 .tab-group .active a {
-  background: #1ab188;
+  background:#2196F3;
   color: #ffffff;
 }
 
@@ -68,6 +70,7 @@ h1 {
   text-align: center;
   color: #ffffff;
   font-weight: 300;
+  font-size: 1.8em;
   margin: 0 0 40px;
 }
 
@@ -118,14 +121,13 @@ input, textarea {
 }
 input:focus, textarea:focus {
   outline: 0;
-  border-color: #1ab188;
+  border-color: #2196f3;
 }
 
 textarea {
   border: 2px solid #a0b3b0;
   resize: vertical;
 }
-
 
 
 .top-row:after {
@@ -151,7 +153,7 @@ textarea {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: #1ab188;
+  background: #2196F3;
   color: #ffffff;
   transition: all 0.5s ease;
   -webkit-appearance: none;

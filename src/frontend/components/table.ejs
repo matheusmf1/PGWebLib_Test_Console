@@ -1,8 +1,5 @@
-<% if( val.validacao ) { %>
-  <% console.log(val) %>
-
+<% if( validacao.validacao ) { %>
   <table class="table__container table_container--shadow">
-
     <thead>
       <tr class="table__title">
         <th class="table__title--border">ID</th>
@@ -11,7 +8,7 @@
     </thead>
 
     <tbody>
-      <% val.validacao.forEach( ( item, index ) => { %>
+      <% validacao.validacao.forEach( ( item, index ) => { %>
         <tr class="table__content">
           <td class="table__content--border"> <%= index %> </td>
 
@@ -22,6 +19,5 @@
         </tr>
       }) %>
     </tbody>
-
   </table>
 <% }; %>

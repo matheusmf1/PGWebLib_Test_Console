@@ -8,10 +8,18 @@
   }) %>
 </head>
 
+
 <body>
 
-  <main>
+  <header>
+    <%- include( '../components/menu', {
+      elements: [
+      { ref: '', content: 'Bem Vindo ao PGWebLib Console' }
+      ]
+    }) %>
+  </header>
 
+  <main>
     <section class="form">
       
       <ul class="tab-group">

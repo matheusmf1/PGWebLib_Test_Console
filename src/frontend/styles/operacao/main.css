@@ -16,6 +16,7 @@ header {
 
 main {
   grid-area: main;
+ margin-top: 3em;
 }
 
 footer {
@@ -26,7 +27,7 @@ body {
   height: inherit;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 4em auto auto auto max-content;
+  grid-template-rows: max-content auto auto auto max-content;
   grid-template-areas: 
   "header header header"
   "main main main"
