@@ -4,7 +4,6 @@ const authConfig = require('../../config/auth.json');
 
 module.exports = ( req, res, next ) => {
   const cookieToken = req.headers.cookie;
-  console.log('Headers ', cookieToken);
  
   if( !cookieToken )
     return res.status(401).send( { error: 'No token Provided' } );

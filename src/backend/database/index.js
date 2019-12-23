@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://admin:mongo123@pgweblib-w0kkn.mongodb.net/user-login-db?retryWrites=true&w=majority', { 
+mongoose.connect('mongodb+srv://admin:mongo123@pgweblib-w0kkn.mongodb.net/PGWebLib_Console?retryWrites=true&w=majority', { 
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true 

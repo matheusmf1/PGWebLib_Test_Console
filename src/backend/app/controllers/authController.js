@@ -16,7 +16,6 @@ const generateToken = ( params = {} ) => {
 
 router.post('/register', async ( req, res ) => {
   const { email } = req.body;
-  console.log( req.body )
 
   try {
 
@@ -27,8 +26,6 @@ router.post('/register', async ( req, res ) => {
 
     //para não retornar a senha no json
     user.password = undefined;
-    // return res.send( { user, token: generateToken( { id: user.id } ) } );
-
     const token = generateToken( { id: user.id } );
 
     return res.cookie('tokenkey', token, {
@@ -90,7 +87,7 @@ router.post('/forgot_password', async ( req, res ) => {
 
     mailer.sendMail( {
       to: email,
-      from: 'matheus@test.com.br',
+      from: 'matheus.franco@test.com.br',
       html: `
       <p>Você esqueceu sua senha? Não se preocupe, utilize esse token: { ${ token } } </p> `
 
