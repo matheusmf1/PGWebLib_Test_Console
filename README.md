@@ -1,13 +1,11 @@
 # Introdução
-Esse projeto visa automatizar testes e validações na PGWebLib por via de um console Web.
+Esse projeto visa automatizar testes e validações na PGWebLib por via de um Console Web.
 
 ## Configurações Prévias
 - Nodejs instalado na máquina.
-- Visual Studio Code
 
 ## Iniciar a aplicação
-- Abrir o projeto com Visual Studio Code.
-- Abrir um abrir um terminal e executar:
+- Abrir um terminal no diretório do projeto e executar o comando abaixo para instalar as dependências do projeto:
 ```
   npm install
 ```
