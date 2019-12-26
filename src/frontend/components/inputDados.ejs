@@ -13,10 +13,18 @@
 
       <%- include( 'input', {
         type: 'file',
-        id: 'fileInput',
+        id: 'chooseFile',
         extraClass: 'file__form--input',
         name: '',
         value: ''
+      }); %>
+ 
+      <%- include( 'button', {
+        type: button.type,
+        extraClass: button.extraClass,
+        name: 'jsonData',
+        value: button.value,
+        id: button.id
       }); %>
 
     </div>
@@ -24,14 +32,6 @@
     <pre id='informationArea'>
       <p><%= infoArea  %></p>   
     </pre>
-
-    <%- include( 'button', {
-      type: button.type,
-      extraClass: button.extraClass,
-      name: 'jsonData',
-      value: button.value,
-      id: button.id
-    }); %>
   
   </form>
 </section>

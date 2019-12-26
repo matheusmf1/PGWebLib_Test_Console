@@ -1,6 +1,6 @@
 (() => {
 
-  const validation = setInterval(() => {
+  const validation = setInterval( () => {
     fetch('http://localhost:3000/operacao/addvalidacao', {
       method: 'GET',
       headers: {
@@ -12,7 +12,7 @@
     }).then((resp) => {
       console.log('validacao', resp)
 
-      if (resp.validacao) {
+      if ( resp.validacao ) {
 
         let sectionNode = document.getElementById('validacao__container');
 
@@ -67,6 +67,6 @@
     }).catch( (err) => {
       console.log('Erro Fetch', err);
     });
-  }, 20000);
+  }, 10000 );
 
 })();

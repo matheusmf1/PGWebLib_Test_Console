@@ -32,6 +32,7 @@ gulp.task( 'watch', async () => {
   gulp.watch('./src/frontend/components/*.css', gulp.parallel('min-css-components'));
   gulp.watch('./src/frontend/styles/operacao/*.css', gulp.parallel('min-css-operacao'));
   gulp.watch('./src/frontend/styles/initial/*.css', gulp.parallel('min-css-initial'));
+  gulp.watch('./src/frontend/styles/common/*.css', gulp.parallel('min-css-common'));
 
   gulp.watch('./src/frontend/components/*.js', gulp.parallel('min-js-components'));
   gulp.watch('/src/frontend/scripts/operacao/*.js', gulp.parallel('min-js-operacao'));

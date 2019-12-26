@@ -3,6 +3,8 @@
   width: max-content;
   background: none;
   border: none;
+  margin: 3px;
+  padding: 5px;
 }
 
 .button--maximized {

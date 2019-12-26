@@ -4,7 +4,7 @@ const authConfig = require('../../config/auth.json');
 
 module.exports = ( req, res, next ) => {
   const cookieToken = req.headers.cookie;
- 
+
   if( !cookieToken )
     return res.status(401).send( { error: 'No token Provided' } );
 
@@ -19,7 +19,8 @@ module.exports = ( req, res, next ) => {
     return res.status(401).send( { error: 'Token malformatted' } );
 
   jwt.verify( token, authConfig.secret, ( err, decoded ) => {
-    if( err ) return res.status(401).send( { error: 'Token invalid' } );
+    if( err )
+     return res.status(401).send( { error: 'Token invalid' } );
 
     req.userId = decoded.id;
 

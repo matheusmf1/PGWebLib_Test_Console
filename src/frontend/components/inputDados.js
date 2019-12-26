@@ -2,13 +2,13 @@
 
   let dataFile = '';
   window.onload = () => {
-    const fileInput = document.getElementById('fileInput');
+    const chooseFile = document.getElementById('chooseFile');
     const fileDisplayArea = document.getElementById('informationArea');
     document.querySelector('input[name="inputData"]').defaultChecked = 'true';
 
 
-    fileInput.addEventListener('change', (e) => {
-      const file = fileInput.files[0];
+    chooseFile.addEventListener('change', ( e ) => {
+      const file = chooseFile.files[0];
       const textType = /json.*/;
 
       if ( file.type.match(textType) ) {
@@ -38,5 +38,20 @@
     
     document.getElementById("inputData").value =  JSON.stringify( data );
   }, false);
+
+
+  const operationsOp = document.querySelectorAll('input[name="inputData"]')[0];
+  operationsOp.addEventListener('click', () => { 
+    document.getElementById('inputData').addEventListener('click', () => {
+      setTimeout('clearInterval(update)', 70000);
+     });
+  });
+
+  const validationOp = document.querySelectorAll('input[name="inputData"]')[1];
+  validationOp.addEventListener('click', () => {
+     document.getElementById('inputData').addEventListener('click', () => {
+      setTimeout('clearInterval(validation)', 70000);
+     });
+  });
   
 })();
