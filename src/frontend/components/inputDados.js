@@ -53,5 +53,17 @@
       setTimeout('clearInterval(validation)', 70000);
      });
   });
-  
+
+  document.getElementById('inputData').addEventListener('mousedown', () => {
+    let checkArea =  document.getElementById('informationArea').firstElementChild;
+   
+    if ( checkArea.localName === "br" ) 
+      document.getElementById('inputData').disabled  = false;
+    
+    if ( checkArea.localName === "p" ) {
+      document.getElementById('inputData').disabled  = true;
+      alert('Selecione algum arquivo');
+      document.getElementById('inputData').disabled  = false;
+    }
+  });
 })();
