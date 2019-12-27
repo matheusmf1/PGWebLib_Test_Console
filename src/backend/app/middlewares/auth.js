@@ -6,7 +6,8 @@ module.exports = ( req, res, next ) => {
   const cookieToken = req.headers.cookie;
 
   if( !cookieToken )
-    return res.status(401).send( { error: 'No token Provided' } );
+    return res.status(401).redirect('/');
+   // return res.status(401).send( { error: 'No token Provided' } );
 
   const parts = cookieToken.split('=');
 

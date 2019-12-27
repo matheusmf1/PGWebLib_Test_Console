@@ -41,6 +41,7 @@
 
   tabs.forEach( ( tab ) => {
     tab.addEventListener('click', ( i ) => {
+      i.preventDefault();
       let parent = i.target.parentNode;
 
       othertab = document.getElementsByClassName('active');
@@ -51,60 +52,11 @@
       let target = i.target.getAttribute('href');
 
       hideTab = document.querySelector(`.tab-content > div:not(${target})`);
-      showTab = document.querySelector('.tab-content > div');
+      hideTab.style.display = 'none';
 
-      // fadeOut(hideTab, 600);
-      // fadeIn(showTab, 600);
-
+      showTab = document.querySelector(`${target}`);
+      showTab.style.display = 'block';
     });
-  });
-
-  function fadeIn(elem, ms) {
-    elem.style.opacity = 0;
-  
-    if (ms) {
-      let opacity = 0;
-      const timer = setInterval(function() {
-        opacity += 50 / ms;
-        if (opacity >= 1) {
-          clearInterval(timer);
-          opacity = 1;
-        }
-        elem.style.opacity = opacity;
-      }, 50);
-    } else {
-      elem.style.opacity = 1;
-    }
-  }
-
-  function fadeOut(el, ms) {
-    if (ms) {
-      el.style.transition = `opacity ${ms} ms`;
-      el.addEventListener(
-        'transitionend',
-        function(event) {
-          el.style.display = 'none';
-        },
-        false
-      );
-    }
-    el.style.opacity = '0';
-  }
-
-
-  $('.tab a').on('click', function (e) {
-    
-    e.preventDefault();
-    
-    $(this).parent().addClass('active');
-    $(this).parent().siblings().removeClass('active');
-    
-    target = $(this).attr('href');
-  
-    $('.tab-content > div').not(target).hide();
-    
-    $(target).fadeIn(600);
-    
   });
   
 })();
