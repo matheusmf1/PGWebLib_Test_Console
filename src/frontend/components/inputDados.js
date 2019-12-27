@@ -1,7 +1,7 @@
 (() => {
 
   let dataFile = '';
-  window.onload = () => {
+ 
     const chooseFile = document.getElementById('chooseFile');
     const fileDisplayArea = document.getElementById('informationArea');
     document.querySelector('input[name="inputData"]').defaultChecked = 'true';
@@ -24,7 +24,7 @@
         fileDisplayArea.innerText = "Arquivo não suportado!"
       }
     });
-  };
+  
   
   
   document.getElementById("inputData").addEventListener("click", () => {

@@ -1,13 +1,16 @@
 (() => {
 
-  const update = setInterval( () => { 
-    fetch('http://localhost:3000/operacao/addresultado',
+  const update = setInterval( async () => { 
+    await fetch( '/operacao/addresultado',
     {
      method: 'GET',
-     headers: { 'Content-Type': 'application/json' }
+     headers: { 'Content-Type': 'application/json' },
+     mode: 'cors'
     }
-    ).then( (response) => {
-         return response.json();
+    ).then( ( response ) => {
+      console.log('test', response.status)
+        if ( response.status === 200 )
+          return response.json();
  
      }).then( ( resp ) => {
        console.log('Result', resp)

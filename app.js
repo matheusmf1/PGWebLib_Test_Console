@@ -2,8 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
+const os = require('os');
 
 const port = process.env.PORT;
+const hostname = os.hostname();
 
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
@@ -19,10 +21,10 @@ app.get('/', ( req, res, next ) => {
   res.status(200).render( 'initial' );
 });
 
-app.listen( port, ( err ) => {
+app.listen( port, hostname, ( err ) => {
   if ( err ) {
     console.error( err );
   } else {
-    console.log( `App listening at port: ${port}` );
+    console.log( `App listening at port: ${port} and Host: ${hostname}` );
   }
 });

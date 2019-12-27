@@ -61,7 +61,9 @@ router.post('/addresultado', ( req, res, next ) => {
 
 router.get('/addresultado', ( req, res, next ) => {
   res.status(200).send( resultResponse );
+  resultResponse = {};
 });
+
 
 router.post('/addvalidacao', ( req, res, next ) => {
   validationResponse = req.body;
@@ -70,6 +72,7 @@ router.post('/addvalidacao', ( req, res, next ) => {
 
 router.get('/addvalidacao', ( req, res, next ) => {
   res.status(200).send( validationResponse );
+  validationResponse = {};
 });
 
 router.post('/status', ( req, res, next ) => {
@@ -79,6 +82,7 @@ router.post('/status', ( req, res, next ) => {
 
 router.get('/status', ( req, res, next ) => {
   res.status(200).send( statusResponse );
+  statusResponse = {};
 });
 
 module.exports = app => app.use( '/operacao', router );

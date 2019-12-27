@@ -1,7 +1,7 @@
 (() => {
 
-  const status = setInterval( () => { 
-     fetch('http://localhost:3000/operacao/status',
+  const status = setInterval( async () => { 
+    await fetch( '/operacao/status',
      {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
