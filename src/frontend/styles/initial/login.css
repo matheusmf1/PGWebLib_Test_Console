@@ -93,8 +93,8 @@ h1 {
 }
 
 .form__content--label.active {
-  -webkit-transform: translateY(50px);
-          transform: translateY(50px);
+  -webkit-transform: translateY(-25px);
+          transform: translateY(-25px);
   left: 2px;
   font-size: 14px;
 }

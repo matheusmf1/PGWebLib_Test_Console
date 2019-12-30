@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const authMiddleware = require('../middlewares/auth');
 const cookieParser = require('cookie-parser');
+const os = require('os');
+const hostname = os.hostname();
 
 const fireBaseMsg = require('./fireBaseSendMsg');
 
@@ -54,25 +56,24 @@ router.get('/logout', ( req, res, next ) => {
 
 // posted by Android Service - saves the data comming from the post to the response variable
 // in order to use it on get request.
-router.post('/addresultado', ( req, res, next ) => {
+router.post('/resultado', ( req, res, next ) => {
   resultResponse = req.body;
   res.status(200).json( { ok: true } );
 });
 
-router.get('/addresultado', ( req, res, next ) => {
+router.get('/resultado', ( req, res, next ) => {
   res.status(200).send( resultResponse );
-  resultResponse = {};
 });
 
 
-router.post('/addvalidacao', ( req, res, next ) => {
+router.post('/validacao', ( req, res, next ) => {
   validationResponse = req.body;
   res.status(200).json( { ok: true } );
 });
 
-router.get('/addvalidacao', ( req, res, next ) => {
+router.get('/validacao', ( req, res, next ) => {
   res.status(200).send( validationResponse );
-  validationResponse = {};
+
 });
 
 router.post('/status', ( req, res, next ) => {
@@ -82,7 +83,6 @@ router.post('/status', ( req, res, next ) => {
 
 router.get('/status', ( req, res, next ) => {
   res.status(200).send( statusResponse );
-  statusResponse = {};
 });
 
 module.exports = app => app.use( '/operacao', router );

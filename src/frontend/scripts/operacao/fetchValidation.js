@@ -1,7 +1,7 @@
 (() => {
 
   const validation = setInterval( async () => {
-    await fetch( '/operacao/status', {
+    await fetch( '/operacao/validacao', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
