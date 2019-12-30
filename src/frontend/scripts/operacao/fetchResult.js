@@ -8,7 +8,6 @@
      mode: 'cors'
     }
     ).then( ( response ) => {
-      console.log('test', response.status)
         if ( response.status === 200 )
           return response.json();
  
