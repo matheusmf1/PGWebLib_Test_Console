@@ -31,7 +31,7 @@ router.post('/register', async ( req, res ) => {
     return res.cookie('tokenkey', token, {
       maxAge: 3600000, // 1 hour
       httpOnly: true
-    }).redirect('/operacao');
+    }).redirect('/main');
 
   } catch( err ) {
     return res.status(400).send( { error: 'Registration Failed' } );
@@ -58,7 +58,7 @@ router.post('/authenticate', async ( req, res ) => {
   res.cookie('tokenkey', token, {
     maxAge: 3600000, // 1 hour
     httpOnly: true
-  }).redirect('/operacao');
+  }).redirect('/main');
 });
 
 
@@ -135,6 +135,33 @@ router.post('/reset_password', async ( req, res ) => {
   } catch (error) {
     res.status(400).send( { error: 'Cannot reset password, try it again' } )
   }
+});
+
+router.get('/user', async ( req, res ) => {
+  try{
+    const users = await User.find().populate( ['projects'] );
+    return res.status(200).send( { users } );
+
+  } catch( err ) {
+    console.log( err );
+    return res.status(400).send( { error: 'Error on  finding users' } );
+  }
+});
+
+router.get('/user/:email', async ( req, res ) => {
+  try {
+    const user = await User.find( { email: req.params.email } ).populate( ['projects, tasks'] );
+
+    if ( !user )
+      return res.status(404).send( { error: 'User not found' } );
+
+      const token = generateToken( { id: user.id } );
+      res.header('auth-token', token).send( { user } );
+  } catch( err ) {
+    console.log( err );
+    res.status(400).send( { error: 'Error on loading user' } )
+  }
+
 });
 
 module.exports = ( app ) => app.use( '/auth', router );
