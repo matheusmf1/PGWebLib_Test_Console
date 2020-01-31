@@ -12,8 +12,9 @@ router.use( authMiddleware );
 router.get( '/', async ( req, res ) => {
   try {
 
-    const projects = await Project.find().populate( ['user', 'validations'] );
-    return res.send( { projects } );
+    return res.status(200).render('project')
+    // const projects = await Project.find().populate( ['user', 'validations'] );
+    // return res.send( { projects } );
 
   } catch (error) {
     res.status(400).send( { error: 'Error on loading projects' } );

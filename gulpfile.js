@@ -20,6 +20,8 @@ gulp.task('min-css-initial', async () => task('./src/frontend/styles/initial/*.c
 
 gulp.task('min-css-common', async () => task('./src/frontend/styles/common/*.css', mincss, 'common.min.css', 'public/css'));
 
+gulp.task('min-css-project', async () => task('./src/frontend/styles/project/*.css', mincss, 'project.min.css', 'public/css'));
+
 // JS
 gulp.task('min-js-components', async () => task('./src/frontend/components/*.js', minjs, 'components.min.js', 'public/js'));
 
@@ -27,16 +29,20 @@ gulp.task('min-js-operacao', async () => task('./src/frontend/scripts/operacao/*
 
 gulp.task('min-js-initial', async () => task('./src/frontend/scripts/initial/*.js', minjs, 'initial.min.js', 'public/js'));
 
+gulp.task('min-js-project', async () => task('./src/frontend/scripts/project/*.js', minjs, 'project.min.js', 'public/js'));
+
 
 gulp.task( 'watch', async () => {
   gulp.watch('./src/frontend/components/*.css', gulp.parallel('min-css-components'));
   gulp.watch('./src/frontend/styles/operacao/*.css', gulp.parallel('min-css-operacao'));
   gulp.watch('./src/frontend/styles/initial/*.css', gulp.parallel('min-css-initial'));
   gulp.watch('./src/frontend/styles/common/*.css', gulp.parallel('min-css-common'));
+  gulp.watch('./src/frontend/styles/project/*.css', gulp.parallel('min-css-project'));
 
   gulp.watch('./src/frontend/components/*.js', gulp.parallel('min-js-components'));
   gulp.watch('/src/frontend/scripts/operacao/*.js', gulp.parallel('min-js-operacao'));
   gulp.watch('/src/frontend/scripts/initial/*.js', gulp.parallel('min-js-initial'));
+  gulp.watch('/src/frontend/scripts/project/*.js', gulp.parallel('min-js-project'));
 });
 
 gulp.task('default', gulp.parallel(
@@ -44,8 +50,10 @@ gulp.task('default', gulp.parallel(
   'min-css-operacao',
   'min-css-initial',
   'min-css-common',
+  'min-css-project',
   'min-js-components',
   'min-js-operacao',
   'min-js-initial',
+  'min-js-project',
   'watch'
 ));
