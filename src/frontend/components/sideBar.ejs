@@ -1,0 +1,22 @@
+<nav class="sidebar-nav">
+
+  <ul>
+    <% elements.forEach( ( e ) => { %>
+    <li>
+      <a> <span> <%= e.title %> </span> </a>
+
+      <ul class="nav-flyout">
+        <% e.subMenu.forEach( s => { %>
+          <li>
+            <a id="<%= s.id %>"> <%= s.item %> </a>
+          </li>
+
+        <% }); %>
+
+      </ul>
+    </li>
+    <% }); %>
+
+
+  </ul>
+</nav>

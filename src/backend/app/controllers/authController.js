@@ -27,7 +27,7 @@ router.post('/register', async ( req, res ) => {
     //para não retornar a senha no json
     user.password = undefined;
     const token = generateToken( { id: user.id } );
-
+    console.log('token: ', token);
     return res.cookie('tokenkey', token, {
       maxAge: 3600000, // 1 hour
       httpOnly: true
@@ -54,7 +54,7 @@ router.post('/authenticate', async ( req, res ) => {
 
   user.password = undefined;
   const token = generateToken( { id: user.id } );
-
+  console.log('token: ', token);
   res.cookie('tokenkey', token, {
     maxAge: 3600000, // 1 hour
     httpOnly: true

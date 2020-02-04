@@ -1,12 +1,12 @@
 *,
 *::before,
-*::after {
+*::after{
   margin: 0;
   padding: 0;
   box-sizing: border-box
 }
 
-html {
+html{
   height: 100vh;
 }
 
@@ -14,9 +14,12 @@ header {
   grid-area: header;
 }
 
+aside {
+  grid-area: aside;
+}
+
 main {
   grid-area: main;
-  align-self: center;
 }
 
 footer {
@@ -26,11 +29,11 @@ footer {
 body {
   height: inherit;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 5em auto max-content;
+  grid-template-columns: auto 1fr 1fr;
+  grid-template-rows: max-content auto max-content;
   grid-template-areas: 
   "header header header"
-  "main main main"
+  "aside main main"
   "footer footer footer";
-  background-color: #f5f5f5;
+  overflow-x: hidden;
 }

@@ -1,0 +1,19 @@
+  <% if( projects.length > 0 ) { %>
+
+  <% projects.forEach( ( p ) => { %>
+  <a href data-modal=#<%= p.title %> class="modal__trigger"> <%= p.title %> </a>
+
+  <div id="<%= p.title %>" class="modal" role="dialog" aria-hidden="true">
+    <div class="modal__dialog modal__content">
+      <h1><%= p.title %></h1>
+      <p> <%= p.description %> </p>
+
+      <%- include( 'closePageIcon' ) %>
+    </div>
+  </div>
+
+  <% }) %>
+
+  <% } else { %>
+    <p class="projectNone"> Nenhum Projeto adicionado </p>
+  <% }; %>

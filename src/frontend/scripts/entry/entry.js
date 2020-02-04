@@ -1,8 +1,7 @@
-var Modal = (function() {
+const Modal = (function() {
 
   var trigger = $qsa('.modal__trigger'); // what you click to activate the modal
   var modals = $qsa('.modal'); // the entire modal (takes up entire window)
-  var modalsbg = $qsa('.modal__bg'); // the entire modal (takes up entire window)
   var content = $qsa('.modal__content'); // the inner content of the modal
 	var closers = $qsa('.modal__close'); // an element used to close the modal
   var w = window;
@@ -16,7 +15,7 @@ var Modal = (function() {
   }
 
   var getId = function(event) {
-
+''.toLowerCase
     event.preventDefault();
     var self = this;
     // get the value of the data-modal attribute from the button
@@ -174,7 +173,6 @@ var Modal = (function() {
     for (var i = 0; i < len; i++) {
       trigger[i].addEventListener('click', getId, false);
       closers[i].addEventListener('click', close, false);
-      modalsbg[i].addEventListener('click', close, false);
     }
   };
 

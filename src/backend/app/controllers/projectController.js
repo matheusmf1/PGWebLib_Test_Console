@@ -1,5 +1,6 @@
 const express = require('express');
 const authMiddleware = require('../middlewares/auth');
+const bcrypt = require('bcryptjs');
 
 const Project = require('../models/project');
 const Validation = require('../models/validation');
@@ -12,11 +13,11 @@ router.use( authMiddleware );
 router.get( '/', async ( req, res ) => {
   try {
 
-    return res.status(200).render('project')
-    // const projects = await Project.find().populate( ['user', 'validations'] );
-    // return res.send( { projects } );
+    const projects = await Project.find().populate( ['user', 'validations'] );
+    res.status(200).render( 'entry', { projects: projects } );
 
   } catch (error) {
+    console.log('Erro: ', error);
     res.status(400).send( { error: 'Error on loading projects' } );
   }
 });
@@ -47,19 +48,19 @@ router.post( '/', async ( req, res ) => {
     const project = await new Project( { title, description, assignedTo: userProj._id });
    
     const check = await Project.findOne( { title: title } ).where( { assignedTo: userProj._id } );
-  
-    console.log('project: ', project);
-    console.log('check: ', check);
    
     if ( check )
       return res.status(400).send( { error: 'Project Already in this User' } );
 
-    userProj.projects.push( project );
-    
-    await project.save();
-    await userProj.save();
+    // if( !await bcrypt.compare( password , userProj.password ) )
+    //   return res.status(400).send( { error: 'Invalid Password' } );
 
-    res.status(200).send( { project } );
+    userProj.projects.push( project );
+
+    await project.save();
+    await userProj.save( options.w );
+
+    res.status(200).render( 'entry', { projects: userProj.projects } );
   } catch ( error ) {
     console.log('erro: ', error);
     res.status(400).send( { error: 'Error creating new project' } )
@@ -101,29 +102,41 @@ router.delete( '/:project', async ( req, res ) => {
   try {
 
     const project = await Project.findOne( { title: req.params.project } ).populate( ['validations'] );
+    console.log('project: ', project);
 
     if ( !project )
       return res.status(404).send( { error: 'Project not found'} );
 
-    const user = await User.findOne( { id: req.userId } ).select('+password');
+    const user = await User.findOne( { id: req.userId } );
+    console.log('user: ', user);
 
-    const userProj = user.projects.forEach( async ( proj, index, obj ) => {
+    const check = user.projects;
+
+    if ( check ) {
+      const userProj = user.projects.forEach( async ( proj, index, obj ) => {
      
-      if ( proj.toString === project._id.toString ) {
-        obj.splice( index, 1 );
-        await user.save();
-      }
-    });
+        if ( proj.toString === project._id.toString ) {
+          obj.splice( index, 1 );
+          await user.save();
+        }
+      });
+    }
 
-    const validations = project.validations.forEach( async ( v ) => {
+    
+    const validations = project.validations;
+
+    if ( validations ) {
+      validations.forEach( async ( v ) => {
       await Validation.findOneAndDelete( { title: v.title } );
-    });
+    })};
+
 
     await Project.findOneAndDelete( { title: req.params.project } );
     
     return res.status(200).send( { ok: true } );
     
   } catch (error) {
+    console.log( error)
     res.status(400).send( { error: 'Error on deleting project' } );
   }
 });
