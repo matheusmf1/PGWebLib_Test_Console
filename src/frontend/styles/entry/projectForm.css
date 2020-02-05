@@ -3,17 +3,15 @@ a {
   font-size: 1.5em;
   transition: .5s ease;
 }
+
 a:hover {
   color: #2196F3;
 }
 
 .form {
-  background: rgba(19, 35, 47, 0.75);
-  padding: 40px;
-  max-width: 600px;
-  margin: 40px auto;
-  border-radius: 4px;
-  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+  width: 40em;
+  margin: 15px;
+  padding: 15px;
 }
 
 .form__content {
@@ -21,65 +19,26 @@ a:hover {
   margin-bottom: 40px;
 }
 
-.tab-group {
-  list-style: none;
-  padding: 5px;
-  margin: 15px 5px;
-}
-.tab-group:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.tab-group .active a {
-  background:#2196F3;
-  color: #ffffff;
-}
-
-.tab__content {
-  display: block;
-  text-decoration: none;
-  padding: 15px;
-  background: rgba(160, 179, 176, 0.25);
-  color: #a0b3b0;
-  font-size: 20px;
-  float: left;
-  width: 50%;
-  text-align: center;
-  cursor: pointer;
-  transition: .5s ease;
-}
-.tab__content :hover {
-  background: #179b77;
-  color: #ffffff;
-}
-
-
-.tab-content > div:last-child {
-  display: none;
-}
-
 h1 {
-  text-align: center;
-  color: #ffffff;
-  font-weight: 300;
-  font-size: 1.8em;
-  margin: 0 0 40px;
+  font-size: 2em;
+  margin: 0px 0px 20px 30px;
+}
+
+p {
+  font-size: 1.30em;
+  margin-left: 20px;
 }
 
 .form__content--label {
   position: absolute;
   -webkit-transform: translateY(6px);
           transform: translateY(6px);
-  margin-left: 13px;
-  color: rgba(255, 255, 255, 0.5);
+  margin: 2px 13px;
   transition: all 0.25s ease;
   -webkit-backface-visibility: hidden;
   pointer-events: none;
   font-size: 1.2em;
 }
-
 
 .form__content--label .req {
   margin: 2px;
@@ -91,25 +50,18 @@ h1 {
           transform: translateY(-25px);
   left: 2px;
   font-size: 14px;
+  font-weight: 600;
 }
 .form__content--label.active .req {
   opacity: 0;
 }
 
-.form__content--label.highlight {
-  color: #ffffff;
-}
-
 input, textarea {
-  font-size: 22px;
+  font-size: 14px;
   display: block;
   width: 100%;
-  height: 100%;
   padding: 5px 10px;
-  background: none;
-  background-image: none;
   border: 1px solid #a0b3b0;
-  color: #ffffff;
   border-radius: 0;
   transition: border-color .25s ease, box-shadow .25s ease;
 }
@@ -159,11 +111,6 @@ textarea {
 .button-block {
   display: block;
   width: 100%;
-}
-
-.forgot {
-  margin-top: -20px;
-  text-align: right;
 }
 
 @media (max-width: 765px) {

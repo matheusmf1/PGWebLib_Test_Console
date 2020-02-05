@@ -42,7 +42,7 @@ router.post( '/', async ( req, res ) => {
 
     const { title, description } = req.body;
 
-    const userProj = await User.findById( req.userId ).select('+password').select('projects');
+    const userProj = await User.findByIdAndUpdate( req.userId ).select('projects');
     console.log('UserProj: ', userProj);
 
     const project = await new Project( { title, description, assignedTo: userProj._id });
@@ -52,13 +52,8 @@ router.post( '/', async ( req, res ) => {
     if ( check )
       return res.status(400).send( { error: 'Project Already in this User' } );
 
-    // if( !await bcrypt.compare( password , userProj.password ) )
-    //   return res.status(400).send( { error: 'Invalid Password' } );
-
-    userProj.projects.push( project );
-
     await project.save();
-    await userProj.save( options.w );
+    await userProj.updateOne( { $push: { projects: project } } );
 
     res.status(200).render( 'entry', { projects: userProj.projects } );
   } catch ( error ) {
@@ -107,19 +102,16 @@ router.delete( '/:project', async ( req, res ) => {
     if ( !project )
       return res.status(404).send( { error: 'Project not found'} );
 
-    const user = await User.findOne( { id: req.userId } );
-    console.log('user: ', user);
-
+    const user = await User.findByIdAndUpdate( req.userId ).select('projects');
+ 
     const check = user.projects;
+    console.log('check', check);
 
     if ( check ) {
-      const userProj = user.projects.forEach( async ( proj, index, obj ) => {
-     
-        if ( proj.toString === project._id.toString ) {
-          obj.splice( index, 1 );
-          await user.save();
-        }
-      });
+      const userProj = check.indexOf( project._id );
+      check.splice( userProj, 1 );
+      console.log('check 02: ', check);
+      await user.updateOne( { projects: check } );
     }
 
     

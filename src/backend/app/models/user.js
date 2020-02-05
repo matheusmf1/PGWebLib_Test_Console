@@ -38,7 +38,8 @@ const UserSchema = new mongoose.Schema( {
 
 //Encriptar senha -- o this faz referencia ao objeto UserSchema
 
-UserSchema.pre('save', async function( next )  {
+UserSchema.pre('save', async function( next )  {  
+  
   const hash = await bcrypt.hash( this.password, 10 );
   this.password = hash;
 

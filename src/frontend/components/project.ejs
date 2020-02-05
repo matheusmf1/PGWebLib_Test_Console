@@ -1,19 +1,33 @@
   <% if( projects.length > 0 ) { %>
+  <ul class="project__list">
+    <% projects.forEach( ( p ) => { %>
+    <li class="project__list--content">
+      <a href data-modal=#<%= p.title %> class="modal__trigger"> <%= p.title %> </a>
 
-  <% projects.forEach( ( p ) => { %>
-  <a href data-modal=#<%= p.title %> class="modal__trigger"> <%= p.title %> </a>
+      <div id="<%= p.title %>" class="modal" role="dialog" aria-hidden="true">
+        <div class="modal__dialog modal__content">
+          <h1><%= p.title %></h1>
+          <p> <%= p.description %> </p>
 
-  <div id="<%= p.title %>" class="modal" role="dialog" aria-hidden="true">
-    <div class="modal__dialog modal__content">
-      <h1><%= p.title %></h1>
-      <p> <%= p.description %> </p>
+  
+          <% if ( p.validations && p.validations.length > 0 ) { %>
+          <ul>
+            <% p.validations.forEach( ( v ) => { %>
+            <li>
+              <p> <%= v.title %> </p>
+              <p> <%= v.info %> </p>
+            </li>
+            <% }) %>
+          </ul>
+          <% } %>
 
-      <%- include( 'closePageIcon' ) %>
-    </div>
-  </div>
-
-  <% }) %>
+          <%- include( 'closePageIcon' ) %>
+        </div>
+      </div>
+    </li>
+    <% }) %>
+  </ul>
 
   <% } else { %>
-    <p class="projectNone"> Nenhum Projeto adicionado </p>
+  <p class="projectNone"> Nenhum Projeto adicionado </p>
   <% }; %>

@@ -2,7 +2,6 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
 }
 
 .menu__items-wrapper {
@@ -52,10 +51,6 @@
 
 .menu__switcher-label {
   display: none;
-}
-
-a {
-  text-decoration: none;
 }
 
 /* 
