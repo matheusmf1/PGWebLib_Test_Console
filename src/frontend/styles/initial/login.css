@@ -1,9 +1,8 @@
-a {
+.form__anchor {
   color: #FFFFFF;
-  font-size: 1.5em;
   transition: .5s ease;
 }
-a:hover {
+.form__anchor:hover {
   color: #2196F3;
 }
 
@@ -33,7 +32,7 @@ a:hover {
 }
 
 .tab-group .active a {
-  background:#2196F3;
+  background:#3a5fcd;
   color: #ffffff;
 }
 
@@ -60,11 +59,9 @@ a:hover {
   display: none;
 }
 
-h1 {
+.form__title {
   text-align: center;
   color: #ffffff;
-  font-weight: 300;
-  font-size: 1.8em;
   margin: 0 0 40px;
 }
 
@@ -77,7 +74,6 @@ h1 {
   transition: all 0.25s ease;
   -webkit-backface-visibility: hidden;
   pointer-events: none;
-  font-size: 1.2em;
 }
 
 
@@ -143,17 +139,13 @@ textarea {
   outline: none;
   border-radius: 15px;
   padding: 15px 0;
-  font-size: 1.2em;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: #2196F3;
+  background: #3a5fcd;
   color: #ffffff;
   transition: all 0.5s ease;
   -webkit-appearance: none;
-}
-.button-login :hover, .button:focus {
-  background: #179b77;
 }
 
 .button-block {

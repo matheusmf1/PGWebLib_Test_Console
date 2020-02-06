@@ -45,6 +45,16 @@
   -webkit-transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
   transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
 }
+
+.modal__title {
+  margin: 0px 0px 20px 30px;
+}
+
+.modal__content--size {
+  font-weight: 600;
+  font-size: 1.3em;
+}
+
 .modal__content--active {
   opacity: 1;
 }

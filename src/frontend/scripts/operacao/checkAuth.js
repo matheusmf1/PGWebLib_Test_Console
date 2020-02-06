@@ -2,7 +2,7 @@
 
   const reloadAuth = () => {
     setInterval( () => { 
-      location.reload();
+      location.reload( true );
    }, 3600000 );
   }
 

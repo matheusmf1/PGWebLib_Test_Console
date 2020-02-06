@@ -49,10 +49,6 @@ router.get('/', ( req, res, next ) => {
   res.status(200).render( 'operacao', { infoArea:'' } );
 });
 
-router.get('/logout', ( req, res, next ) => {
-  res.clearCookie('tokenkey').redirect('/');
-});
-
 // posted by Android Service - saves the data comming from the post to the response variable
 // in order to use it on get request.
 router.post('/resultado', ( req, res, next ) => {
@@ -84,4 +80,4 @@ router.get('/status', ( req, res, next ) => {
   res.status(200).send( statusResponse );
 });
 
-module.exports = app => app.use( '/main', router );
+module.exports = app => app.use( '/main/console', router );

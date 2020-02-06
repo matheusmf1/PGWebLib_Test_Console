@@ -1,10 +1,9 @@
-a {
+.modal__anchor {
   color: #FFFFFF;
-  font-size: 1.5em;
   transition: .5s ease;
 }
 
-a:hover {
+.modal__anchor:hover {
   color: #2196F3;
 }
 
@@ -19,13 +18,7 @@ a:hover {
   margin-bottom: 40px;
 }
 
-h1 {
-  font-size: 2em;
-  margin: 0px 0px 20px 30px;
-}
-
-p {
-  font-size: 1.30em;
+.form__content--size {
   margin-left: 20px;
 }
 
@@ -37,7 +30,6 @@ p {
   transition: all 0.25s ease;
   -webkit-backface-visibility: hidden;
   pointer-events: none;
-  font-size: 1.2em;
 }
 
 .form__content--label .req {
@@ -49,7 +41,6 @@ p {
   -webkit-transform: translateY(-25px);
           transform: translateY(-25px);
   left: 2px;
-  font-size: 14px;
   font-weight: 600;
 }
 .form__content--label.active .req {
@@ -57,7 +48,7 @@ p {
 }
 
 input, textarea {
-  font-size: 14px;
+  font-size: 13px;
   display: block;
   width: 100%;
   padding: 5px 10px;
@@ -74,7 +65,6 @@ textarea {
   border: 2px solid #a0b3b0;
   resize: vertical;
 }
-
 
 .top-row:after {
   content: "";
@@ -95,7 +85,6 @@ textarea {
   outline: none;
   border-radius: 15px;
   padding: 15px 0;
-  font-size: 1.2em;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: .1em;

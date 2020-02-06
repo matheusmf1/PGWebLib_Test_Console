@@ -15,7 +15,7 @@ const Modal = (function() {
   }
 
   var getId = function(event) {
-''.toLowerCase
+    ''.toLowerCase
     event.preventDefault();
     var self = this;
     // get the value of the data-modal attribute from the button

@@ -1,13 +1,22 @@
+.menu__items-wrapper {
+	justify-content: flex-end;	
+}
+
+.menu__item {
+	margin: auto 2em;
+	font-size: 1rem;
+}
+
 .info {
-  height: 70vh;
-  display: flex;
-  -webkit-box-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-          justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-          flex-flow: column wrap;
+	height: 70vh;
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	flex-flow: column wrap;
 }
 
 .project__list {

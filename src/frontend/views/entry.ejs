@@ -6,6 +6,7 @@
     pageTitle: 'Console Web',
     styles: ['entry', 'components']
   } ) %>
+
 </head>
 
 <body>
@@ -13,14 +14,13 @@
 
     <%- include( '../components/menu', {
       elements: [
-        { ref: '/main', content: 'Home' },
-        { ref: '/main/logout', content: 'Sair'}
+        { ref: '/auth/logout', content: 'Sair'}
       ]
     }) %>
 
   </header>
 
-  <aside class="sidebar">
+  <aside class="sidebar__container">
     <%- include('../components/sideBar', {
       elements: [
 
@@ -39,7 +39,6 @@
       ]
 
     }) %>
-
   </aside>
 
   <main>

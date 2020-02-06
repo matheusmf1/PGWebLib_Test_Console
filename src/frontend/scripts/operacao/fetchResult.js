@@ -1,7 +1,7 @@
 (() => {
 
   const update = setInterval( async () => { 
-    await fetch( '/main/resultado',
+    await fetch( '/main/console/resultado',
     {
      method: 'GET',
      headers: { 'Content-Type': 'application/json' },

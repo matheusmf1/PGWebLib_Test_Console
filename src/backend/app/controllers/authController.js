@@ -137,6 +137,10 @@ router.post('/reset_password', async ( req, res ) => {
   }
 });
 
+router.get('/logout', ( req, res, next ) => {
+  res.clearCookie('tokenkey').redirect('/');
+});
+
 router.get('/user', async ( req, res ) => {
   try{
     const users = await User.find().populate( ['projects'] );

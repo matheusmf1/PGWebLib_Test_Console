@@ -1,14 +1,18 @@
-const express = require('express');
+const router = require('express').Router();
 const authMiddleware = require('../middlewares/auth');
-const bcrypt = require('bcryptjs');
 
 const Project = require('../models/project');
 const Validation = require('../models/validation');
 const User = require('../models/user');
 
-const router = express.Router();
-
 router.use( authMiddleware );
+
+router.options( '/*', ( req, res, next ) => {
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Methods', 'GET, POST','UPDATE','DELETE' );
+  res.header( 'Access-Control-Allow-Headers', 'Accept, Access-Control-Allow-Origin, Content-Type' );
+  res.sendStatus(204);
+});
 
 router.get( '/', async ( req, res ) => {
   try {
@@ -97,7 +101,6 @@ router.delete( '/:project', async ( req, res ) => {
   try {
 
     const project = await Project.findOne( { title: req.params.project } ).populate( ['validations'] );
-    console.log('project: ', project);
 
     if ( !project )
       return res.status(404).send( { error: 'Project not found'} );
@@ -105,16 +108,17 @@ router.delete( '/:project', async ( req, res ) => {
     const user = await User.findByIdAndUpdate( req.userId ).select('projects');
  
     const check = user.projects;
-    console.log('check', check);
 
     if ( check ) {
       const userProj = check.indexOf( project._id );
       check.splice( userProj, 1 );
-      console.log('check 02: ', check);
+
       await user.updateOne( { projects: check } );
     }
+    else{
+      return res.status(404).send( { error: 'Error on loading User Projecs'} );
+    }
 
-    
     const validations = project.validations;
 
     if ( validations ) {
@@ -134,4 +138,4 @@ router.delete( '/:project', async ( req, res ) => {
 });
 
 
-module.exports = app => app.use( '/main/projects', router );
+module.exports = app => app.use( '/main', router );

@@ -20,14 +20,13 @@
       divContent.appendChild(h1Title);
 
     const formNode = document.createElement('form');
-      formNode.setAttribute('action','/main/projects');
+      formNode.setAttribute('action','/main');
       formNode.setAttribute('method','post');
       formNode.className = 'form'
 
     // --- Title Area ---
     const divTitle = document.createElement('div');
       divTitle.className = 'form__content';
-
 
       const label = document.createElement('label');
         label.className = 'form__content--label';
@@ -58,39 +57,23 @@
     divDescription.appendChild(inputDescrip);
     formNode.appendChild(divDescription);
 
-    // // --- Password Area ---
-    // const divPass = document.createElement('div');
-    //   divPass.className = 'form__content';
-    // const labelPass = document.createElement('label');
-    //   labelPass.className = 'form__content--label';
-    //   labelPass.innerHTML = 'Senha';
-    // const inputPass = document.createElement('input');
-    //   inputPass.setAttribute('type', 'password');
-    //   input.required = true
-    //   input.setAttribute('autocomplete','off');
-    //   inputPass.setAttribute('name', 'password');
-
-    // divPass.appendChild(labelPass);
-    // divPass.appendChild(inputPass);
-    // formNode.appendChild(divPass);
-  
+    // --- Button Submit --- 
     const button = document.createElement('button');
       button.className = 'button-login button-block';
       button.setAttribute('type', 'submit');
+      button.setAttribute('id', 'submitBtn');
       button.innerHTML = 'Adicionar';
   
-
     // --- Close Icon ---
     const anchor = document.createElement('a');
-    anchor.href = '/main/projects';
-    anchor.className = 'modal__close demo-close';
+    anchor.href = '';
+    anchor.className = 'modal__close demo-close modal__anchor';
 
     anchor.innerHTML = `<svg viewBox="0 0 24 24">
     <path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path>
     <path d="M0 0h24v24h-24z" fill="none"></path>
   </svg`
 
-  
   formNode.appendChild(button);
   formNode.appendChild(anchor);
   divContent.appendChild(formNode);
@@ -121,6 +104,18 @@
     });
 
   });
+
+  const btnListener = document.querySelector('.button-login');
+
+
+  // btnListener.addEventListener( 'click', async () => {
+  //     await fetch('/main', {
+  //     method: 'GET'
+  //   }).then( (response) => {
+  //     console.log(response);
+  //   } ).catch( err => console.log( err ) );
+  // });
+
   });
 
 })();
