@@ -102,20 +102,7 @@
         label.classList.remove('active');
       
     });
-
   });
-
-  const btnListener = document.querySelector('.button-login');
-
-
-  // btnListener.addEventListener( 'click', async () => {
-  //     await fetch('/main', {
-  //     method: 'GET'
-  //   }).then( (response) => {
-  //     console.log(response);
-  //   } ).catch( err => console.log( err ) );
-  // });
-
   });
 
 })();

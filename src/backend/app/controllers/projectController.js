@@ -17,6 +17,18 @@ router.options( '/*', ( req, res, next ) => {
 router.get( '/', async ( req, res ) => {
   try {
 
+    const projects = await Project.find( { assignedTo: req.userId } );
+    res.status(200).render( 'entry', { projects: projects } );
+
+  } catch ( error ) {
+    console.log('Erro: ', error);
+    res.status(400).send( { error: 'Error on loading projects' } );
+  }
+});
+
+router.get( '/allproj', async ( req, res ) => {
+  try {
+
     const projects = await Project.find().populate( ['user', 'validations'] );
     res.status(200).render( 'entry', { projects: projects } );
 
@@ -47,9 +59,8 @@ router.post( '/', async ( req, res ) => {
     const { title, description } = req.body;
 
     const userProj = await User.findByIdAndUpdate( req.userId ).select('projects');
-    console.log('UserProj: ', userProj);
-
-    const project = await new Project( { title, description, assignedTo: userProj._id });
+    
+    const project = await new Project( { title, description, assignedTo: userProj._id } );
    
     const check = await Project.findOne( { title: title } ).where( { assignedTo: userProj._id } );
    
@@ -58,8 +69,9 @@ router.post( '/', async ( req, res ) => {
 
     await project.save();
     await userProj.updateOne( { $push: { projects: project } } );
+    const projects = await Project.find( { assignedTo: req.userId } ); 
 
-    res.status(200).render( 'entry', { projects: userProj.projects } );
+    res.status(200).render( 'entry', { projects: projects } );
   } catch ( error ) {
     console.log('erro: ', error);
     res.status(400).send( { error: 'Error creating new project' } )
