@@ -5,7 +5,7 @@
   <%- include( 'partials/head', {
     pageTitle: 'Console Web',
     styles: ['operacao', 'components']
-  }  %>
+    }) %>
 </head>
 
 <body>
@@ -14,13 +14,32 @@
     <%- include( '../components/menu', {
       elements: [
         { ref: '/main', content: 'Home' },
-        { ref: '#comprovante__container', content: 'Resultados' },
-        { ref: '#validacao__container', content: 'Validação' },
         { ref: '/auth/logout', content: 'Sair'}
       ]
     }) %>
 
   </header>
+
+  <aside class="sidebar__container">
+    <%- include('../components/sideBar', {
+      elements: [
+
+        { title: 'Projetos', subMenu: [
+          { item: 'Criar Novo', id: 'newProj' },
+          { item: 'Visualizar', id: 'getProj' } ] },
+      
+        { title: 'Validações', subMenu: [ 
+          { item: 'Nova Validação', id: 'newVal' },
+          { item: 'Visualizar', id: 'getVal' },
+          { item: 'Apagar', id: 'delVal' } ] },
+
+        { title: 'Scripts', subMenu: [
+          { item: 'Exemplos', id: 'getScripts' },
+          { item: 'Novo', id: 'newScript' }] }
+      ]
+
+    }) %>
+  </aside>
 
   <main>
     <section class='main__container' id="input">

@@ -15,6 +15,8 @@
       if ( resp.validacao ) {
 
         let sectionNode = document.getElementById('validacao__container');
+        sectionNode.innerHTML = "";
+        sectionNode.className = 'validacao__container validacao__container--active'
 
         let tableNode = document.createElement('table');
 

@@ -4,6 +4,7 @@
 
 .radioBtn__label {
   vertical-align: middle;
+  font-size: 1.2em;
 }
 /* Base for label styling */
 .dbgCheck:not(:checked),

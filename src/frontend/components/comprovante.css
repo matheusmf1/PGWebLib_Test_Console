@@ -1,5 +1,10 @@
 .comprovante__container {
   grid-area: receipt;
+  display: none;
+ 
+}
+
+.comprovante__container--active{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

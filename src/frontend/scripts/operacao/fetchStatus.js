@@ -15,6 +15,8 @@
         if ( resp.erro ) {
          
           let sectionNode = document.getElementById('comprovante__container');
+          sectionNode.innerHTML = "";
+          sectionNode.className = 'comprovante__container comprovante__container--active'
   
           let ulNode = document.createElement('ul');
 

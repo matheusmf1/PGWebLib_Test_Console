@@ -15,24 +15,25 @@
 .file__form {
   padding: 5px;
   margin: 5px;
-  font-size: 1.1em;
 }
 
 .file__form--label {
   margin: 5px;
+  font-size: 1.2em;
 }
 
 .file__form--checkbox {
   display: flex;
   flex-wrap: wrap;
   margin: 2px;
-  padding: 3px
+  padding: 3px;
+  font-size: 0.8em;
 }
 
 .file__form--input {
-  font-size: 0.95em;
   vertical-align: middle;
   margin: auto;
+  font-size: 1.1em;
 }
 
 #informationArea {
@@ -42,5 +43,5 @@
   border: solid 1px #888;
   border-radius: 4px;
   overflow-x: auto;
-  font-size: 1.4em;
+  font-size: 1.2em;
 }

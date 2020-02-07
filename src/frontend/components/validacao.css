@@ -1,5 +1,10 @@
 .validacao__container {
   grid-area: validation ;
+  display: none;
+ 
+}
+
+.validacao__container--active{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

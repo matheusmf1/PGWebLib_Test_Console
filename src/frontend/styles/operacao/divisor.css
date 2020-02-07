@@ -11,3 +11,12 @@
   text-align: center;
   font-size: 1.5em;
 }
+
+.menu__items-wrapper {
+	justify-content: flex-end;	
+}
+
+.menu__item {
+	margin: auto 2em;
+	font-size: 1rem;
+}
