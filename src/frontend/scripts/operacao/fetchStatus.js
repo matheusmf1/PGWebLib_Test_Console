@@ -4,7 +4,8 @@
     await fetch( '/main/console/status',
      {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json' },
+      mode: 'cors'
      }
      ).then( ( response ) => {
           return response.json();

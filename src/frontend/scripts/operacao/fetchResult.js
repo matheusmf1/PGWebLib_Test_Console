@@ -5,7 +5,7 @@
     {
      method: 'GET',
      headers: { 'Content-Type': 'application/json' },
-     mode: 'cors'
+     mode: 'no-cors'
     }
     ).then( ( response ) => {
         if ( response.status === 200 )

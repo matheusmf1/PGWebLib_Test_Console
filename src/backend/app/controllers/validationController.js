@@ -11,6 +11,7 @@ router.use( authMiddleware );
 
 
 router.get( '/', async ( req, res ) => {
+  
   try {
 
     const validation = await Validation.find(); 

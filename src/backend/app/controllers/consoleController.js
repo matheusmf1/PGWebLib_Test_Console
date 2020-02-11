@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const authMiddleware = require('../middlewares/auth');
 const cookieParser = require('cookie-parser');
-const os = require('os');
 
 const fireBaseMsg = require('./fireBaseSendMsg');
 

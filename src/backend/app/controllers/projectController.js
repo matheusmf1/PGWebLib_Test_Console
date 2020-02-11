@@ -18,7 +18,7 @@ router.get( '/', async ( req, res ) => {
   try {
 
     const projects = await Project.find( { assignedTo: req.userId } );
-    res.status(200).render( 'entry', { projects: projects } );
+    res.status(200).render( 'main', { projects: projects } );
 
   } catch ( error ) {
     console.log('Erro: ', error);
@@ -30,7 +30,7 @@ router.get( '/allproj', async ( req, res ) => {
   try {
 
     const projects = await Project.find().populate( ['user', 'validations'] );
-    res.status(200).render( 'entry', { projects: projects } );
+    res.status(200).render( 'main', { projects: projects } );
 
   } catch (error) {
     console.log('Erro: ', error);
@@ -71,7 +71,7 @@ router.post( '/', async ( req, res ) => {
     await userProj.updateOne( { $push: { projects: project } } );
     const projects = await Project.find( { assignedTo: req.userId } ); 
 
-    res.status(200).render( 'entry', { projects: projects } );
+    res.status(200).render( 'main', { projects: projects } );
   } catch ( error ) {
     console.log('erro: ', error);
     res.status(400).send( { error: 'Error creating new project' } )

@@ -3,10 +3,10 @@
   const validation = setInterval( async () => {
     await fetch( '/main/console/validacao', {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => {
+      headers: { 'Content-Type': 'application/json' },
+      mode: 'cors'
+    }
+    ).then((response) => {
       return response.json();
 
     }).then((resp) => {

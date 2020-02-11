@@ -4,7 +4,7 @@
 <head>
   <%- include( 'partials/head', {
     pageTitle: 'Console Web',
-    styles: ['entry', 'components']
+    styles: ['main', 'components']
   } ) %>
 
 </head>
@@ -30,8 +30,7 @@
       
         { title: 'Validações', subMenu: [ 
           { item: 'Nova Validação', id: 'newVal' },
-          { item: 'Visualizar', id: 'getVal' },
-          { item: 'Apagar', id: 'delVal' } ] },
+          { item: 'Visualizar', id: 'getVal' } ] },
 
         { title: 'Scripts', subMenu: [
           { item: 'Exemplos', id: 'getScripts' },
@@ -56,7 +55,7 @@
   </footer>
 
   <%- include( 'partials/scripts', {
-    scripts: ['entry']
+    scripts: ['main', 'sideBar']
   }) %>
 
 </body>

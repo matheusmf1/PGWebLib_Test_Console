@@ -1,8 +1,9 @@
 ( () => {
 
-  const findSubMenu = document.getElementById('newProj').addEventListener( 'click', () => {
+// New Project
+  const findSubMenu = document.getElementById('newProj').addEventListener( 'click', async () => {
 
-    const findSection = document.querySelector('.info');
+    const findSection = document.querySelector('main section');
     findSection.innerHTML = "";
 
     const divModal = document.createElement('div');
@@ -22,18 +23,19 @@
     const formNode = document.createElement('form');
       formNode.setAttribute('action','/main');
       formNode.setAttribute('method','post');
-      formNode.className = 'form'
+      formNode.className = 'form__ProjProject';
 
     // --- Title Area ---
     const divTitle = document.createElement('div');
-      divTitle.className = 'form__content';
+      divTitle.className = 'form__ProjContent';
 
       const label = document.createElement('label');
-        label.className = 'form__content--label';
+        label.className = 'form__ProjContent--label';
         label.innerHTML = 'Nome';
       const input = document.createElement('input');
         input.setAttribute('type', 'text');
         input.required = true
+        input.className = 'form__ProjContent--input';
         input.setAttribute('autocomplete','off');
         input.setAttribute('name', 'title');
 
@@ -43,14 +45,14 @@
 
     // --- Description Area ---
     const divDescription = document.createElement('div');
-     divDescription.className = 'form__content';
+     divDescription.className = 'form__ProjContent';
     const labelDescrip = document.createElement('label');
-      labelDescrip.className = 'form__content--label';
+      labelDescrip.className = 'form__ProjContent--label';
       labelDescrip.innerHTML = 'Descrição';
     const inputDescrip = document.createElement('input');
       inputDescrip.setAttribute('type', 'text');
-      input.required = true
-      input.setAttribute('autocomplete','off');
+      inputDescrip.className = 'form__ProjContent--input';
+      inputDescrip.setAttribute('autocomplete','off');
       inputDescrip.setAttribute('name', 'description');
 
     divDescription.appendChild(labelDescrip);
@@ -104,5 +106,11 @@
     });
   });
   });
+
+
+// Get Projects
+const getProj = document.getElementById('getProj').addEventListener('click', () => {
+  window.location.href = '/main'
+});
 
 })();
