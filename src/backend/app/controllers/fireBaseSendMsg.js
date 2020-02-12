@@ -1,7 +1,7 @@
 const admin = require("firebase-admin");
 
 const serviceAccount = require('../../../../pgweblib-auttest-firebase-adminsdk-hoorf-aa5f9c7409.json');
-const registrationToken = "cOlR-tfRC7w:APA91bHYl_Z1OIEgpxfmQglvU9E4FA_b8AO5j-eSNCPfACyHg7HBAU4y1Opl6DLqybBeIXVfQXFqTxVlKfTdf-7ug_vpftGM4KUtjI37_UZqCd8DoskkVxiGEr48CN6Bc0CuZcYHW48j";
+const registrationToken = "fpgWYMjSv_Q:APA91bFOlVEyYSNlF0pC7goOaQD4zSEuEj5OgUqf8G2J8aL54vO7Zv1hDyzCBc16inFXNQRVDufFaoGsqnAOysRNfLbSx-uvrpILvVs6-hLgqWNr8jnPTqTHrBqztnIV6Oj3GsvAryWi";
 
 var exports = module.exports = {};
 
