@@ -2,7 +2,7 @@
   <table class="table__container table_container--shadow">
     <thead>
       <tr class="table__title">
-        <th class="table__title--border">ID</th>
+        <th class="table__title--border">PWINFO's</th>
         <th class="table__title--border">Validação</th>
       </tr>
     </thead>
@@ -10,9 +10,9 @@
     <tbody>
       <% validacao.validacao.forEach( ( item, index ) => { %>
         <tr class="table__content">
-          <td class="table__content--border"> <%= index %> </td>
+          <td class="table__content"> <%= index %> </td>
 
-          <td class="table__content--border">
+          <td class="table__content">
             <%= Object.keys(item) + ' ' + Object.values(item); %>
           </td>
 

@@ -27,7 +27,7 @@
         let trTitle = document.createElement('tr');
         trTitle.className = 'table__title';
 
-        const titles = ['ID', 'Validacao'];
+        const titles = ["PWINFO's", 'Validacao'];
 
         titles.forEach( (title) => {
           let thTitle = document.createElement('th');
@@ -41,19 +41,19 @@
       
         let tbody = document.createElement('tbody');
 
-        resp.validacao.forEach( (item, index) => {
+        resp.validacao.forEach( item => {
           
           trContent = document.createElement('tr'); 
           trContent.className = 'table__content';
 
           let tdContentID = document.createElement('td');
-          tdContentID.className = 'table__content--border';
+          tdContentID.className = 'table__content--border table__content--left';
 
           let tdContent = document.createElement('td');
-          tdContent.className = 'table__content--border';
+          tdContent.className = 'table__content--border table__content--right';
 
-          tdContentID.innerHTML = index;
-          tdContent.innerHTML = Object.keys(item) + ' ' + Object.values(item);
+          tdContentID.innerHTML = Object.keys(item);
+          tdContent.innerHTML = Object.values(item);
 
           trContent.appendChild(tdContentID);
           trContent.appendChild(tdContent);

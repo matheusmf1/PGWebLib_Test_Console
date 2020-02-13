@@ -12,10 +12,10 @@
   border-bottom: 1px solid #e0e0e0;
 }
 
-.table__title {
+.table__title { 
   transition: all 0.3s ease;
   color: #757575;
-  font-size: 1.25em;
+  font-size: 1.35em;
 }
 
 .table__title--border {
@@ -28,13 +28,23 @@
 .table__content {
   transition: all 0.3s ease;
 }
-
 .table__content--border {
   text-align: left;
   padding: 1.6rem;
   vertical-align: top;
   border-bottom: 1px solid #e0e0e0;
 }
+
+.table__content--left {
+  font-weight: 600;
+  vertical-align: middle;
+  color: rgb(82, 82, 82);
+}
+
+.table__content--right {
+  font-size: 1.2em;
+}
+
 
 .table__content :hover{
   background-color:#b3e5fc;

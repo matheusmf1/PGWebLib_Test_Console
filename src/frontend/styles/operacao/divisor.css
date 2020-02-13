@@ -1,3 +1,7 @@
+.divisor__hide {
+  display: none;
+}
+
 .divisor {
   display: block;
   width: 100vw;
@@ -9,7 +13,6 @@
   margin: 2px;
   padding: 3px;
   text-align: center;
-  font-size: 1.5em;
 }
 
 .menu__items-wrapper {
