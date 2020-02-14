@@ -26,6 +26,18 @@ router.get( '/', async ( req, res ) => {
   }
 });
 
+router.get( '/projs', async ( req, res ) => {
+  try {
+
+    const projects = await Project.find( { assignedTo: req.userId } );
+    res.status(200).send( { projects } );
+
+  } catch ( error ) {
+    console.log('Erro: ', error);
+    res.status(400).send( { error: 'Error on loading projects' } );
+  }
+});
+
 router.get( '/allproj', async ( req, res ) => {
   try {
 

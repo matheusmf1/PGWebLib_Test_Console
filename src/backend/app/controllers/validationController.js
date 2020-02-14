@@ -3,7 +3,6 @@ const authMiddleware = require('../middlewares/auth');
 
 const Project = require('../models/project');
 const Validation = require('../models/validation');
-const User = require('../models/user');
 
 const router = express.Router();
 
@@ -42,7 +41,8 @@ router.get('/:val', async ( req, res ) => {
 router.post( '/', async ( req, res ) => {
   try {
     const { title, info, projectTitle } = req.body;
-  
+    console.log( 'info: ', info );
+
     const project = await Project.findOne( { title: projectTitle } ).where( { assignedTo: req.userId } );
 
     console.log('Project: ', project);
@@ -64,7 +64,8 @@ router.post( '/', async ( req, res ) => {
     await validation.save();
     await project.save(); 
 
-    return res.status(200).json( { validation } );
+    const projects = await Project.find( { assignedTo: req.userId } );
+    return res.status(200).render( 'main', { projects: projects } );
 
   } catch ( error ) {
     console.log( error );
