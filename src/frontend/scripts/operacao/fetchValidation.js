@@ -60,8 +60,8 @@
 
         let tbody = document.createElement('tbody');
 
+        let valData = [];
         resp.validacao.forEach(item => {
-
           trContent = document.createElement('tr');
           trContent.className = 'table__content';
 
@@ -74,6 +74,8 @@
           tdContentID.innerHTML = Object.keys(item);
           tdContent.innerHTML = Object.values(item);
 
+          valData.push( JSON.stringify(item) );
+      
           trContent.appendChild(tdContentID);
           trContent.appendChild(tdContent);
           tbody.appendChild(trContent);
@@ -114,38 +116,38 @@
         const postValidations = document.getElementById('saveOp').addEventListener('click', async () => {
 
           const divModal = document.createElement('div');
-          divModal.setAttribute('id', 'newProj');
-          divModal.className = 'modal modal--active';
-          divModal.setAttribute('role', 'dialog');
-          divModal.setAttribute('aria-hidden', 'true');
+            divModal.setAttribute('id', 'newProj');
+            divModal.className = 'modal modal--active';
+            divModal.setAttribute('role', 'dialog');
+            divModal.setAttribute('aria-hidden', 'true');
 
           const divContent = document.createElement('div');
-          divContent.className = 'modal__dialog modal__content modal__content--active';
+            divContent.className = 'modal__dialog modal__content modal__content--active';
 
           const h1Title = document.createElement('h1');
-          h1Title.innerHTML = "Salvar Validação";
+            h1Title.innerHTML = "Salvar Validação";
 
           divContent.appendChild(h1Title);
 
           const formNode = document.createElement('form');
-          formNode.setAttribute('action', '/main/validation');
-          formNode.setAttribute('method', 'post');
-          formNode.className = 'form__ProjProject';
+            formNode.setAttribute('action', '/main/validation');
+            formNode.setAttribute('method', 'post');
+            formNode.className = 'form__ProjProject';
 
           // --- Title Area ---
           const divTitle = document.createElement('div');
-          divTitle.className = 'form__ProjContent';
+            divTitle.className = 'form__ProjContent';
 
           const label = document.createElement('label');
-          label.className = 'form__ProjContent--label';
-          label.innerHTML = 'Nome';
+            label.className = 'form__ProjContent--label';
+            label.innerHTML = 'Nome';
 
           const input = document.createElement('input');
-          input.setAttribute('type', 'text');
-          input.required = true
-          input.className = 'form__ProjContent--input';
-          input.setAttribute('autocomplete', 'off');
-          input.setAttribute('name', 'title');
+            input.setAttribute('type', 'text');
+            input.setAttribute('autocomplete', 'off');
+            input.setAttribute('name', 'title');
+            input.required = true
+            input.className = 'form__ProjContent--input';
 
           divTitle.appendChild(label);
           divTitle.appendChild(input);
@@ -167,7 +169,7 @@
             console.log('projects', resp);
 
             resp.projects.forEach( ( proj ) => {
-              var option = document.createElement('option');
+              let option = document.createElement('option');
               option.value = proj.title;
               option.innerHTML = proj.title;
               selectProj.appendChild( option );
@@ -183,12 +185,12 @@
 
           // --- JSON Validation Data ---
           const jsonData = document.createElement('input');
-          jsonData.name = "info";
-          jsonData.style = "display: none";
-          jsonData.value = resp.validacao;
-          console.log('test: ', jsonData.value);
+            jsonData.name = "info";
+            jsonData.style = "display: none";
+            jsonData.value =  valData;
+
+            formNode.appendChild( jsonData );
               
-          
 
           // --- Button Submit --- 
           const button = document.createElement('button');

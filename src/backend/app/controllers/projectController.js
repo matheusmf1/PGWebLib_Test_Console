@@ -16,7 +16,6 @@ router.options( '/*', ( req, res, next ) => {
 
 router.get( '/', async ( req, res ) => {
   try {
-
     const projects = await Project.find( { assignedTo: req.userId } );
     res.status(200).render( 'main', { projects: projects } );
 
@@ -26,10 +25,11 @@ router.get( '/', async ( req, res ) => {
   }
 });
 
+// Get all projects from the logged user
 router.get( '/projs', async ( req, res ) => {
   try {
 
-    const projects = await Project.find( { assignedTo: req.userId } );
+    const projects = await Project.find( { assignedTo: req.userId } ).populate( ['validations'] );
     res.status(200).send( { projects } );
 
   } catch ( error ) {
@@ -38,18 +38,20 @@ router.get( '/projs', async ( req, res ) => {
   }
 });
 
+// Get all projects from all users
 router.get( '/allproj', async ( req, res ) => {
   try {
 
     const projects = await Project.find().populate( ['user', 'validations'] );
-    res.status(200).render( 'main', { projects: projects } );
+    res.status(200).send( { projects } );
 
   } catch (error) {
     console.log('Erro: ', error);
-    res.status(400).send( { error: 'Error on loading projects' } );
+    res.status(400).send( { error: 'Error on loading all projects' } );
   }
 });
 
+// Get a specific project 
 router.get( '/:project', async ( req, res ) => {
   try {
 
@@ -64,6 +66,7 @@ router.get( '/:project', async ( req, res ) => {
     res.status(400).send( { error: 'Error on loading project' } );
   }
 });
+
 
 router.post( '/', async ( req, res ) => {
   try {

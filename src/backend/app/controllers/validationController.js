@@ -10,7 +10,6 @@ router.use( authMiddleware );
 
 
 router.get( '/', async ( req, res ) => {
-  
   try {
 
     const validation = await Validation.find(); 
@@ -41,20 +40,15 @@ router.get('/:val', async ( req, res ) => {
 router.post( '/', async ( req, res ) => {
   try {
     const { title, info, projectTitle } = req.body;
-    console.log( 'info: ', info );
 
     const project = await Project.findOne( { title: projectTitle } ).where( { assignedTo: req.userId } );
-
-    console.log('Project: ', project);
     
     if ( !project ) 
       return res.status(404).send( { error: 'Project Does not Exists' } );
 
     const validation = await new Validation( { title, info, project: project._id } );
-    console.log('Validation: ', validation);
-
+  
     const checkVal = await Validation.findOne( { title: title } ).where( { project: project._id } );
-    console.log( 'checkVal: ', checkVal );
 
     if ( checkVal )
       return res.status(400).send( { error: 'Validation already in this User'} );
@@ -77,7 +71,7 @@ router.post( '/', async ( req, res ) => {
 router.put( '/:val', async ( req, res ) => {
   try {
 
-    const { title, info } = req.body;
+    const { title } = req.body;
 
     const validation = await Validation.findOne( { title: req.params.val } );
     console.log('Validation: ', validation);
@@ -95,18 +89,38 @@ router.put( '/:val', async ( req, res ) => {
   }
 });
 
-router.delete( '/:val', async ( req, res ) => {
+router.delete( '/:proj/:val', async ( req, res ) => {
   try {
 
-    const validation = await Validation.findOneAndDelete( { title: req.params.val } );
+    const project = await Project.findOne( { title: req.params.proj } ).select('validations').where( { assignedTo: req.userId } );
+  
+    if ( !project )
+      return res.status(404).send( { error: 'Project not found'} );
 
+    const validation = await Validation.findOne( { title: req.params.val } ).where( { project: project._id } );
+  
     if ( !validation )
-    return res.status(404).send( { error: 'Validation not found' } );
+      return res.status(404).send( { error: 'Validation not found' } );
 
-    return res.send( { ok: true } );
+    const check = project.validations;
+  
+    if ( check ) {
+      const valProj = check.indexOf( validation._id );
+      check.splice( valProj, 1 );
+  
+      await project.save( { validations: check } );
+      await Validation.findOneAndDelete( { title: req.params.val } ).where( { project: project._id } );
+    }
+    else{
+      return res.status(404).send( { error: 'Error on loading User Projecs'} );
+    }
+
+    const projects = await Project.find( { assignedTo: req.userId } );
+    return res.status(200).render( 'main', { projects: projects } );
     
   } catch (error) {
-    res.status(400).send( { error: 'Error on deleting project' } );
+    console.log(error);
+    res.status(400).send( { error: 'Error on deleting validation' } );
   }
 });
 
