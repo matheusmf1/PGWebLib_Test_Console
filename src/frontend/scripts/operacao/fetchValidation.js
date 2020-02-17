@@ -74,7 +74,7 @@
           tdContentID.innerHTML = Object.keys(item);
           tdContent.innerHTML = Object.values(item);
 
-          valData.push( JSON.stringify(item) );
+          valData.push( item );
       
           trContent.appendChild(tdContentID);
           trContent.appendChild(tdContent);
@@ -187,7 +187,7 @@
           const jsonData = document.createElement('input');
             jsonData.name = "info";
             jsonData.style = "display: none";
-            jsonData.value =  valData;
+            jsonData.value =  JSON.stringify(valData);
 
             formNode.appendChild( jsonData );
               

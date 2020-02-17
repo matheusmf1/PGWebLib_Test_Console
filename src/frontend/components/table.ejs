@@ -1,23 +1,24 @@
-<% if( validacao.validacao ) { %>
-  <table class="table__container table_container--shadow">
-    <thead>
-      <tr class="table__title">
-        <th class="table__title--border">PWINFO's</th>
-        <th class="table__title--border">Validação</th>
-      </tr>
-    </thead>
+<% if( validacao ) { %>
+<table class="table__container table_container--shadow">
+  <thead>
+    <tr class="table__title">
+      <th class="table__title--border">PWINFO's</th>
+      <th class="table__title--border">VALIDAÇÃO</th>
+    </tr>
+  </thead>
 
-    <tbody>
-      <% validacao.validacao.forEach( ( item, index ) => { %>
-        <tr class="table__content">
-          <td class="table__content"> <%= index %> </td>
+  <tbody>
 
-          <td class="table__content">
-            <%= Object.keys(item) + ' ' + Object.values(item); %>
-          </td>
+    <% validacao.forEach( ( item ) => { %>
+    <tr class="table__content">
+      <td class="table__content--border table__content--left"> <%= Object.keys(item) %> </td>
 
-        </tr>
-      }) %>
-    </tbody>
-  </table>
+      <td class="table__content--border table__content--right">
+        <%= Object.values(item) %>
+      </td>
+
+    </tr>
+    <%  }) %>
+  </tbody>
+</table>
 <% }; %>

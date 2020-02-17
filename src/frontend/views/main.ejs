@@ -14,6 +14,7 @@
 
     <%- include( '../components/menu', {
       elements: [
+        { ref: '/main', content: 'Home' },
         { ref: '/auth/logout', content: 'Sair'}
       ]
     }) %>
@@ -29,8 +30,8 @@
           { item: 'Visualizar', id: 'getProj' } ] },
       
         { title: 'Validações', subMenu: [ 
-          { item: 'Nova Validação', id: 'newVal' },
-          { item: 'Visualizar', id: 'getVal' } ] },
+          { item: 'Nova Validação', id: 'newVal' }
+        ] },
 
         { title: 'Scripts', subMenu: [
           { item: 'Exemplos', id: 'getScripts' },

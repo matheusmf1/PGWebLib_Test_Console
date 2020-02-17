@@ -7,14 +7,18 @@
       <div id="<%= p.title %>" class="modal" role="dialog" aria-hidden="true">
         <div class="modal__dialog modal__content">
           <h1 class="modal__title"><%= p.title %></h1>
-          <p> <%= p.description %> </p>
+          <p class="project__description"> <%= p.description %> </p>
 
           <% if ( p.validations && p.validations.length > 0 ) { %>
-          <ul>
+          <ul class="validation__container">
             <% p.validations.forEach( ( v ) => { %>
-            <li>
-              <p> <%= v.title %> </p>
-              <p> <%= v.info %> </p>
+            <li class="validation__item">
+              <div class="card__container">
+                <img class= "card__image" src="/img/accepted_file.png" alt="validationImg" style="width: 100%;">
+                <div class="card__content">
+                  <h4 class="card__content--text"><%= v.title %></h4>
+                </div>
+              </div>    
             </li>
             <% }) %>
           </ul>

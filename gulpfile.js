@@ -22,6 +22,8 @@ gulp.task('min-css-common', async () => task('./src/frontend/styles/common/*.css
 
 gulp.task('min-css-main', async () => task('./src/frontend/styles/main/*.css', mincss, 'main.min.css', 'public/css'));
 
+gulp.task('min-css-validation', async () => task('./src/frontend/styles/validation/*.css', mincss, 'validation.min.css', 'public/css'));
+
 // JS
 gulp.task('min-js-components', async () => task('./src/frontend/components/*.js', minjs, 'components.min.js', 'public/js'));
 
@@ -41,6 +43,7 @@ gulp.task( 'watch', async () => {
   gulp.watch('./src/frontend/styles/initial/*.css', gulp.parallel('min-css-initial'));
   gulp.watch('./src/frontend/styles/common/*.css', gulp.parallel('min-css-common'));
   gulp.watch('./src/frontend/styles/main/*.css', gulp.parallel('min-css-main'));
+  gulp.watch('./src/frontend/styles/validation/*.css', gulp.parallel('min-css-validation'));
 
   gulp.watch('./src/frontend/components/*.js', gulp.parallel('min-js-components'));
   gulp.watch('./src/frontend/scripts/operacao/*.js', gulp.parallel('min-js-operacao'));
@@ -55,6 +58,7 @@ gulp.task('default', gulp.parallel(
   'min-css-initial',
   'min-css-common',
   'min-css-main',
+  'min-css-validation',
   'min-js-components',
   'min-js-operacao',
   'min-js-initial',

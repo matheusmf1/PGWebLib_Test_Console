@@ -22,13 +22,13 @@ router.get( '/', async ( req, res ) => {
 
 router.get('/:val', async ( req, res ) => {
   try{
-
-    const validation = await Validation.findOne( { title: req.params.val } );
-   
-    if ( !validation )
-      return res.status(404).send( { error: 'Validation not found' } );
-
-    res.status(200).send( { validation } );
+    const validacao = await Validation.findOne( { title: req.params.val } );
+    
+    if ( !validacao )
+    return res.status(404).send( { error: 'Validation not found' } );
+    
+    const data =  JSON.parse(validacao.info);
+    res.status(200).render('validation', { validacao: data } );
 
   } catch( err ) {
     console.log( err );
@@ -58,8 +58,7 @@ router.post( '/', async ( req, res ) => {
     await validation.save();
     await project.save(); 
 
-    const projects = await Project.find( { assignedTo: req.userId } );
-    return res.status(200).render( 'main', { projects: projects } );
+    return res.status(200).redirect('/main/');
 
   } catch ( error ) {
     console.log( error );
