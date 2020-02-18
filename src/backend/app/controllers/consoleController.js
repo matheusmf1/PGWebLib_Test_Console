@@ -57,6 +57,7 @@ router.post('/resultado', ( req, res, next ) => {
 
 router.get('/resultado', ( req, res, next ) => {
   res.status(200).send( resultResponse );
+  resultResponse = {};
 });
 
 
@@ -67,6 +68,7 @@ router.post('/validacao', ( req, res, next ) => {
 
 router.get('/validacao', ( req, res, next ) => {
   res.status(200).send( validationResponse );
+  validationResponse = {};
 
 });
 
@@ -77,6 +79,7 @@ router.post('/status', ( req, res, next ) => {
 
 router.get('/status', ( req, res, next ) => {
   res.status(200).send( statusResponse );
+  statusResponse = {};
 });
 
 module.exports = app => app.use( '/main/console', router );

@@ -4,8 +4,4 @@
     window.location.href = "/main/console";
   });
 
-  const getValidations = document.getElementById('getVal').addEventListener('click', () => {
-    
-  });
-
 })();
