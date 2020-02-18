@@ -26,9 +26,11 @@ router.get('/:val', async ( req, res ) => {
     
     if ( !validacao )
     return res.status(404).send( { error: 'Validation not found' } );
-    
+
+    const project = await Project.findById( validacao.project );
     const data =  JSON.parse(validacao.info);
-    res.status(200).render('validation', { validacao: data } );
+
+    res.status(200).render('validation', { projeto: project.title, titulo: validacao.title, validacao: data } );
 
   } catch( err ) {
     console.log( err );
@@ -59,7 +61,6 @@ router.post( '/', async ( req, res ) => {
     await project.save(); 
 
     return res.status(200).redirect('/main/');
-
   } catch ( error ) {
     console.log( error );
     res.status(400).send( { error: 'Error creating new Validation' } );
@@ -69,17 +70,14 @@ router.post( '/', async ( req, res ) => {
 
 router.put( '/:val', async ( req, res ) => {
   try {
-
     const { title } = req.body;
-
     const validation = await Validation.findOne( { title: req.params.val } );
-    console.log('Validation: ', validation);
 
     if ( !validation )
       return res.status(404).send( { error: 'Validation not found' } );
 
-    await validation.updateOne( { title: title, info: info } );
-
+    await validation.updateOne( { title: title } );
+    
     res.status(200).send( { ok: true } );
 
   } catch (error) {

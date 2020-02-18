@@ -4,7 +4,7 @@
 
   <nav class="menu__items-wrapper">
     <% elements.forEach( e => { %>
-      <a class="menu__item" href="<%= e.ref %>"><%= e.content %></a>
+      <a class="menu__item" <%= e.ref ? `href=${e.ref}` : '' %>> <%= e.content %></a>
     <% }); %>
   </nav>
 </div>

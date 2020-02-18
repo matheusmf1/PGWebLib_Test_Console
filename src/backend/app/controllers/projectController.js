@@ -16,10 +16,8 @@ router.options( '/*', ( req, res, next ) => {
 
 router.get( '/', async ( req, res ) => {
   try {
-    // const projects = await Project.find( { assignedTo: req.userId } );
+    
     const projects = await Project.find().where( { assignedTo: req.userId } ).populate(  ['validations'] );
-
-    console.log('projects: ', projects);
     res.status(200).render( 'main', { projects: projects } );
 
   } catch ( error ) {

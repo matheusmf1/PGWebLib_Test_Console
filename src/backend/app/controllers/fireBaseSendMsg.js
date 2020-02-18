@@ -20,7 +20,6 @@ let setPayload = (op, info, cookie) => {
       token: cookie
     }  
   }
-  console.log('Payload', payload);
   return payload;
 };
 

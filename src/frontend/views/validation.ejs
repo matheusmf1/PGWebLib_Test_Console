@@ -13,8 +13,8 @@
    
     <%- include( '../components/menu', {
       elements: [
-        { ref: '/main', content: 'Home' },
-        { ref: '/auth/logout', content: 'Sair'}
+        { content: 'Alterar' },
+        { content: 'Excluir'}
       ]
     }) %>
 
@@ -23,7 +23,7 @@
   <main>
 
   <section class='validacao__container validacao__container--active' id='validacao__container'>
-
+    <h1 class="validacao__title"><%= projeto %> <%= titulo %></h1> 
     <%- include('../components/table', { validacao: validacao } ) %>
 
   </section>
@@ -33,7 +33,7 @@
   </footer>
 
   <%- include( 'partials/scripts', {
-    scripts: ['components']
+    scripts: ['validation']
   }) %>
   
 </body>

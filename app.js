@@ -18,7 +18,7 @@ app.set( 'view engine', 'ejs' );
 require('./src/backend/app/controllers/index')(app);
 
 app.get('/', ( req, res, next ) => {
-  res.status(200).render( 'initial' );
+  res.status(200).render( 'login' );
 });
 
 app.listen( port, hostname, ( err ) => {
