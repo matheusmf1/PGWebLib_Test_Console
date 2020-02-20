@@ -8,14 +8,25 @@ const router = express.Router();
 
 router.use( authMiddleware );
 
+router.options( '/*', ( req, res, next ) => {
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Methods', 'GET, POST','UPDATE','DELETE' );
+  res.header( 'Access-Control-Allow-Headers', 'Accept, Access-Control-Allow-Origin, Content-Type' );
+  res.sendStatus(204);
+});
 
 router.get( '/', async ( req, res ) => {
   try {
 
     const validation = await Validation.find(); 
+    
+    if ( !validation )
+      return res.status(404).send( { error: 'Error on loading Validations' } );
+
     return res.status(200).send( { validation } );
 
   } catch (error) {
+    console.log(error)
     res.status(400).send( { error: 'Error on loading Validations' } );
   }
 });
@@ -42,14 +53,15 @@ router.get('/:val', async ( req, res ) => {
 router.post( '/', async ( req, res ) => {
   try {
     const { title, info, projectTitle } = req.body;
-
+    console.log('test: ',info );
     const project = await Project.findOne( { title: projectTitle } ).where( { assignedTo: req.userId } );
     
     if ( !project ) 
       return res.status(404).send( { error: 'Project Does not Exists' } );
 
     const validation = await new Validation( { title, info, project: project._id } );
-  
+    console.log('validation', validation);
+
     const checkVal = await Validation.findOne( { title: title } ).where( { project: project._id } );
 
     if ( checkVal )

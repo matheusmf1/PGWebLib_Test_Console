@@ -51,8 +51,8 @@
   display: none;
 }
 
-/* 
-@media screen and (max-width: 1023.98px) {
+ 
+/* @media screen and (max-width: 1023.98px) {
   .menu__items-wrapper {
     display: block;
     width: 100%;
@@ -122,4 +122,4 @@
   .menu__switcher-icon::after {
     top: 7px;
   }
-}
+} */

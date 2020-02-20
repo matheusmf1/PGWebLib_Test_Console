@@ -1,7 +1,7 @@
 const Modal = (function() {
 
   var trigger = $qsa('.modal__trigger'); // what you click to activate the modal
-  var modals = $qsa('.modal'); // the entire modal (takes up entire window)
+  var modals = $qsa('.modal__container'); // the entire modal (takes up entire window)
   var content = $qsa('.modal__content'); // the inner content of the modal
 	var closers = $qsa('.modal__close'); // an element used to close the modal
   var w = window;
@@ -97,7 +97,7 @@ const Modal = (function() {
       // select the content inside the modal
       var content = m.querySelector('.modal__content');
       // reveal the modal
-      m.classList.add('modal--active');
+      m.classList.add('modal__container--active');
       // reveal the modal content
       content.classList.add('modal__content--active');
 
@@ -144,7 +144,7 @@ const Modal = (function() {
 			*/
 
 			for (var i = 0; i < len; i++) {
-				modals[i].classList.remove('modal--active');
+				modals[i].classList.remove('modal__container--active');
 				content[i].classList.remove('modal__content--active');
 				trigger[i].style.transform = 'none';
         trigger[i].style.webkitTransform = 'none';

@@ -12,7 +12,7 @@
         return response.json();
 
     }).then((resp) => {
-      console.log('Result', resp)
+      console.log('Result', resp);
 
       if (resp.comprovante) {
 

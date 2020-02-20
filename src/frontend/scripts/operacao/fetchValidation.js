@@ -31,6 +31,7 @@
         let cleanOp = document.createElement('a');
         cleanOp.className = "table__option--text";
         cleanOp.innerHTML = "Limpar Dados";
+        cleanOp.href = "";
 
         divOption.appendChild(saveOp);
         divOption.appendChild(cleanOp);
@@ -117,7 +118,7 @@
 
           const divModal = document.createElement('div');
             divModal.setAttribute('id', 'newProj');
-            divModal.className = 'modal modal--active';
+            divModal.className = 'modal__container modal__container--active';
             divModal.setAttribute('role', 'dialog');
             divModal.setAttribute('aria-hidden', 'true');
 
