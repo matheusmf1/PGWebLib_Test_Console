@@ -27,17 +27,27 @@ router.post('/', ( req, res, next ) => {
   const cookiesToken = req.headers.cookie;
 
   const token = cookiesToken.split('=')[1];
-  console.log('cookiesToken ', token);
-
+  
   const operacao = jsonData.operacao; 
   const dados = jsonData.dados; 
 
-  fireBaseMsg.sendData( operacao, dados, token ).then( (message) => {
+  const payload = {
+    topic: "data",
+    data: {
+      operacao: operacao,
+      dados: JSON.stringify( dados ), 
+      token: token
+    }  
+  }
+
+  console.log('data payload: ', payload);
+
+  fireBaseMsg.sendData( payload ).then( (message) => {
     res.status(200).render( 'operacao', { 
       infoArea: 'Success message sent to the device '} );
 
   }).catch( (error) => { 
-    console.log( 'Erro monstruoso ' + error.name + ' ' + error.message );
+    console.log( 'Erro monstruoso: ', error );
     res.status(400).render( 'operacao', {
       infoArea: 'Erro, mensagem não enviada para o dispositivo'
     });

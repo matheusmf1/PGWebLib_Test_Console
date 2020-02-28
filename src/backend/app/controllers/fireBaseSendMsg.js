@@ -10,18 +10,6 @@ admin.initializeApp( {
   databaseURL: "https://pgweblib-auttest.firebaseio.com"
 });
 
-// define what will be delivered on the device
-let setPayload = (op, info, cookie) => {
-  info = JSON.stringify(info);
-  var payload = {
-    data: {
-      operacao: op,
-      dados: info, 
-      token: cookie
-    }  
-  }
-  return payload;
-};
 
 //define some options when sending msg to the device
 const options = {
@@ -30,13 +18,15 @@ const options = {
 };
 
 
-exports.sendData = ( op, pl, cookie ) => {
+exports.sendData = ( payload ) => {
+  
   return new Promise( ( resolve, reject ) => {
-    let payload = setPayload( op, pl, cookie );
-
-    admin.messaging().sendToDevice( registrationToken, payload, options ).then( response => { 
+  
+    admin.messaging().send( payload )
+    .then( response => { 
       resolve( { Successfully: response } );
-    }).catch( ( error ) => { 
+    })
+    .catch( ( error ) => { 
       reject( { Error: error } );
     });
   });  
