@@ -4,9 +4,9 @@
   align-items: center;
 }
 
-.menu__items-wrapper {
+.menu__wrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
   width: 100%;
   background-color: #3A5FCD;
   height: 50px;
@@ -19,6 +19,8 @@
   letter-spacing: .1em;
   text-transform: uppercase;
   white-space: nowrap;
+  margin: auto 2em;
+	font-size: 1rem;
 }
 
 .menu__item:hover {

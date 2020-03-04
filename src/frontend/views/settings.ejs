@@ -4,8 +4,8 @@
 <head>
   <%- include( 'partials/head', {
     pageTitle: 'Console Web',
-    styles: ['settings','main', 'components']
-  } ) %>
+    styles: ['settings', 'components']
+  }) %>
 
 </head>
 
@@ -15,7 +15,7 @@
     <%- include( '../components/menu', {
       elements: [
         { ref: '/main', content: 'Home' },
-        { content: 'Ajustes' },
+        { ref: '/settings', content: 'Ajustes' },
         { ref: '/auth/logout', content: 'Sair'}
       ]
     }) %>
@@ -57,7 +57,7 @@
   </footer>
 
   <%- include( 'partials/scripts', {
-    scripts: ['main', 'sideBar','settings']
+    scripts: ['sideBar','settings']
   }) %>
 
 </body>

@@ -1,3 +1,7 @@
+.menu__wrapper {
+  justify-content: space-around;
+}
+
 .form__anchor {
   color: #FFFFFF;
   transition: .5s ease;

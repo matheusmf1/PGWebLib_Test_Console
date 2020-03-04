@@ -1,12 +1,3 @@
-.menu__items-wrapper {
-	justify-content: flex-end;	
-}
-
-.menu__item {
-	margin: auto 2em;
-	font-size: 1rem;
-}
-
 .info {
 	height: 70vh;
 	display: flex;

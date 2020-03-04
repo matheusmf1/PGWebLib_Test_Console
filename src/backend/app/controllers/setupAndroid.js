@@ -47,7 +47,6 @@ router.get('/', async (req, res) => {
 
 });
 
-
 router.post('/pinpad', async ( req, res ) => {
   try {
     
@@ -107,7 +106,7 @@ router.post('/remote', async ( req, res ) => {
     }
 
     res.status(200).send({ settings: settings });
-    
+
   } catch (error) {
     console.log('erro: ', error);
     res.status(400).send( { error: 'Error creating new Settings' } );

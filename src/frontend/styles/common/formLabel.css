@@ -1,3 +1,8 @@
+.form__content {
+  position: relative;
+  margin-bottom: 40px;
+}
+
 .form__content--label {
   position: absolute;
   -webkit-transform: translateY(6px);
