@@ -37,6 +37,7 @@ gulp.task('min-js-main', async () => task('./src/frontend/scripts/main/*.js', mi
 
 gulp.task('min-js-validation', async () => task('./src/frontend/scripts/validation/*.js', minjs, 'validation.min.js', 'public/js'));
 
+gulp.task('min-js-settings', async () => task('./src/frontend/scripts/settings/*.js', minjs, 'settings.min.js', 'public/js'));
 
 
 gulp.task( 'watch', async () => {
@@ -53,6 +54,7 @@ gulp.task( 'watch', async () => {
   gulp.watch('./src/frontend/scripts/sideBar/*.js', gulp.parallel('min-js-sideBar'));
   gulp.watch('./src/frontend/scripts/main/*.js', gulp.parallel('min-js-main'));
   gulp.watch('./src/frontend/scripts/validation/*.js', gulp.parallel('min-js-validation'));
+  gulp.watch('./src/frontend/scripts/settings/*.js', gulp.parallel('min-js-settings'));
 });
 
 gulp.task('default', gulp.parallel(
@@ -68,5 +70,6 @@ gulp.task('default', gulp.parallel(
   'min-js-sideBar',
   'min-js-main',
   'min-js-validation',
+  'min-js-settings',
   'watch'
 ));

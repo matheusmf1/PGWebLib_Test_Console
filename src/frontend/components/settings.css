@@ -34,6 +34,7 @@
 
 
 .tab__container {
+  display: block;
   transition: opacity .5s ease-in;
   position: absolute;
   margin: 1em 0em 0em 12em;
@@ -88,5 +89,5 @@
 }
 
 .noshow {
-  opacity: 0;
+  display: none;
 }
