@@ -92,8 +92,4 @@ router.get('/status', ( req, res, next ) => {
   statusResponse = {};
 });
 
-router.get('/oi', async ( req,res ) => {
-  res.status(200).render('settings');
-})
-
 module.exports = app => app.use( '/main/console', router );

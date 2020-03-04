@@ -53,7 +53,7 @@ router.get('/:val', async ( req, res ) => {
 router.post( '/', async ( req, res ) => {
   try {
     const { title, info, projectTitle } = req.body;
-    console.log('test: ',info );
+    
     const project = await Project.findOne( { title: projectTitle } ).where( { assignedTo: req.userId } );
     
     if ( !project ) 

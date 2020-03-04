@@ -53,7 +53,7 @@ router.get( '/allproj', async ( req, res ) => {
 });
 
 // Get a specific project 
-router.get( '/:project', async ( req, res ) => {
+router.get('/:project', async ( req, res ) => {
   try {
 
     const project = await Project.findOne( { title: req.params.project }).populate( ['validations'] );
@@ -90,7 +90,7 @@ router.post( '/', async ( req, res ) => {
     res.status(200).render( 'main', { projects: projects } );
   } catch ( error ) {
     console.log('erro: ', error);
-    res.status(400).send( { error: 'Error creating new project' } )
+    res.status(400).send( { error: 'Error creating new project' } );
   }
 });
 
