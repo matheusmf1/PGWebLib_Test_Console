@@ -6,11 +6,11 @@
     item.addEventListener( 'click', i => {
       i.preventDefault();
      
-      const oldTab = document.getElementsByClassName('active');
-      oldTab[0].classList.remove('active');
+      const oldTab = document.getElementsByClassName('nav__items--active');
+      oldTab[0].classList.remove('nav__items--active');
 
       const newTab = i.target;
-      newTab.classList.add('active');
+      newTab.classList.add('nav__items--active');
 
       const oldTarget = document.querySelector('.tab__container');
       oldTarget.classList.remove('tab__container');
