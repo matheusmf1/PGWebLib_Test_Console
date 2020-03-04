@@ -40,6 +40,4 @@ router.post('/', async (req, res) => {
 });
 
 
-
-
 module.exports = app => app.use('/main/setup', router);

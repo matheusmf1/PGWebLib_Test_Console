@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <%- include( 'partials/head', {
+    pageTitle: 'Console Web',
+    styles: ['main', 'components']
+  } ) %>
+
+</head>
+
+<body>
+  <header>
+
+    <%- include( '../components/menu', {
+      elements: [
+        { ref: '/main', content: 'Home' },
+        { content: 'Ajustes' },
+        { ref: '/auth/logout', content: 'Sair'}
+      ]
+    }) %>
+
+  </header>
+
+  <aside class="sidebar__container">
+    <%- include('../components/sideBar', {
+      elements: [
+
+        { title: 'Projetos', subMenu: [
+          { item: 'Criar Novo', id: 'newProj' },
+          { item: 'Visualizar', id: 'getProj' } ] },
+      
+        { title: 'Validações', subMenu: [ 
+          { item: 'Nova Validação', id: 'newVal' }
+        ] },
+
+        { title: 'Scripts', subMenu: [
+          { item: 'Exemplos', id: 'getScripts' },
+          { item: 'Novo', id: 'newScript' }] }
+      ]
+
+    }) %>
+  </aside>
+
+  <main>
+
+    <section>
+
+      <%- include('../components/setup' ) %>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <%- include( 'partials/footer' ) %>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <%- include( 'partials/scripts', {
+    scripts: ['main', 'sideBar']
+  }) %>
+
+</body>
+
+</html>

@@ -20,6 +20,37 @@
   margin-bottom: 40px;
 }
 
+.form__content--label {
+  position: absolute;
+  -webkit-transform: translateY(6px);
+          transform: translateY(6px);
+  margin-left: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.25s ease;
+  -webkit-backface-visibility: hidden;
+  pointer-events: none;
+}
+
+.form__content--label .req {
+  margin: 2px;
+  color: #1ab188;
+}
+
+.form__content--label.active {
+  -webkit-transform: translateY(-25px);
+          transform: translateY(-25px);
+  left: 2px;
+  font-size: 14px;
+}
+.form__content--label.active .req {
+  opacity: 0;
+}
+
+.form__content--label.highlight {
+  color: #ffffff;
+}
+
+
 .tab-group {
   list-style: none;
   padding: 5px;
@@ -64,37 +95,6 @@
   color: #ffffff;
   font-weight: 300;
   margin: 0 0 40px;
-}
-
-.form__content--label {
-  position: absolute;
-  -webkit-transform: translateY(6px);
-          transform: translateY(6px);
-  margin-left: 13px;
-  color: rgba(255, 255, 255, 0.5);
-  transition: all 0.25s ease;
-  -webkit-backface-visibility: hidden;
-  pointer-events: none;
-}
-
-
-.form__content--label .req {
-  margin: 2px;
-  color: #1ab188;
-}
-
-.form__content--label.active {
-  -webkit-transform: translateY(-25px);
-          transform: translateY(-25px);
-  left: 2px;
-  font-size: 14px;
-}
-.form__content--label.active .req {
-  opacity: 0;
-}
-
-.form__content--label.highlight {
-  color: #ffffff;
 }
 
 input, textarea {

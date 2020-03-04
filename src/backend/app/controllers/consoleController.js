@@ -32,7 +32,7 @@ router.post('/', ( req, res, next ) => {
   const dados = jsonData.dados; 
 
   const payload = {
-    topic: "data",
+    topic: "/topics/data",
     data: {
       operacao: operacao,
       dados: JSON.stringify( dados ), 
@@ -91,5 +91,9 @@ router.get('/status', ( req, res, next ) => {
   res.status(200).send( statusResponse );
   statusResponse = {};
 });
+
+router.get('/oi', async ( req,res ) => {
+  res.status(200).render('settings');
+})
 
 module.exports = app => app.use( '/main/console', router );
