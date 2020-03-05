@@ -14,26 +14,33 @@ router.options('/*', (req, res, next) => {
   res.sendStatus(204);
 });
 
-// Memo: This file was created due to new functions implemented on Android, like setup by firebase 
-// Therefore it's must be develop ASAP!!!
 
 router.post('/', async (req, res) => {
 
-  const payload = {
-    topic: "wakeApp",
-    notification: {},
-    data: {
-      title: "WakeApp",
-      tcp_ip: "10.1.2.129",
-      tcp_port: "6500",
-      remote_port: "5558",
-      server_host: "n0033-matheusfr",
-      server_port: "3000"
+  const loadSettings = await Settings.findOne( { title: 'wakeApp', assignedTo: req.userId } );
+  let payload = {};
+
+  if ( loadSettings ) {
+    payload = {
+      topic: "wakeApp",
+      notification: {},
+      data: {
+        title: "WakeApp",
+        tcp_ip: loadSettings.tcp_ip,
+        tcp_port: loadSettings.tcp_port,
+        remote_port: loadSettings.remote_port,
+        server_host: loadSettings.server_host,
+        server_port: loadSettings.server_port
+      }
     }
+
+  } else {
+    alert('Realize as configurações iniciais');
   }
 
+
   fireBaseMsg.sendData( payload ).then( (message) => {
-    res.status(200).render('settings');
+    res.status(200).render('settings', {  data: payload.data });
 
   }).catch( (error) => { 
     console.log( 'Erro monstruoso: ', error );
