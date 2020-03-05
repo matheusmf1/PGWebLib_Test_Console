@@ -53,18 +53,18 @@
           { title: 'Servidor', id: 'server', extraClass: '' }
         ],
         tabContent: [
-          { id: 'pinPad', extraClass: 'tab__container',  title: 'Configurações PinPad', route: '', content: [
-            { label: 'Endereço Tcp', name: 'tcpIp' },
-            { label: 'Porta', name: 'tcpPort' }
+          { id: 'pinPad', extraClass: 'tab__container',  title: 'Configurações PinPad', route: '/settings/pinpad', content: [
+            { label: `Endereço Tcp Atual: ${data.tcpIp}`, name: 'tcpIp' },
+            { label: `Porta Atual: ${data.tcpPort}`, name: 'tcpPort' }
           ]},
 
-          { id: 'remoteControl', extraClass: 'noshow',  title: 'Configurações Controle Remoto', route: '', content: [
-            { label: 'Porta', name: 'remotePort' }
+          { id: 'remoteControl', extraClass: 'noshow',  title: 'Configurações Controle Remoto', route: '/settings/remote', content: [
+            { label: `Porta Atual: ${data.remotePort}`, name: 'remotePort' }
           ]},
 
-          { id: 'server', extraClass: 'noshow',  title: 'Configurações Servidor', route: '', content: [
-            { label: 'Endereço Host', name: 'serveHost' },
-            { label: 'Porta', name: 'serverPort' }
+          { id: 'server', extraClass: 'noshow',  title: 'Configurações Servidor', route: '/settings/server', content: [
+            { label: `Endereço Host Atual: ${data.serverHost}`, name: 'serveHost' },
+            { label: `Porta Atual: ${data.serverPort}`, name: 'serverPort' }
           ]}
         ]
       }) %>

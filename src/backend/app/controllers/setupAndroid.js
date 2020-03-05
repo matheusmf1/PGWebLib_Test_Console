@@ -43,7 +43,25 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  res.status(200).render('settings');
+
+  const loadSettings = await Settings.findOne( { title: 'wakeApp', assignedTo: req.userId } );
+  
+  let data = {};
+
+  if ( loadSettings ) {
+    data = {
+      tcpIp: loadSettings.tcp_ip,
+      tcpPort: loadSettings.tcp_port,
+      remotePort: loadSettings.remote_port,
+      serverHost: loadSettings.server_host,
+      serverPort: loadSettings.server_port
+    }
+  } else 
+    data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '' }
+
+  res.status(200).render('settings', {
+    data: data
+  });
 
 });
 
@@ -55,7 +73,7 @@ router.post('/pinpad', async ( req, res ) => {
     var settings;
 
     const userSettings = await User.findByIdAndUpdate( req.userId ).select('settings').populate(['settings']); 
-    const loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
+    let loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
 
     if ( loadSettings ) {
 
@@ -71,7 +89,26 @@ router.post('/pinpad', async ( req, res ) => {
       await userSettings.updateOne( { settings: settings } );
     }
 
-    res.status(200).send({ settings: settings });
+    loadSettings = await Settings.findOne( { title: 'wakeApp', assignedTo: req.userId } );
+  
+    let data = {};
+  
+    if ( loadSettings ) {
+      data = {
+        tcpIp: loadSettings.tcp_ip,
+        tcpPort: loadSettings.tcp_port,
+        remotePort: loadSettings.remote_port,
+        serverHost: loadSettings.server_host,
+        serverPort: loadSettings.server_port
+      }
+    } else 
+      data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '' }
+
+
+    res.status(200).render('settings', {
+      data: data
+    });
+    
 
   } catch (error) {
     console.log('erro: ', error);
@@ -89,7 +126,7 @@ router.post('/remote', async ( req, res ) => {
 
     const userSettings = await User.findByIdAndUpdate( req.userId ).select('settings').populate(['settings']);
    
-    const loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
+    let loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
    
     if ( loadSettings ) {
 
@@ -105,7 +142,25 @@ router.post('/remote', async ( req, res ) => {
       await userSettings.updateOne( { settings: settings } );
     }
 
-    res.status(200).send({ settings: settings });
+    loadSettings = await Settings.findOne( { title: 'wakeApp', assignedTo: req.userId } );
+  
+    let data = {};
+  
+    if ( loadSettings ) {
+      data = {
+        tcpIp: loadSettings.tcp_ip,
+        tcpPort: loadSettings.tcp_port,
+        remotePort: loadSettings.remote_port,
+        serverHost: loadSettings.server_host,
+        serverPort: loadSettings.server_port
+      }
+    } else 
+      data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '' }
+
+
+    res.status(200).render('settings', {
+      data: data
+    });
 
   } catch (error) {
     console.log('erro: ', error);
@@ -123,7 +178,7 @@ router.post('/server', async ( req, res ) => {
     const userSettings = await User.findByIdAndUpdate( req.userId ).select('settings').populate(['settings']);
     console.log('userSettings: ', userSettings);
 
-    const loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
+    let loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
     console.log('oldData: ', loadSettings);
 
     if ( loadSettings ) {
@@ -141,7 +196,26 @@ router.post('/server', async ( req, res ) => {
       await userSettings.updateOne( { settings: settings } );
     }
 
-    res.status(200).send({ settings: settings });
+
+    loadSettings = await Settings.findOne( { title: 'wakeApp', assignedTo: req.userId } );
+  
+    let data = {};
+  
+    if ( loadSettings ) {
+      data = {
+        tcpIp: loadSettings.tcp_ip,
+        tcpPort: loadSettings.tcp_port,
+        remotePort: loadSettings.remote_port,
+        serverHost: loadSettings.server_host,
+        serverPort: loadSettings.server_port
+      }
+    } else 
+      data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '' }
+
+
+    res.status(200).render('settings', {
+      data: data
+    });
 
   } catch (error) {
     console.log('erro: ', error);
