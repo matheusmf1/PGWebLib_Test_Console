@@ -50,7 +50,8 @@
         tabs: [
           { title: 'PinPad', id: 'pinPad', extraClass: 'nav__items--active' },
           { title: 'Controle Remoto', id: 'remoteControl', extraClass: '' },
-          { title: 'Servidor', id: 'server', extraClass: '' }
+          { title: 'Servidor', id: 'server', extraClass: '' },
+          { start: { title: 'Iniciar Aplicação', id: 'wakeApp' } }
         ],
         tabContent: [
           { id: 'pinPad', extraClass: 'tab__container',  title: 'Configurações PinPad', route: '/settings/pinpad', content: [
@@ -65,7 +66,7 @@
           { id: 'server', extraClass: 'noshow',  title: 'Configurações Servidor', route: '/settings/server', content: [
             { label: `Endereço Host Atual: ${data.serverHost}`, name: 'serveHost' },
             { label: `Porta Atual: ${data.serverPort}`, name: 'serverPort' }
-          ]}
+          ]},
         ]
       }) %>
 

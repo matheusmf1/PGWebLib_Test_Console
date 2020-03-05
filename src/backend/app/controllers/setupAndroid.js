@@ -72,6 +72,23 @@ router.get('/', async (req, res) => {
 
 });
 
+router.post('/close', async ( req, res ) => {
+
+ const payload = {
+    topic: "/topics/turnOff",
+    notification: {},
+    data: { title: "turnOff" }
+  }
+
+  fireBaseMsg.sendData( payload ).then( (message) => {
+    res.status(200).json( { ok:true });
+
+  }).catch( (error) => { 
+    console.log( 'Erro monstruoso: ', error );
+  });
+
+});
+
 router.post('/pinpad', async ( req, res ) => {
   try {
     

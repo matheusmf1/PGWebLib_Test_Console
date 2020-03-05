@@ -1,7 +1,13 @@
 <div class="settings__container--left">
   <nav class="nav__items">
+
     <% tabs.forEach( ( e ) => { %>
       <a id="<%= e.id %>" class="nav__items--content <%= e.extraClass %>"><%= e.title %></a>
+
+    <%  if ( e.start ) { %>
+      <a id="<%= e.start.id %>" class="nav__items--content"><%= e.start.title %></a>
+      <% } %>
+     
   <% }) %>
   </nav>
 </div>
