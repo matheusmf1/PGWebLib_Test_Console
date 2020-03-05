@@ -1,6 +1,5 @@
 ( () => {
 
-  
   const logout = document.querySelectorAll('.menu__item');
 
   logout.forEach( ( item ) => {

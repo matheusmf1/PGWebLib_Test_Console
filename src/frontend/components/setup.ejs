@@ -2,12 +2,12 @@
   <nav class="nav__items">
 
     <% tabs.forEach( ( e ) => { %>
-      <a id="<%= e.id %>" class="nav__items--content <%= e.extraClass %>"><%= e.title %></a>
-
-    <%  if ( e.start ) { %>
-      <a id="<%= e.start.id %>" class="nav__items--content"><%= e.start.title %></a>
+      <%  if ( e.start ) { %>
+        <a id="<%= e.start.id %>" class="nav__items--content"><%= e.start.title %></a>
+        <% } else { %>
+          <a id="<%= e.id %>" class="nav__items--content <%= e.extraClass %>"><%= e.title %></a>
       <% } %>
-     
+
   <% }) %>
   </nav>
 </div>
