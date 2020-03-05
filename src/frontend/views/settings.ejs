@@ -44,9 +44,30 @@
 
   <main>
 
-    <section>
+    <section class="settings__container">
 
-      <%- include('../components/setup' ) %>
+      <%- include('../components/setup', {
+        tabs: [
+          { title: 'PinPad', id: 'pinPad', extraClass: 'nav__items--active' },
+          { title: 'Controle Remoto', id: 'remoteControl', extraClass: '' },
+          { title: 'Servidor', id: 'server', extraClass: '' }
+        ],
+        tabContent: [
+          { id: 'pinPad', extraClass: 'tab__container',  title: 'Configurações PinPad', route: '', content: [
+            { label: 'Endereço Tcp', name: 'tcpIp' },
+            { label: 'Porta', name: 'tcpPort' }
+          ]},
+
+          { id: 'remoteControl', extraClass: 'noshow',  title: 'Configurações Controle Remoto', route: '', content: [
+            { label: 'Porta', name: 'remotePort' }
+          ]},
+
+          { id: 'server', extraClass: 'noshow',  title: 'Configurações Servidor', route: '', content: [
+            { label: 'Endereço Host', name: 'serveHost' },
+            { label: 'Porta', name: 'serverPort' }
+          ]}
+        ]
+      }) %>
 
     </section>
 

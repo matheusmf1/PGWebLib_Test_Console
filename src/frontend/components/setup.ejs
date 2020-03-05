@@ -1,73 +1,35 @@
-<div class="settings__container">
-
-  <div class="settings__container--left">
-    <nav class="nav__items">
-      <a id='pinPad' class="nav__items--content nav__items--active">PinPad</a>
-      <a id='remoteControl' class="nav__items--content">Controle Remoto</a>
-      <a id='server' class="nav__items--content">Servidor</a>
-    </nav>
-  </div>
+<div class="settings__container--left">
+  <nav class="nav__items">
+    <% tabs.forEach( ( e ) => { %>
+      <a id="<%= e.id %>" class="nav__items--content <%= e.extraClass %>"><%= e.title %></a>
+  <% }) %>
+  </nav>
+</div>
 
 
-  <div class="settings__container--right">
+<div class="settings__container--right">
 
-    <div id="pinPad" class="tab__container">
-      <h1 class="tab__container--title">Configurações PinPad</h1>
+  <% tabContent.forEach( ( tab ) => { %>
+    <div id="<%= tab.id %>" class="<%= tab.extraClass %>">
+      <h1 class="tab__container--title"><%= tab.title %></h1>
+      
+      <form action="<%= tab.route %>" method="POST">
+        
+        <% tab.content.forEach( ( c ) => { %>
+ 
+          <div class="form__content">
+            <label class="form__content--label"><%= c.label %></label>
+            <input class="input" type="text" name="<%= c.name %>" required />
+          </div>         
 
-      <form action="" method="post">
+        <% }) %>
 
-        <div class="form__content">
-          <label class="form__content--label"> Endereço IP </label>
-          <input class="input" type="text" name="tcpIp" required/>
-        </div>
-
-        <div class="form__content">
-          <label class="form__content--label"> Porta </label>
-          <input class="input" type="text" name="tcpPort" required/>
-        </div>
-
-        <button type="submit" class="button-login button-block"/>Salvar</button>
       </form>
+      <button type="submit" class="button-login button-block" />Salvar</button>
     </div>
-
-    <div id="remoteControl" class="noshow">
-      <h1 class="tab__container--title">Configurações Controle Remoto</h1>
-
-      <form action="" method="post">
-
-        <div class="form__content">
-          <label class="form__content--label"> Endereço IP </label>
-          <input class="input" type="text" name="tcpIp" required/>
-        </div>
-
-        <div class="form__content">
-          <label class="form__content--label"> Porta </label>
-          <input class="input" type="text" name="tcpPort" required/>
-        </div>
-
-        <button type="submit" class="button-login button-block"/>Salvar</button>
-      </form>
-    </div>
-
-    <div id="server" class="noshow">
-      <h1 class="tab__container--title">Configurações Servidor</h1>
-
-      <form action="" method="post">
-
-        <div class="form__content">
-          <label class="form__content--label"> Endereço Host </label>
-          <input class="input" type="text" name="tcpIp" required/>
-        </div>
-
-        <div class="form__content">
-          <label class="form__content--label"> Porta </label>
-          <input class="input" type="text" name="tcpPort" required/>
-        </div>
-
-        <button type="submit" class="button-login button-block"/>Salvar</button>
-      </form>
-    </div>
-
-  </div>
+  <% }) %>
 
 </div>
+
+
+
