@@ -1,6 +1,6 @@
 (() => {
 
-  const status = setTimeout( async () => { 
+  const status = setInterval( async () => { 
     await fetch( '/main/console/status',
      {
       method: 'GET',
@@ -14,16 +14,13 @@
         console.log('Status', resp);
 
         if ( resp.erro ) {
-          resp.erro.forEach( ( c ) => {
-            alert( Object.values( c ).toString() );
-      
-          });
-          clearTimeout(status);
+          resp.erro.forEach( ( c ) => { alert( Object.values( c ).toString() ); });
+          // clearInterval(status);
         }
     
       }).catch((err) => {
         console.log('Erro Fetch', err);
       });
-    }, 50000 );
+    }, 10000 );
 
 })();
