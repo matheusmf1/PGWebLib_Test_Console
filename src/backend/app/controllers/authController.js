@@ -6,9 +6,19 @@ const mailer = require('../../modules/mailer');
 
 const authConfig = require('../../config/auth.json');
 
+const Project = require('../models/project');
+const Validation = require('../models/validation');
 const User = require('../models/user');
+const Settings = require('../models/settings');
 
 const router = express.Router();
+
+router.options( '/*', ( req, res, next ) => {
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Methods', 'GET, POST, DELETE' );
+  res.header( 'Access-Control-Allow-Headers', 'Accept, Access-Control-Allow-Origin, Content-Type' );
+  res.sendStatus(204);
+});
 
 const generateToken = ( params = {} ) => { 
   return jwt.sign( params, authConfig.secret, { expiresIn: 3600 } ); // 1 hour
@@ -31,7 +41,7 @@ router.post('/register', async ( req, res ) => {
     return res.cookie('tokenkey', token, {
       maxAge: 3600000, // 1 hour
       httpOnly: true
-    }).redirect('/main');
+    }).redirect('/settings');
 
   } catch( err ) {
     return res.status(400).send( { error: 'Registration Failed' } );
@@ -167,5 +177,44 @@ router.get('/user/:email', async ( req, res ) => {
   }
 
 });
+
+router.delete('/user/:email', async (req, res) => {
+  try {
+    
+    const user = await User.findOne( { email: req.params.email } ).populate( 'projects' );
+
+    if ( !user )
+      return res.status(404).send( { error: 'User not found'} );
+
+    if ( user.projects.length > 0 ) {
+
+      user.projects.forEach( async ( project ) => {
+        console.log('project ', project);
+     
+        const validations = project.validations;
+
+        if ( validations )
+          validations.forEach( async ( v ) => { await Validation.findByIdAndDelete( v ); } );  
+
+        await Project.findByIdAndDelete( project._id );
+      });
+    }
+
+    if ( user.settings )
+      await Settings.findByIdAndDelete( user.settings );
+
+    await User.findByIdAndDelete( user._id );
+
+    res.status(200).send( {  ok: true } );
+
+  } catch (error) {
+    console.log(error);
+    res.status(400).send( {  ok: false } );
+
+  }
+  
+
+});
+
 
 module.exports = ( app ) => app.use( '/auth', router );

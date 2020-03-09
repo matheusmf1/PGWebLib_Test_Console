@@ -35,7 +35,9 @@ router.post('/', async (req, res) => {
     }
 
   } else {
-    alert('Realize as configurações iniciais');
+    // criar função para configurar a aplicação  pela primeira vez
+    
+ 
   }
 
 
@@ -96,7 +98,7 @@ router.post('/pinpad', async ( req, res ) => {
     const title = 'wakeApp';
     var settings;
 
-    const userSettings = await User.findByIdAndUpdate( req.userId ).select('settings').populate(['settings']); 
+    const userSettings = await User.findByIdAndUpdate( req.userId ).select('settings').populate( 'settings' ); 
     let loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
 
     if ( loadSettings ) {
