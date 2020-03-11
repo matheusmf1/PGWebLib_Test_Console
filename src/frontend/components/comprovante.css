@@ -1,5 +1,9 @@
 .comprovante__container {
   grid-area: receipt;
+  display: none;
+}
+
+.comprovante__container--active {
   display: block;
   padding: 10px;
 }

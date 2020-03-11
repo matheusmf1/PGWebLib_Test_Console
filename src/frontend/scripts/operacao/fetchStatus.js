@@ -11,11 +11,14 @@
           return response.json();
   
       }).then( ( resp ) => {
-        console.log('Status', resp);
+        console.log('Status', resp );
 
         if ( resp.erro ) {
-          resp.erro.forEach( ( c ) => { alert( Object.values( c ).toString() ); });
-          // clearInterval(status);
+          let spinner =  document.getElementById('spinner');
+          spinner.classList.add('loaded');
+          
+          resp.erro.forEach( ( c ) => { alert( Object.values( c ).toString() ); } );
+          clearInterval(status);
         }
     
       }).catch((err) => {

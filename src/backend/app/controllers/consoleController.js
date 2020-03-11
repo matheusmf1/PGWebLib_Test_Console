@@ -18,6 +18,7 @@ router.use( authMiddleware );
 var resultResponse = {};
 var validationResponse = {};
 var statusResponse = {};
+var loadingTrigger = {};
 
 
 // Send data to Android Service
@@ -90,6 +91,17 @@ router.post('/status', ( req, res, next ) => {
 router.get('/status', ( req, res, next ) => {
   res.status(200).send( statusResponse );
   statusResponse = {};
+});
+
+
+router.post('/loading', ( req, res ) => {
+  loadingTrigger = req.body;
+  res.status(200).send( { ok: true } );
+});
+
+router.get('/loading', ( req, res ) => {
+  res.status(200).send( loadingTrigger );
+  loadingTrigger = {};
 });
 
 module.exports = app => app.use( '/main/console', router );

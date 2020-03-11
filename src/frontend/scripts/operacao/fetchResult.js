@@ -1,24 +1,22 @@
 (() => {
 
-  const update = setInterval(async () => {
+  const update = setInterval( async () => {
     await fetch('/main/console/resultado', {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       mode: 'cors'
-    }).then((response) => {
-      if (response.status === 200)
+    }).then(( response ) => {
+      if ( response.status === 200 )
         return response.json();
 
-    }).then((resp) => {
-      console.log('Result', resp);
+    }).then( ( resp ) => {
+      console.log('Result', resp );
 
-      if (resp.comprovante) {
+      if ( resp.comprovante ) {
 
         let sectionNode = document.getElementById('comprovante__container');
         sectionNode.innerHTML = "";
-        sectionNode.className = 'comprovante__container';
+        sectionNode.className = 'comprovante__container comprovante__container--active';
 
         let ulNode = document.createElement('ul');
 
@@ -42,6 +40,7 @@
         sectionNode.appendChild(ulNode);
         clearInterval(update);
       }
+
     }).catch((err) => {
       console.log('Erro Fetch', err);
     });

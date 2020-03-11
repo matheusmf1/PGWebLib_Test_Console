@@ -1,7 +1,6 @@
 .validacao__container {
   grid-area: validation ;
   display: none;
- 
 }
 
 .validacao__container--active{

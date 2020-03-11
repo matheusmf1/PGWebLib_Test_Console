@@ -11,13 +11,6 @@ admin.initializeApp( {
 });
 
 
-//define some options when sending msg to the device
-const options = {
-  priority: "high",
-  timeToLive: 60
-};
-
-
 exports.sendData = ( payload ) => {
   
   return new Promise( ( resolve, reject ) => {
