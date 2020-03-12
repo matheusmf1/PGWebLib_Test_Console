@@ -14,6 +14,9 @@
 
       if ( resp.comprovante ) {
 
+        let spinner =  document.getElementById('spinner');
+        spinner.classList.add('loaded');
+
         let sectionNode = document.getElementById('comprovante__container');
         sectionNode.innerHTML = "";
         sectionNode.className = 'comprovante__container comprovante__container--active';
@@ -41,9 +44,9 @@
         clearInterval(update);
       }
 
-    }).catch((err) => {
+    }).catch( (err) => {
       console.log('Erro Fetch', err);
     });
-  }, 10000);
+  }, 10000 );
 
 })();

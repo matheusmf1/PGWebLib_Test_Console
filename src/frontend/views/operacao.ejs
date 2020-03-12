@@ -45,13 +45,9 @@
     <section class='main__container' id="input">
       <%- include( '../components/inputDados', {
         content: {
-          title: "Escolha entre as opções a seguir:",
-          subTitle: "Tipo de Teste:"
+          title: "Escolha um arquivo a seguir:",
+          subTitle: ""
         },
-        radioBtn: [ 
-          {titulo: 'Operação', name: 'inputData', value: 'transacao'},
-          {titulo: 'Validação', name: 'inputData', value: 'validacao'}
-        ],
         button: {
           type: 'submit',
           extraClass: 'button',

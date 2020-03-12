@@ -32,7 +32,7 @@
 
 .file__form--input {
   vertical-align: middle;
-  margin: auto;
+  margin: auto 2px;
   font-size: 1.1em;
 }
 

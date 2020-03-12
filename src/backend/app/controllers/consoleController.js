@@ -29,13 +29,11 @@ router.post('/', ( req, res, next ) => {
 
   const token = cookiesToken.split('=')[1];
   
-  const operacao = jsonData.operacao; 
   const dados = jsonData.dados; 
 
   const payload = {
     topic: "/topics/data",
     data: {
-      operacao: operacao,
       dados: JSON.stringify( dados ), 
       token: token
     }  
@@ -80,7 +78,6 @@ router.post('/validacao', ( req, res, next ) => {
 router.get('/validacao', ( req, res, next ) => {
   res.status(200).send( validationResponse );
   validationResponse = {};
-
 });
 
 router.post('/status', ( req, res, next ) => {

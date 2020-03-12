@@ -6,8 +6,6 @@
   const fileDisplayArea = document.getElementById('informationArea');
   const submitBtn = document.getElementById('inputData');
 
-  document.querySelector( 'input[name="inputData"]' ).defaultChecked = 'true';
-
 
   chooseFile.addEventListener('change', (e) => {
     const file = chooseFile.files[0];
@@ -30,32 +28,14 @@
 
 
   submitBtn.addEventListener("click", () => {
-    const fileData = JSON.parse(dataFile);
-    let radioBtn = document.querySelector( 'input[name="inputData"]:checked' ).value;
+    const fileData = JSON.parse( dataFile );
 
     data = {
-      operacao: radioBtn,
       dados: fileData
     };
 
     submitBtn.value = JSON.stringify( data );
   }, false);
-
-
-  const operationsOp = document.querySelectorAll( 'input[name="inputData"]' )[0];
-    operationsOp.addEventListener('click', () => {
-      submitBtn.addEventListener('click', () => {
-        setTimeout('clearInterval(update)', 70000);
-      });
-    });
-
-
-  const validationOp = document.querySelectorAll('input[name="inputData"]')[1];
-    validationOp.addEventListener('click', () => {
-      submitBtn.addEventListener('click', () => {
-        setTimeout('clearInterval(validation)', 70000);
-      });
-    });
 
 
   submitBtn.addEventListener('mousedown', () => {

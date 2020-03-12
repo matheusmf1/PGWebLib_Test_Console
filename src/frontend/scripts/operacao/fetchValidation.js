@@ -7,13 +7,17 @@
         'Content-Type': 'application/json'
       },
       mode: 'cors'
-    }).then((response) => {
+    }).then(( response ) => {
       return response.json();
 
-    }).then((resp) => {
-      console.log('validacao', resp);
+    }).then( ( resp ) => {
+      console.log( 'validacao', resp );
 
-      if (resp.validacao) {
+      if ( resp.validacao ) {
+
+        let spinner =  document.getElementById('spinner');
+        if ( spinner )
+          spinner.classList.add('loaded');
 
         let sectionNode = document.getElementById('validacao__container');
         sectionNode.innerHTML = "";
@@ -62,7 +66,7 @@
         let tbody = document.createElement('tbody');
 
         let valData = [];
-        resp.validacao.forEach(item => {
+        resp.validacao.forEach( item => {
           trContent = document.createElement('tr');
           trContent.className = 'table__content';
 

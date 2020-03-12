@@ -24,6 +24,6 @@
       }).catch((err) => {
         console.log('Erro Fetch', err);
       });
-    }, 10000 );
+    }, 5000 );
 
 })();
