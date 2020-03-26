@@ -126,7 +126,6 @@
     await fetch(`/main/validation/${projectTitle}/${fileTitle}`, {
       method: 'DELETE'
     }).then( (response) => {
-      console.log('oi', response)
       return response.json();
     }).then( (resp) => {
       console.log('resp: ', resp);

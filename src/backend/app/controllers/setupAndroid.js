@@ -5,6 +5,8 @@ const fireBaseMsg = require('./fireBaseSendMsg');
 const User = require('../models/user');
 const Settings = require('../models/settings');
 
+var setupOk = {};
+
 router.use(authMiddleware);
 
 router.options('/*', (req, res, next) => {
@@ -20,6 +22,9 @@ router.post('/', async (req, res) => {
   const loadSettings = await Settings.findOne( { title: 'wakeApp', assignedTo: req.userId } );
   let payload = {};
 
+  const cookiesToken = req.headers.cookie;
+  const token = cookiesToken.split('=')[1];
+
   if ( loadSettings ) {
     payload = {
       topic: "wakeApp",
@@ -30,7 +35,8 @@ router.post('/', async (req, res) => {
         tcp_port: loadSettings.tcp_port,
         remote_port: loadSettings.remote_port,
         server_host: loadSettings.server_host,
-        server_port: loadSettings.server_port
+        server_port: loadSettings.server_port,
+        token: token
       }
     }
 
@@ -288,6 +294,16 @@ router.get('/load', async ( req, res ) => {
     res.status(200).send( { loadSettings: loadSettings } )
   else
     res.status(404).send( { error: 'Tcp configuration not found' } );    
+});
+
+router.post('/setup', ( req, res ) => {
+  setupOk = req.body;
+  res.status(200).send( { ok: true } );
+});
+
+router.get('/setup', ( req, res ) => {
+  res.status(200).send( setupOk );
+  setupOk = {};
 });
 
 

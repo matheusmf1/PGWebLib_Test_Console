@@ -13,7 +13,7 @@
         return response.json();
 
     }).then((resp) => {
-      console.log('resp ', resp);
+      console.log('trigger ', resp);
 
       if ( resp.trigger ) {
 
