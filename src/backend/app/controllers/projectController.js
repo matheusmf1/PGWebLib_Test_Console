@@ -26,49 +26,6 @@ router.get( '/', async ( req, res ) => {
   }
 });
 
-// Get all projects from the logged user
-router.get( '/projs', async ( req, res ) => {
-  try {
-
-    const projects = await Project.find( { assignedTo: req.userId } ).populate( ['validations'] );
-    res.status(200).send( { projects } );
-
-  } catch ( error ) {
-    console.log('Erro: ', error);
-    res.status(400).send( { error: 'Error on loading projects' } );
-  }
-});
-
-// Get all projects from all users
-router.get( '/allproj', async ( req, res ) => {
-  try {
-
-    const projects = await Project.find().populate( ['user', 'validations'] );
-    res.status(200).send( { projects } );
-
-  } catch (error) {
-    console.log('Erro: ', error);
-    res.status(400).send( { error: 'Error on loading all projects' } );
-  }
-});
-
-// Get a specific project 
-router.get('/:project', async ( req, res ) => {
-  try {
-
-    const project = await Project.findOne( { title: req.params.project }).populate( ['validations'] );
-   
-    if( !project )
-      return res.status(404).send( { error: 'Project not found' } );
-
-    return res.send( { project } );
-    
-  } catch (error) {
-    res.status(400).send( { error: 'Error on loading project' } );
-  }
-});
-
-
 router.post( '/', async ( req, res ) => {
   try {
 
@@ -94,7 +51,38 @@ router.post( '/', async ( req, res ) => {
   }
 });
 
-router.put( '/:projectId', async ( req, res ) => {
+
+// Get all projects from the logged user - JSON
+router.get( '/projs', async ( req, res ) => {
+  try {
+
+    const projects = await Project.find( { assignedTo: req.userId } ).populate( ['validations'] );
+    res.status(200).send( { projects } );
+
+  } catch ( error ) {
+    console.log('Erro: ', error);
+    res.status(400).send( { error: 'Error on loading projects' } );
+  }
+});
+
+// Get a specific project - JSON
+router.get( '/projs/:project', async ( req, res ) => {
+  try {
+
+    const project = await Project.findOne( { title: req.params.project }).populate( ['validations'] );
+   
+    if( !project )
+      return res.status(404).send( { error: 'Project not found' } );
+
+    return res.send( { project } );
+    
+  } catch (error) {
+    res.status(400).send( { error: 'Error on loading project' } );
+  }
+});
+
+// Returns the updated proj - JSON
+router.put( '/projs/:projectId', async ( req, res ) => {
   try {
 
     const { title, description, validations } = req.body;
@@ -125,7 +113,7 @@ router.put( '/:projectId', async ( req, res ) => {
   }
 });
 
-router.delete( '/:project', async ( req, res ) => {
+router.delete( '/projs/:project', async ( req, res ) => {
   try {
 
     const project = await Project.findOne( { title: req.params.project } ).populate( ['validations'] );
@@ -164,6 +152,20 @@ router.delete( '/:project', async ( req, res ) => {
     res.status(400).send( { error: 'Error on deleting project' } );
   }
 });
+
+// Get all projects from all users - JSON
+router.get( '/allproj', async ( req, res ) => {
+  try {
+
+    const projects = await Project.find().populate( ['user', 'validations'] );
+    res.status(200).send( { projects } );
+
+  } catch (error) {
+    console.log('Erro: ', error);
+    res.status(400).send( { error: 'Error on loading all projects' } );
+  }
+});
+
 
 
 module.exports = app => app.use( '/main', router );
