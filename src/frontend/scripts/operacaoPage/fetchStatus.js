@@ -15,7 +15,8 @@
 
         if ( resp.erro ) {
           let spinner =  document.getElementById('spinner');
-          spinner.classList.add('loaded');
+          if ( spinner )
+            spinner.classList.add('loaded');
           
           resp.erro.forEach( ( c ) => { alert( Object.values( c ).toString() ); } );
           clearInterval(status);

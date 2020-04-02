@@ -2,7 +2,11 @@
   <ul class="project__list">
     <% projects.forEach( ( p ) => { %>
     <li class="project__list--content">
-      <a href data-modal=#<%= p.title %> class="modal__trigger modal__content--size"> <%= p.title %> </a>
+
+      <div>
+        <%- include( 'deleteIcon' ) %>
+        <a href data-modal=#<%= p.title %> class="modal__trigger modal__content--size"> <%= p.title %> </a>
+      </div>
 
       <div id="<%= p.title %>" class="modal__container" role="dialog" aria-hidden="true">
         <div class="modal__dialog modal__content">

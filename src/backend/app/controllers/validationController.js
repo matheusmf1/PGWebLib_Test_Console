@@ -15,6 +15,8 @@ router.options( '/*', ( req, res, next ) => {
   res.sendStatus(204);
 });
 
+
+// Returns a JSON
 router.get( '/', async ( req, res ) => {
   try {
 
@@ -30,6 +32,37 @@ router.get( '/', async ( req, res ) => {
     res.status(400).send( { error: 'Error on loading Validations' } );
   }
 });
+
+
+router.post( '/', async ( req, res ) => {
+  try {
+    const { title, info, projectTitle } = req.body;
+    
+    const project = await Project.findOne( { title: projectTitle } ).where( { assignedTo: req.userId } );
+    
+    if ( !project ) 
+      return res.status(404).send( { error: 'Project Does not Exists' } );
+
+    const validation = await new Validation( { title, info, project: project._id } );
+
+
+    const checkVal = await Validation.findOne( { title: title } ).where( { project: project._id } );
+
+    if ( checkVal )
+      return res.status(400).send( { error: 'Validation already in this User'} );
+  
+    project.validations.push( validation );
+
+    await validation.save();
+    await project.save(); 
+
+    return res.status(200).redirect('/main/');
+  } catch ( error ) {
+    console.log( error );
+    res.status(400).send( { error: 'Error creating new Validation' } );
+  }
+});
+
 
 router.get('/:val', async ( req, res ) => {
   try{
@@ -49,35 +82,6 @@ router.get('/:val', async ( req, res ) => {
   }
 });
 
-
-router.post( '/', async ( req, res ) => {
-  try {
-    const { title, info, projectTitle } = req.body;
-    
-    const project = await Project.findOne( { title: projectTitle } ).where( { assignedTo: req.userId } );
-    
-    if ( !project ) 
-      return res.status(404).send( { error: 'Project Does not Exists' } );
-
-    const validation = await new Validation( { title, info, project: project._id } );
-    console.log('validation', validation);
-
-    const checkVal = await Validation.findOne( { title: title } ).where( { project: project._id } );
-
-    if ( checkVal )
-      return res.status(400).send( { error: 'Validation already in this User'} );
-  
-    project.validations.push( validation );
-
-    await validation.save();
-    await project.save(); 
-
-    return res.status(200).redirect('/main/');
-  } catch ( error ) {
-    console.log( error );
-    res.status(400).send( { error: 'Error creating new Validation' } );
-  }
-});
 
 
 router.put( '/:val', async ( req, res ) => {

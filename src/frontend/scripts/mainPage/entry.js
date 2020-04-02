@@ -91,9 +91,10 @@ const Modal = (function() {
 
   };
 
-  var open = function(m, div) {
+  
+  var open = (m, div) => {
 
-    if (!isOpen) {
+    if ( !isOpen ) {
       // select the content inside the modal
       var content = m.querySelector('.modal__content');
       // reveal the modal
@@ -119,7 +120,7 @@ const Modal = (function() {
     }
   };
 
-  var close = function(event) {
+  var close = (event) => {
 
 		event.preventDefault();
     event.stopImmediatePropagation();
