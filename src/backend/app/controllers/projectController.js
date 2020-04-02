@@ -14,6 +14,8 @@ router.options( '/*', ( req, res, next ) => {
   res.sendStatus(204);
 });
 
+
+// Render main page with all user projects
 router.get( '/', async ( req, res ) => {
   try {
     
