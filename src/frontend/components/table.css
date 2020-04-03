@@ -1,6 +1,7 @@
 .table__container {
   background-color: #fff;
-  margin: 1em 5em 5em;
+  /* margin: 1em 5em 5em; */
+  margin: 0em auto 2em;
   padding: 0.5em;
 }
 
@@ -53,11 +54,11 @@
 .table__option {
   display: flex;
   flex-direction: row;
-  flex: auto;
+  /* flex: auto; */
   place-content: space-evenly;
-  margin: 0 5em;
+  /* margin: 0 5em; */
   padding: 1.05em;
-  width: auto;
+  /* width: auto; */
   background-color: rgba(58,95,205,.85);
 }
 
@@ -73,20 +74,16 @@
   .table__container--shadow {
     box-shadow: none;
   }
-
-  .table__title {
-    display: block;
-  }
-
   .table__content {
-    display: block;
     border-radius: 2px;
     margin-bottom: 1.6rem;
   }
 
-  .table__content--border {
-    display: block;
-    text-align: right;
+  .table__content--left {
+    padding: 0.8em;
   }
 
+  .table__content--border {
+    padding: 1.4rem;
+  }
 }
