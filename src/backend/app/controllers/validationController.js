@@ -64,17 +64,22 @@ router.post( '/', async ( req, res ) => {
 });
 
 
-router.get('/:val', async ( req, res ) => {
+router.get('/:proj/:val', async ( req, res ) => {
   try{
-    const validacao = await Validation.findOne( { title: req.params.val } );
-    
-    if ( !validacao )
-    return res.status(404).send( { error: 'Validation not found' } );
 
-    const project = await Project.findById( validacao.project );
-    const data =  JSON.parse(validacao.info);
+    const project = await Project.findOne( { title: req.params.proj } ).where( { assignedTo: req.userId } );
+  
+    if ( !project )
+      return res.status(404).send( { error: 'Project not found'} );
 
-    res.status(200).render('validation', { projeto: project.title, titulo: validacao.title, validacao: data } );
+    const validation = await Validation.findOne( { title: req.params.val } ).where( { project: project._id } );
+  
+    if ( !validation )
+      return res.status(404).send( { error: 'Validation not found' } );
+
+    const data =  JSON.parse(validation.info);
+
+    res.status(200).render( 'validation', { projeto: project.title, titulo: validation.title, validacao: data } );
 
   } catch( err ) {
     console.log( err );

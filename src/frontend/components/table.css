@@ -1,6 +1,5 @@
 .table__container {
   background-color: #fff;
-  /* margin: 1em 5em 5em; */
   margin: 0em auto 2em;
   padding: 0.5em;
 }
@@ -54,11 +53,8 @@
 .table__option {
   display: flex;
   flex-direction: row;
-  /* flex: auto; */
   place-content: space-evenly;
-  /* margin: 0 5em; */
   padding: 1.05em;
-  /* width: auto; */
   background-color: rgba(58,95,205,.85);
 }
 

@@ -15,7 +15,8 @@
       if ( resp.comprovante ) {
 
         let spinner =  document.getElementById('spinner');
-        spinner.classList.add('loaded');
+        if ( spinner )
+          spinner.classList.add('loaded');
 
         let sectionNode = document.getElementById('comprovante__container');
         sectionNode.innerHTML = "";

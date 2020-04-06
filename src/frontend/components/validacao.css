@@ -4,8 +4,6 @@
 }
 
 .validacao__container--active{
-  /* display: flex; */
-  /* flex-wrap: wrap; */
   display: block;
   justify-content: center;
   background-color: #f5f5f5;
