@@ -84,30 +84,21 @@ router.get( '/projs/:project', async ( req, res ) => {
 });
 
 // Returns the updated proj - JSON
-router.put( '/projs/:projectId', async ( req, res ) => {
+router.put( '/projs/:projectName', async ( req, res ) => {
   try {
 
-    const { title, description, validations } = req.body;
+    const { title, description } = req.body;
 
-    const project = await Project.findByIdAndUpdate( req.params.projectId, { 
-      title, 
-      description
-    });
+    const project = await Project.findOne( { assignedTo: req.userId, title: req.params.projectName } );
 
-    project.validations = [];
-    await Validation.remove( { project: project._id } );
+    if ( !project )
+      res.status(404).send( {  Error: "Project not Found"  } );
+    
+    const projectUpdate = await Project.findOne( { _id: project._id } );
+    
+    await projectUpdate.updateOne( { title: title, description: description } );
 
-    await Promise.all( validations.map( async val => {
-      const projectVal = new Validation( { ...val, project: project._id } );
-
-      await projectVal.save();
-
-      project.validations.push( projectVal );
-    }));
-
-    await project.save();
-
-    res.send( { project } );
+    res.status(200).send( { ok: true } );
 
   } catch (error) {
     console.log(error)
