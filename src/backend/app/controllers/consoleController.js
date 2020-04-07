@@ -24,12 +24,18 @@ var loadingTrigger = {};
 // Send data to Android Service
 router.post('/', ( req, res, next ) => {
 
-  const jsonData = JSON.parse( req.body.jsonData );
-  const cookiesToken = req.headers.cookie;
+  const data = req.body;
+  let dados;  
 
+  if ( data.jsonData )
+    dados = JSON.parse( data.jsonData );
+
+  else
+    dados = data;
+
+  const cookiesToken = req.headers.cookie;
   const token = cookiesToken.split('=')[1];
-  
-  const dados = jsonData.dados; 
+ 
 
   const payload = {
     topic: "/topics/data",

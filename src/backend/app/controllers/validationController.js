@@ -63,7 +63,7 @@ router.post( '/', async ( req, res ) => {
   }
 });
 
-
+// Returns the rendered validation page
 router.get('/:proj/:val', async ( req, res ) => {
   try{
 
@@ -88,12 +88,42 @@ router.get('/:proj/:val', async ( req, res ) => {
 });
 
 
+// Returns the specefic validation in json
+router.get('/:proj/:val/json', async ( req, res ) => {
+  try{
 
-router.put( '/:val', async ( req, res ) => {
+    const project = await Project.findOne( { title: req.params.proj } ).where( { assignedTo: req.userId } );
+  
+    if ( !project )
+      return res.status(404).send( { error: 'Project not found'} );
+
+    const validation = await Validation.findOne( { title: req.params.val } ).where( { project: project._id } );
+  
+    if ( !validation )
+      return res.status(404).send( { error: 'Validation not found' } );
+
+    const data =  JSON.parse(validation.info);
+
+    res.status(200).send( { projeto: project.title, titulo: validation.title, validacao: data } );
+
+  } catch( err ) {
+    console.log( err );
+    return res.status(400).send( { error: 'Error on loading Validation' } )
+  }
+});
+
+
+router.put( '/:proj/:val', async ( req, res ) => {
   try {
     const { title } = req.body;
-    const validation = await Validation.findOne( { title: req.params.val } );
 
+    const project = await Project.findOne( { title: req.params.proj } ).where( { assignedTo: req.userId } );
+  
+    if ( !project )
+      return res.status(404).send( { error: 'Project not found'} );
+
+    const validation = await Validation.findOne( { title: req.params.val } ).where( { project: project._id } );
+  
     if ( !validation )
       return res.status(404).send( { error: 'Validation not found' } );
 

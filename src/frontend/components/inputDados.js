@@ -30,11 +30,8 @@
   submitBtn.addEventListener("click", () => {
     const fileData = JSON.parse( dataFile );
 
-    data = {
-      dados: fileData
-    };
-
-    submitBtn.value = JSON.stringify( data );
+    submitBtn.value = JSON.stringify( fileData );
+    console.log('test:', submitBtn.value)
   }, false);
 
 

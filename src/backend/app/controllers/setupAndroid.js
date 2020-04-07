@@ -41,8 +41,7 @@ router.post('/', async (req, res) => {
     }
 
   } else {
-    // criar função para configurar a aplicação  pela primeira vez
-    
+    // criar função para configurar a aplicação  pela primeira vez   
  
   }
 
@@ -80,21 +79,14 @@ router.get('/', async (req, res) => {
 
 });
 
-router.post('/close', async ( req, res ) => {
-
- const payload = {
-    topic: "/topics/turnOff",
-    notification: {},
-    data: { title: "turnOff" }
-  }
-
-  fireBaseMsg.sendData( payload ).then( (message) => {
-    res.status(200).json( { ok:true });
-
-  }).catch( (error) => { 
-    console.log( 'Erro monstruoso: ', error );
-  });
-
+router.get('/json', async ( req, res ) => {
+  const title = 'wakeApp';
+  const loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
+  
+  if ( loadSettings )
+    res.status(200).send( { loadSettings: loadSettings } )
+  else
+    res.status(404).send( { error: 'Tcp configuration not found' } );    
 });
 
 router.post('/pinpad', async ( req, res ) => {
@@ -208,7 +200,6 @@ router.post('/server', async ( req, res ) => {
     var settings;
 
     const userSettings = await User.findByIdAndUpdate( req.userId ).select('settings').populate(['settings']);
-    console.log('userSettings: ', userSettings);
 
     let loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
     console.log('oldData: ', loadSettings);
@@ -217,8 +208,7 @@ router.post('/server', async ( req, res ) => {
 
       await loadSettings.updateOne( { server_host: serverHost, server_port: serverPort } );
       settings = await Settings.findOne( { title: title, assignedTo: req.userId } );
-
-      console.log('newData: ', settings);
+      
       await userSettings.updateOne( { settings: settings } );
     }
     else {
@@ -286,16 +276,6 @@ router.get('/server', async ( req, res ) => {
     res.status(404).send( { error: 'Server configuration not found' } );    
 });
 
-router.get('/load', async ( req, res ) => {
-  const title = 'wakeApp';
-  const loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
-  
-  if ( loadSettings )
-    res.status(200).send( { loadSettings: loadSettings } )
-  else
-    res.status(404).send( { error: 'Tcp configuration not found' } );    
-});
-
 router.post('/setup', ( req, res ) => {
   setupOk = req.body;
   res.status(200).send( { ok: true } );
@@ -306,5 +286,23 @@ router.get('/setup', ( req, res ) => {
   setupOk = {};
 });
 
+
+router.post('/close', async ( req, res ) => {
+
+  const payload = {
+     topic: "/topics/turnOff",
+     notification: {},
+     data: { title: "turnOff" }
+   }
+ 
+   fireBaseMsg.sendData( payload ).then( (message) => {
+     res.status(200).json( { ok:true });
+ 
+   }).catch( (error) => { 
+     console.log( 'Erro monstruoso: ', error );
+   });
+ 
+ });
+ 
 
 module.exports = app => app.use('/settings', router);

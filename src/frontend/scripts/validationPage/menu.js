@@ -23,9 +23,9 @@
       divContent.className = 'modal__dialog modal__content modal__content--active';
 
     const h1Title = document.createElement('h1');
-      h1Title.innerHTML = "Modificar Nome";
+      h1Title.innerHTML = `Modificar ${fileTitle}`;
 
-    divContent.appendChild(h1Title);
+    divContent.appendChild( h1Title );
 
     const mainDivNode = document.createElement('div');
       mainDivNode.className = 'form__ProjProject';
@@ -101,7 +101,7 @@
     const updateBtn = document.getElementById('updateBtn').addEventListener('click', async () => {
       const newTitle = document.querySelector('.form__ProjContent--input');
 
-      await fetch(`/main/validation/${fileTitle}`, {
+      await fetch(`/main/validation/${projectTitle}/${fileTitle}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify( {title: newTitle.value} )
@@ -109,7 +109,7 @@
         return response.json();
       }).then( (resp) => {
         console.log('resp: ', resp);
-        window.location.href = `/main/validation/${newTitle.value}`
+        window.location.href = `/main/validation/${projectTitle}/${newTitle.value}`
       }).catch( (err) => {
   
       }).catch( (err) => {
