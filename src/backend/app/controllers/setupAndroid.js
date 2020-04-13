@@ -202,7 +202,6 @@ router.post('/server', async ( req, res ) => {
     const userSettings = await User.findByIdAndUpdate( req.userId ).select('settings').populate(['settings']);
 
     let loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
-    console.log('oldData: ', loadSettings);
 
     if ( loadSettings ) {
 

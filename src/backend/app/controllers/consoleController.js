@@ -19,6 +19,9 @@ var resultResponse = {};
 var validationResponse = {};
 var statusResponse = {};
 var loadingTrigger = {};
+var validationResponse2 = { info: "Dados ainda recebidos da Aplicação Android" };
+var resultResponse2 = { info: "Dados ainda recebidos da Aplicação Android" };
+var statusResponse2 = {};
 
 
 // Send data to Android Service
@@ -45,8 +48,6 @@ router.post('/', ( req, res, next ) => {
     }  
   }
 
-  console.log('data payload: ', payload);
-
   fireBaseMsg.sendData( payload ).then( (message) => {
     res.status(200).render( 'operacao', { 
       infoArea: 'Success message sent to the device '} );
@@ -67,6 +68,7 @@ router.get('/', ( req, res, next ) => {
 // in order to use it on get request.
 router.post('/resultado', ( req, res, next ) => {
   resultResponse = req.body;
+  resultResponse2 = resultResponse;
   res.status(200).json( { ok: true } );
 });
 
@@ -75,9 +77,13 @@ router.get('/resultado', ( req, res, next ) => {
   resultResponse = {};
 });
 
+router.get('/resultado/json', ( req, res, next ) => {
+  res.status(200).send( resultResponse2 );
+});
 
 router.post('/validacao', ( req, res, next ) => {
   validationResponse = req.body;
+  validationResponse2 = validationResponse;
   res.status(200).json( { ok: true } );
 });
 
@@ -86,8 +92,13 @@ router.get('/validacao', ( req, res, next ) => {
   validationResponse = {};
 });
 
+router.get('/validacao/json', ( req, res, next ) => {
+  res.status(200).send( validationResponse2 );
+});
+
 router.post('/status', ( req, res, next ) => {
   statusResponse = req.body;
+  statusResponse2 = statusResponse;
   res.status(200).json( { ok: true } );
 });
 
@@ -96,6 +107,9 @@ router.get('/status', ( req, res, next ) => {
   statusResponse = {};
 });
 
+router.get('/status/json', ( req, res, next ) => {
+  res.status(200).send( statusResponse2 );
+});
 
 router.post('/loading', ( req, res ) => {
   loadingTrigger = req.body;
