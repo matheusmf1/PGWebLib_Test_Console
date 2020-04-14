@@ -15,6 +15,9 @@
 
       othertab[0].classList.remove('active')
 
+      const hideForgotTab = document.querySelector( '#forgot_password' );
+      hideForgotTab.style.display = 'none';
+
       parent.classList.add('active');
     
       let target = i.target.getAttribute('href');

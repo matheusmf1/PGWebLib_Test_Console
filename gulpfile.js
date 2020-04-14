@@ -26,6 +26,8 @@ gulp.task('min-css-validation', async () => task('./src/frontend/styles/validati
 
 gulp.task('min-css-settings', async () => task('./src/frontend/styles/settings/*.css', mincss, 'settings.min.css', 'public/css'));
 
+gulp.task('min-css-passwordReset', async () => task('./src/frontend/styles/passwordReset/*.css', mincss, 'passwordReset.min.css', 'public/css'));
+
 // JS
 gulp.task('min-js-components', async () => task('./src/frontend/components/*.js', minjs, 'components.min.js', 'public/js'));
 
@@ -43,6 +45,8 @@ gulp.task('min-js-validation', async () => task('./src/frontend/scripts/validati
 
 gulp.task('min-js-settings', async () => task('./src/frontend/scripts/settingsPage/*.js', minjs, 'settings.min.js', 'public/js'));
 
+gulp.task('min-js-passwordReset', async () => task('./src/frontend/scripts/passwordReset/*.js', minjs, 'passwordReset.min.js', 'public/js'));
+
 
 gulp.task( 'watch', async () => {
   gulp.watch('./src/frontend/components/*.css', gulp.parallel('min-css-components'));
@@ -52,6 +56,7 @@ gulp.task( 'watch', async () => {
   gulp.watch('./src/frontend/styles/main/*.css', gulp.parallel('min-css-main'));
   gulp.watch('./src/frontend/styles/validation/*.css', gulp.parallel('min-css-validation'));
   gulp.watch('./src/frontend/styles/settings/*.css', gulp.parallel('min-css-settings'));
+  gulp.watch('./src/frontend/styles/passwordReset/*.css', gulp.parallel('min-css-passwordReset'));
 
   gulp.watch('./src/frontend/components/*.js', gulp.parallel('min-js-components'));
   gulp.watch('./src/frontend/scripts/operacaoPage/*.js', gulp.parallel('min-js-operacao'));
@@ -61,6 +66,7 @@ gulp.task( 'watch', async () => {
   gulp.watch('./src/frontend/scripts/mainPage/*.js', gulp.parallel('min-js-main'));
   gulp.watch('./src/frontend/scripts/validationPage/*.js', gulp.parallel('min-js-validation'));
   gulp.watch('./src/frontend/scripts/settingsPage/*.js', gulp.parallel('min-js-settings'));
+  gulp.watch('./src/frontend/scripts/passwordReset/*.js', gulp.parallel('min-js-passwordReset'));
 });
 
 gulp.task('default', gulp.parallel(
@@ -71,6 +77,7 @@ gulp.task('default', gulp.parallel(
   'min-css-main',
   'min-css-validation',
   'min-css-settings',
+  'min-css-passwordReset',
   'min-js-components',
   'min-js-common',
   'min-js-operacao',
@@ -79,5 +86,6 @@ gulp.task('default', gulp.parallel(
   'min-js-main',
   'min-js-validation',
   'min-js-settings',
+  'min-js-passwordReset',
   'watch'
 ));

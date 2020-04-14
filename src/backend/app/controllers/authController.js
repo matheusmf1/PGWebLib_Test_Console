@@ -80,7 +80,7 @@ router.post('/forgot_password', async ( req, res ) => {
     const user = await User.findOne( { email } );
 
     if( !user )
-      return res.status(404).render( 'login', { info: 'User Not Found' } );
+      return res.status(404).render( 'login', { info: 'Usuário não encontrado' } );
 
     const token = crypto.randomBytes(20).toString('hex');
 
@@ -95,11 +95,13 @@ router.post('/forgot_password', async ( req, res ) => {
       }
     });
 
+    const url = `/auth/reset_password/${token}`;
+
     mailer.sendMail( {
       to: email,
       from: 'matheus.franco@test.com.br',
       html: `
-      <p>Você esqueceu sua senha? Não se preocupe, utilize esse token: { ${ token } } </p> `
+      <p>Você esqueceu sua senha? Não se preocupe, click nesse <a href="{ ${url} }">link</a> to para alterar a senha </p> `
 
     }, ( err ) => {
       if( err )
@@ -116,9 +118,10 @@ router.post('/forgot_password', async ( req, res ) => {
 });
 
 
-router.post('/reset_password', async ( req, res ) => {
+router.post('/reset_password/:token', async ( req, res ) => {
 
-  const { email, token, password } = req.body;
+  const { email, password } = req.body;
+  const token = req.params.token;
 
   try {
 
@@ -126,15 +129,16 @@ router.post('/reset_password', async ( req, res ) => {
     .select('+passwordResetToken passwordResetExpires');
 
     if( !user )
-      return res.status(404).send( { error: 'User not found' } );
+      return res.status(404).render('passwordReset', { info: 'Usuário não encontrado', token: token });
 
     if( token !== user.passwordResetToken )
-      return res.status(400).send( { error: 'Token invalid' } );
+      return res.status(401).render('passwordReset', { info: 'Token inválido', token: token })
 
     const now = new Date();
 
     if( now > user.passwordResetExpires )
-      return res.status(400).send( { error: 'Token has expired, generate a new one' } );
+      return res.status(404).render('passwordReset', { info: 'Link expirado, gere um novo', token: token })
+
 
     user.password = password;
 
@@ -143,8 +147,16 @@ router.post('/reset_password', async ( req, res ) => {
     res.status(200).send( { ok: true } );
     
   } catch (error) {
-    res.status(400).send( { error: 'Cannot reset password, try it again' } )
-  }
+      return res.status(400).render('passwordReset', { info: 'Desculpe, houve um erro ao alterar a senha, por favor tente novamente', token: token });
+}
+});
+
+router.get('/reset_password/:token', ( req, res, next ) => {
+
+  const token = req.params.token;
+
+  res.status(200).render('passwordReset', { info: '', token: token } );
+
 });
 
 router.get('/logout', ( req, res, next ) => {
