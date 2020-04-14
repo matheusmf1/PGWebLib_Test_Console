@@ -74,6 +74,10 @@ router.post('/authenticate', async ( req, res ) => {
 
 router.post('/forgot_password', async ( req, res ) => {
   const { email } = req.body;
+  const ip = req.connection.remoteAddress;
+  const port = 3000;
+  
+  const ipAdd = `${ip}:${port}`;
 
   try {
     
@@ -95,25 +99,24 @@ router.post('/forgot_password', async ( req, res ) => {
       }
     });
 
-    const url = `/auth/reset_password/${token}`;
+    const url = `http://${ipAdd}/auth/reset_password/${token}`;
 
     mailer.sendMail( {
       to: email,
       from: 'matheus.franco@test.com.br',
       html: `
-      <p>Você esqueceu sua senha? Não se preocupe, click nesse <a href="{ ${url} }">link</a> to para alterar a senha </p> `
+      <p>Você esqueceu sua senha? Não se preocupe, click nesse <a href="${url}">link</a> to para alterar a senha </p> `
 
     }, ( err ) => {
       if( err )
-        return res.status(400).send( { error: 'Cannot send forgot password email' } );
+        return res.status(400).render( 'login', { info: 'Descuple, não foi possivel enviar o email, por favor tente novamente!' } );
 
-  
-      return res.status(200).send( { ok: true } );
+      return res.status(200).render( 'login', { info: 'Um link para recuperar sua senha foi enviado para seu email!' } );
      });
 
   } catch (err) {
     console.log(err);
-    res.status(400).send( { error: 'Error on forgot password, try again' } );
+    return res.status(400).render( 'login', { info: 'Descuple, não foi possivel enviar o email, por favor tente novamente' } );
   }
 });
 
@@ -144,7 +147,7 @@ router.post('/reset_password/:token', async ( req, res ) => {
 
     user.save();
   
-    res.status(200).send( { ok: true } );
+    return res.status(200).render( 'passwordReset', { info: 'Senha alterada com sucesso!' } );
     
   } catch (error) {
       return res.status(400).render('passwordReset', { info: 'Desculpe, houve um erro ao alterar a senha, por favor tente novamente', token: token });
@@ -224,8 +227,6 @@ router.delete('/user/:email', async (req, res) => {
     res.status(400).send( {  ok: false } );
 
   }
-  
-
 });
 
 
