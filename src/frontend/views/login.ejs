@@ -20,6 +20,9 @@
   </header>
 
   <main>
+    
+    <%- include( '../components/info_callback', { info: info }  ) %>
+
     <section class="form">
       
       <ul class="tab-group">
@@ -31,7 +34,9 @@
   
        <%- include('../components/sign_up') %>
   
-       <%- include('../components/login') %>
+       <%- include('../components/sign_in') %>
+
+       <%- include('../components/forgot_password') %>
   
       </div>
       

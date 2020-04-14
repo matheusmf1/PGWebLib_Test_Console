@@ -56,12 +56,12 @@ router.post('/authenticate', async ( req, res ) => {
 
   const user = await User.findOne( { email } ).select('+password');
 
-  if(!user)
-    return res.status(404).send( { error: 'User Not Found' } );
-
-  if( !await bcrypt.compare( password, user.password ) )
-    return res.status(400).send( { error: 'Invalid Password' } );
-
+  if ( !user )
+    return res.status(404).render( 'login', { info: 'User Not Found' } );
+  
+  if ( !await bcrypt.compare( password, user.password ) )
+    return res.status(404).render( 'login', { info: 'Invalid Password' } );
+  
   user.password = undefined;
   const token = generateToken( { id: user.id } );
   console.log('token: ', token);
@@ -80,7 +80,7 @@ router.post('/forgot_password', async ( req, res ) => {
     const user = await User.findOne( { email } );
 
     if( !user )
-      return  res.status(400).send( { error: 'User not found' } );
+      return res.status(404).render( 'login', { info: 'User Not Found' } );
 
     const token = crypto.randomBytes(20).toString('hex');
 
