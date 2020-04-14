@@ -1,0 +1,41 @@
+<div class="settings__container--left">
+  <nav class="nav__items">
+
+    <% tabs.forEach( ( e ) => { %>
+      <%  if ( e.start ) { %>
+        <a id="<%= e.start.id %>" class="nav__items--content"><%= e.start.title %></a>
+        <% } else { %>
+          <a id="<%= e.id %>" class="nav__items--content <%= e.extraClass %>"><%= e.title %></a>
+      <% } %>
+
+  <% }) %>
+  </nav>
+</div>
+
+
+<div class="settings__container--right">
+
+  <% tabContent.forEach( ( tab ) => { %>
+    <div id="<%= tab.id %>" class="<%= tab.extraClass %>">
+      <h1 class="tab__container--title"><%= tab.title %></h1>
+      
+      <form action="<%= tab.route %>" method="POST">
+        
+        <% tab.content.forEach( ( c ) => { %>
+ 
+          <div class="form__content">
+            <label class="form__content--label"><%= c.label %></label>
+            <input class="input" type="text" name="<%= c.name %>" required />
+          </div>         
+
+        <% }) %>
+        
+        <button type="submit" class="button-login button-block" />Salvar</button>
+      </form>
+    </div>
+  <% }) %>
+
+</div>
+
+
+

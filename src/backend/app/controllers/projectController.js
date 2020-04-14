@@ -1,26 +1,74 @@
-const express = require('express');
+const router = require('express').Router();
 const authMiddleware = require('../middlewares/auth');
 
 const Project = require('../models/project');
 const Validation = require('../models/validation');
 const User = require('../models/user');
 
-const router = express.Router();
-
 router.use( authMiddleware );
 
+router.options( '/*', ( req, res, next ) => {
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Methods', 'GET, POST','UPDATE','DELETE' );
+  res.header( 'Access-Control-Allow-Headers', 'Accept, Access-Control-Allow-Origin, Content-Type' );
+  res.sendStatus(204);
+});
+
+
+// Render main page with all user projects
 router.get( '/', async ( req, res ) => {
   try {
+    
+    const projects = await Project.find().where( { assignedTo: req.userId } ).populate(  ['validations'] );
+    res.status(200).render( 'main', { projects: projects } );
 
-    const projects = await Project.find().populate( ['user', 'validations'] );
-    return res.send( { projects } );
-
-  } catch (error) {
+  } catch ( error ) {
+    console.log('Erro: ', error);
     res.status(400).send( { error: 'Error on loading projects' } );
   }
 });
 
-router.get( '/:project', async ( req, res ) => {
+router.post( '/', async ( req, res ) => {
+  try {
+
+    const { title, description } = req.body;
+
+    const userProj = await User.findByIdAndUpdate( req.userId ).select('projects');
+    
+    const project = await new Project( { title, description, assignedTo: userProj._id } );
+   
+    const check = await Project.findOne( { title: title } ).where( { assignedTo: userProj._id } );
+   
+    if ( check )
+      return res.status(400).send( { error: 'Project Already in this User' } );
+
+    await project.save();
+    await userProj.updateOne( { $push: { projects: project } } );
+    const projects = await Project.find( { assignedTo: req.userId } ); 
+
+    res.status(200).render( 'main', { projects: projects } );
+  } catch ( error ) {
+    console.log('erro: ', error);
+    res.status(400).send( { error: 'Error creating new project' } );
+  }
+});
+
+
+// Get all projects from the logged user - JSON
+router.get( '/projs', async ( req, res ) => {
+  try {
+
+    const projects = await Project.find( { assignedTo: req.userId } ).populate( ['validations'] );
+    res.status(200).send( { projects } );
+
+  } catch ( error ) {
+    console.log('Erro: ', error);
+    res.status(400).send( { error: 'Error on loading projects' } );
+  }
+});
+
+// Get a specific project - JSON
+router.get( '/projs/:project', async ( req, res ) => {
   try {
 
     const project = await Project.findOne( { title: req.params.project }).populate( ['validations'] );
@@ -35,60 +83,22 @@ router.get( '/:project', async ( req, res ) => {
   }
 });
 
-router.post( '/', async ( req, res ) => {
+// Returns the updated proj - JSON
+router.put( '/projs/:projectName', async ( req, res ) => {
   try {
 
     const { title, description } = req.body;
 
-    const userProj = await User.findById( req.userId ).select('+password').select('projects');
-    console.log('UserProj: ', userProj);
+    const project = await Project.findOne( { assignedTo: req.userId, title: req.params.projectName } );
 
-    const project = await new Project( { title, description, assignedTo: userProj._id });
-   
-    const check = await Project.findOne( { title: title } ).where( { assignedTo: userProj._id } );
-  
-    console.log('project: ', project);
-    console.log('check: ', check);
-   
-    if ( check )
-      return res.status(400).send( { error: 'Project Already in this User' } );
-
-    userProj.projects.push( project );
+    if ( !project )
+      res.status(404).send( {  Error: "Project not Found"  } );
     
-    await project.save();
-    await userProj.save();
+    const projectUpdate = await Project.findOne( { _id: project._id } );
+    
+    await projectUpdate.updateOne( { title: title, description: description } );
 
-    res.status(200).send( { project } );
-  } catch ( error ) {
-    console.log('erro: ', error);
-    res.status(400).send( { error: 'Error creating new project' } )
-  }
-});
-
-router.put( '/:projectId', async ( req, res ) => {
-  try {
-
-    const { title, description, validations } = req.body;
-
-    const project = await Project.findByIdAndUpdate( req.params.projectId, { 
-      title, 
-      description
-    });
-
-    project.validations = [];
-    await Validation.remove( { project: project._id } );
-
-    await Promise.all( validations.map( async val => {
-      const projectVal = new Validation( { ...val, project: project._id } );
-
-      await projectVal.save();
-
-      project.validations.push( projectVal );
-    }));
-
-    await project.save();
-
-    res.send( { project } );
+    res.status(200).send( { ok: true } );
 
   } catch (error) {
     console.log(error)
@@ -96,7 +106,7 @@ router.put( '/:projectId', async ( req, res ) => {
   }
 });
 
-router.delete( '/:project', async ( req, res ) => {
+router.delete( '/projs/:project', async ( req, res ) => {
   try {
 
     const project = await Project.findOne( { title: req.params.project } ).populate( ['validations'] );
@@ -104,28 +114,51 @@ router.delete( '/:project', async ( req, res ) => {
     if ( !project )
       return res.status(404).send( { error: 'Project not found'} );
 
-    const user = await User.findOne( { id: req.userId } ).select('+password');
+    const user = await User.findByIdAndUpdate( req.userId ).select('projects');
+ 
+    const check = user.projects;
 
-    const userProj = user.projects.forEach( async ( proj, index, obj ) => {
-     
-      if ( proj.toString === project._id.toString ) {
-        obj.splice( index, 1 );
-        await user.save();
-      }
-    });
+    if ( check ) {
+      const userProj = check.indexOf( project._id );
+      check.splice( userProj, 1 );
 
-    const validations = project.validations.forEach( async ( v ) => {
+      await user.updateOne( { projects: check } );
+    }
+    else{
+      return res.status(404).send( { error: 'Error on loading User Projecs'} );
+    }
+
+    const validations = project.validations;
+
+    if ( validations ) {
+      validations.forEach( async ( v ) => {
       await Validation.findOneAndDelete( { title: v.title } );
-    });
+    })};
+
 
     await Project.findOneAndDelete( { title: req.params.project } );
     
     return res.status(200).send( { ok: true } );
     
   } catch (error) {
+    console.log( error)
     res.status(400).send( { error: 'Error on deleting project' } );
   }
 });
 
+// Get all projects from all users - JSON
+router.get( '/allproj', async ( req, res ) => {
+  try {
 
-module.exports = app => app.use( '/main/projects', router );
+    const projects = await Project.find().populate( ['user', 'validations'] );
+    res.status(200).send( { projects } );
+
+  } catch (error) {
+    console.log('Erro: ', error);
+    res.status(400).send( { error: 'Error on loading all projects' } );
+  }
+});
+
+
+
+module.exports = app => app.use( '/main', router );

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <%- include( 'partials/head', {
+    pageTitle: 'Console Web',
+    styles: ['validation', 'components']
+    }) %>
+</head>
+
+<body>
+  <header>
+   
+    <%- include( '../components/menu', {
+      elements: [
+        { content: 'Alterar' },
+        { content: 'Excluir'}
+      ]
+    }) %>
+
+  </header>
+
+  <main>
+
+  <section class='validacao__container validacao__container--active' id='validacao__container'>
+    <h1 class="validacao__title"><%= projeto %> <%= titulo %></h1> 
+    <%- include('../components/table', { validacao: validacao } ) %>
+
+  </section>
+
+  <footer>   
+    <%- include( 'partials/footer' ) %>
+  </footer>
+
+  <%- include( 'partials/scripts', {
+    scripts: ['validation']
+  }) %>
+  
+</body>
+</html>

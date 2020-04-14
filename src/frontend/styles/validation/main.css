@@ -1,0 +1,27 @@
+html{
+  height: 100vh;
+}
+
+header {
+  grid-area: header;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  grid-area: footer;
+}
+
+body {
+  height: inherit;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: max-content auto max-content;
+  grid-template-areas: 
+  "header header header"
+  "main main main"
+  "footer footer footer";
+  background: #f5f5f5;
+}

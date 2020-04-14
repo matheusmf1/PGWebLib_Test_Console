@@ -1,0 +1,31 @@
+html{
+  height: 100vh;
+}
+
+header {
+  grid-area: header;
+}
+
+aside {
+  grid-area: aside;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  grid-area: footer;
+}
+
+body {
+  height: inherit;
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  grid-template-rows: max-content auto max-content;
+  grid-template-areas: 
+  "header header header"
+  "aside main main"
+  "footer footer footer";
+  background: #f5f5f5;
+}

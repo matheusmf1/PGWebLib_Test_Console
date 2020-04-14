@@ -1,0 +1,27 @@
+<% if( projects.length > 0 ) { %>
+  <ul class="project__list">
+    <% projects.forEach( ( p ) => { %>
+    <li class="project__list--content">
+
+      <div>
+        <%- include( 'deleteIcon' ) %>
+        <a href data-modal=#<%= p.title %> class="modal__trigger modal__content--size"><%= p.title %></a>
+      </div>
+
+      <div id="<%= p.title %>" class="modal__container" role="dialog" aria-hidden="true">
+        <div class="modal__dialog modal__content">
+          <h1 class="modal__title"><%= p.title %></h1>
+          <p class="project__description"> <%= p.description %> </p>
+
+          <%- include( 'validation_file', { validations: p.validations  } ) %>
+          
+          <%- include( 'closePageIcon' ) %>
+        </div>
+      </div>
+    </li>
+    <% }) %>
+  </ul>
+
+  <% } else { %>
+  <p class="projectNone"> Nenhum Projeto adicionado </p>
+  <% }; %>

@@ -1,8 +1,18 @@
 .validacao__container {
   grid-area: validation ;
-  display: flex;
-  flex-wrap: wrap;
+  display: none;
+}
+
+.validacao__container--active{
+  display: block;
   justify-content: center;
   background-color: #f5f5f5;
   padding: 5px;
+  margin: auto;
+  max-width: 800px;
+}
+
+.validacao__title {
+  font-size: 20px;
+  padding: .75em;
 }

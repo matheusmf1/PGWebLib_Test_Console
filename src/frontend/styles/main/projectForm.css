@@ -1,0 +1,53 @@
+.modal__anchor {
+  color: #FFFFFF;
+  transition: .5s ease;
+}
+
+.modal__anchor:hover {
+  color: #2196F3;
+}
+
+.form {
+  width: 35em;
+  margin: 20px;
+  padding: 20px;
+}
+
+.top-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.top-row > div {
+  float: left;
+  width: 48%;
+  margin-right: 4%;
+}
+.top-row > div:last-child {
+  margin: 0;
+}
+
+.button-login {
+  border: 0;
+  outline: none;
+  border-radius: 15px;
+  padding: 15px 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #3a5fcd;
+  color: #ffffff;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+}
+
+.button-block {
+  display: block;
+  width: 100%;
+}
+
+@media (max-width: 765px) {
+  label {
+    left: 0;
+  }
+}

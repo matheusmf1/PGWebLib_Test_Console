@@ -2,9 +2,14 @@
   <input type="checkbox" id="menu__switcher" class="menu__switcher"> 
   <label for="menu__switcher" class="menu__switcher-label"><span class="menu__switcher-icon"></span></label>
 
-  <nav class="menu__items-wrapper">
-    <% elements.forEach( e => { %>
-      <a class="menu__item" href="<%= e.ref %>"><%= e.content %></a>
-    <% }); %>
+  <nav class="menu__wrapper">
+    <ul class="items__container">
+      <% elements.forEach( e => { %>
+        <li>
+          <a class="menu__item" <%= e.ref ? `href=${e.ref}` : '' %>> <%= e.content %></a>
+        </li>
+      <% }); %>
+    </ul>
+ 
   </nav>
 </div>

@@ -1,7 +1,8 @@
 const admin = require("firebase-admin");
 
 const serviceAccount = require('../../../../pgweblib-auttest-firebase-adminsdk-hoorf-aa5f9c7409.json');
-const registrationToken = "cOlR-tfRC7w:APA91bHYl_Z1OIEgpxfmQglvU9E4FA_b8AO5j-eSNCPfACyHg7HBAU4y1Opl6DLqybBeIXVfQXFqTxVlKfTdf-7ug_vpftGM4KUtjI37_UZqCd8DoskkVxiGEr48CN6Bc0CuZcYHW48j";
+// const registrationToken = "fpgWYMjSv_Q:APA91bFOlVEyYSNlF0pC7goOaQD4zSEuEj5OgUqf8G2J8aL54vO7Zv1hDyzCBc16inFXNQRVDufFaoGsqnAOysRNfLbSx-uvrpILvVs6-hLgqWNr8jnPTqTHrBqztnIV6Oj3GsvAryWi";
+const registrationToken = "eGGSti5Wx-c:APA91bF9EXaHTfW9R35xJwwoTEAajJ_zZITfgG5WgzQytzCR2Lxs6Y-xmFsd8zfw5DoFwRMRxlqlvwdhJvIydvtINcUnAitNJ9qduGYOt6TadMDunnyhdHuf5ehbxznOq3VAPk_8Afpe";
 
 var exports = module.exports = {};
 
@@ -10,34 +11,16 @@ admin.initializeApp( {
   databaseURL: "https://pgweblib-auttest.firebaseio.com"
 });
 
-// define what will be delivered on the device
-let setPayload = (op, info, cookie) => {
-  info = JSON.stringify(info);
-  var payload = {
-    data: {
-      operacao: op,
-      dados: info, 
-      token: cookie
-    }  
-  }
-  console.log('Payload', payload);
-  return payload;
-};
 
-//define some options when sending msg to the device
-const options = {
-  priority: "high",
-  timeToLive: 60
-};
-
-
-exports.sendData = ( op, pl, cookie ) => {
+exports.sendData = ( payload ) => {
+  
   return new Promise( ( resolve, reject ) => {
-    let payload = setPayload( op, pl, cookie );
-
-    admin.messaging().sendToDevice( registrationToken, payload, options ).then( response => { 
+  
+    admin.messaging().send( payload )
+    .then( response => { 
       resolve( { Successfully: response } );
-    }).catch( ( error ) => { 
+    })
+    .catch( ( error ) => { 
       reject( { Error: error } );
     });
   });  

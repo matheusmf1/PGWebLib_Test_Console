@@ -1,0 +1,14 @@
+<% if ( validations && validations.length > 0 ) { %>
+  <ul class="validation__container">
+    <% validations.forEach( ( v ) => { %>
+    <li class="validation__item">
+      <div class="card__container">
+        <img class= "card__image" src="/img/accepted_file.png" alt="validationImg" style="width: 100%;">
+        <div class="card__content">
+          <h4 class="card__content--text"><%= v.title %></h4>
+        </div>
+      </div>    
+    </li>
+    <% }) %>
+  </ul>
+  <% } %>
