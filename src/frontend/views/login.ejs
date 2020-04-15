@@ -21,7 +21,7 @@
 
   <main>
     
-    <%- include( '../components/info_callback', { info: info }  ) %>
+    <%- include( '../components/info_callback', { type: type, info: info }  ) %>
 
     <section class="form">
       
@@ -50,7 +50,7 @@
   </footer>
 
   <%- include( 'partials/scripts', {
-    scripts: ['login']
+    scripts: ['login','components']
   }) %>
 
 </body>

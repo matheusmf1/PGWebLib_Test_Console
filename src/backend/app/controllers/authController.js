@@ -30,8 +30,8 @@ router.post('/register', async ( req, res ) => {
   try {
 
     if ( await User.findOne( { email } ) )
-      return res.status(400).send( { error: 'User Already Exists' } );
-
+      return res.status(400).render( 'login', { type: 'alert__container--warning', info: 'Usuário já existe!' } );
+     
     const user = await User.create( req.body );
 
     //para não retornar a senha no json
@@ -44,7 +44,7 @@ router.post('/register', async ( req, res ) => {
     }).redirect('/settings');
 
   } catch( err ) {
-    return res.status(400).send( { error: 'Registration Failed' } );
+    return res.status(400).render( 'login', { type: 'alert__container--error', info: 'Desculpe, erro ao cadastrar o usuário!' } );
   }
 
 });
@@ -57,10 +57,10 @@ router.post('/authenticate', async ( req, res ) => {
   const user = await User.findOne( { email } ).select('+password');
 
   if ( !user )
-    return res.status(404).render( 'login', { info: 'User Not Found' } );
+    return res.status(404).render( 'login', {  type: 'alert__container--warning', info: 'Desculpe, usuário não encontrado!' } );
   
   if ( !await bcrypt.compare( password, user.password ) )
-    return res.status(404).render( 'login', { info: 'Invalid Password' } );
+    return res.status(400).render( 'login', {  type: 'alert__container--error', info: 'Senha Incorreta, por favor tente novamente!' } );
   
   user.password = undefined;
   const token = generateToken( { id: user.id } );
