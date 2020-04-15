@@ -1,0 +1,21 @@
+<nav class="sidebar__nav">
+  <span class="menu__switcher-icon"></span>
+
+  <ul>
+    <% elements.forEach( ( e ) => { %>
+    <li>
+      <a class="sidebar__anchor sidebar__anchor--item"> <span> <%= e.title %> </span> </a>
+
+      <ul class="nav-flyout">
+        <% e.subMenu.forEach( s => { %>
+          <li>
+            <a id="<%= s.id %>" class="sidebar__anchor sidebar__anchor--item"> <%= s.item %> </a>
+          </li>
+        <% }); %>
+
+      </ul>
+    </li>
+    <% }); %>
+
+  </ul>
+</nav>

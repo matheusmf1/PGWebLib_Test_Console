@@ -6,9 +6,19 @@ const mailer = require('../../modules/mailer');
 
 const authConfig = require('../../config/auth.json');
 
+const Project = require('../models/project');
+const Validation = require('../models/validation');
 const User = require('../models/user');
+const Settings = require('../models/settings');
 
 const router = express.Router();
+
+router.options( '/*', ( req, res, next ) => {
+  res.header( 'Access-Control-Allow-Origin', '*' );
+  res.header( 'Access-Control-Allow-Methods', 'GET, POST, DELETE' );
+  res.header( 'Access-Control-Allow-Headers', 'Accept, Access-Control-Allow-Origin, Content-Type' );
+  res.sendStatus(204);
+});
 
 const generateToken = ( params = {} ) => { 
   return jwt.sign( params, authConfig.secret, { expiresIn: 3600 } ); // 1 hour
@@ -27,11 +37,11 @@ router.post('/register', async ( req, res ) => {
     //para não retornar a senha no json
     user.password = undefined;
     const token = generateToken( { id: user.id } );
-
+    console.log('token: ', token);
     return res.cookie('tokenkey', token, {
       maxAge: 3600000, // 1 hour
       httpOnly: true
-    }).redirect('/main');
+    }).redirect('/settings');
 
   } catch( err ) {
     return res.status(400).send( { error: 'Registration Failed' } );
@@ -46,15 +56,15 @@ router.post('/authenticate', async ( req, res ) => {
 
   const user = await User.findOne( { email } ).select('+password');
 
-  if(!user)
-    return res.status(404).send( { error: 'User Not Found' } );
-
-  if( !await bcrypt.compare( password, user.password ) )
-    return res.status(400).send( { error: 'Invalid Password' } );
-
+  if ( !user )
+    return res.status(404).render( 'login', { info: 'User Not Found' } );
+  
+  if ( !await bcrypt.compare( password, user.password ) )
+    return res.status(404).render( 'login', { info: 'Invalid Password' } );
+  
   user.password = undefined;
   const token = generateToken( { id: user.id } );
-
+  console.log('token: ', token);
   res.cookie('tokenkey', token, {
     maxAge: 3600000, // 1 hour
     httpOnly: true
@@ -64,13 +74,17 @@ router.post('/authenticate', async ( req, res ) => {
 
 router.post('/forgot_password', async ( req, res ) => {
   const { email } = req.body;
+  const ip = req.connection.remoteAddress;
+  const port = 3000;
+  
+  const ipAdd = `${ip}:${port}`;
 
   try {
     
     const user = await User.findOne( { email } );
 
     if( !user )
-      return  res.status(400).send( { error: 'User not found' } );
+      return res.status(404).render( 'login', { info: 'Usuário não encontrado' } );
 
     const token = crypto.randomBytes(20).toString('hex');
 
@@ -85,30 +99,32 @@ router.post('/forgot_password', async ( req, res ) => {
       }
     });
 
+    const url = `http://${ipAdd}/auth/reset_password/${token}`;
+
     mailer.sendMail( {
       to: email,
       from: 'matheus.franco@test.com.br',
       html: `
-      <p>Você esqueceu sua senha? Não se preocupe, utilize esse token: { ${ token } } </p> `
+      <p>Você esqueceu sua senha? Não se preocupe, click nesse <a href="${url}">link</a> to para alterar a senha </p> `
 
     }, ( err ) => {
       if( err )
-        return res.status(400).send( { error: 'Cannot send forgot password email' } );
+        return res.status(400).render( 'login', { info: 'Descuple, não foi possivel enviar o email, por favor tente novamente!' } );
 
-  
-      return res.status(200).send( { ok: true } );
+      return res.status(200).render( 'login', { info: 'Um link para recuperar sua senha foi enviado para seu email!' } );
      });
 
   } catch (err) {
     console.log(err);
-    res.status(400).send( { error: 'Error on forgot password, try again' } );
+    return res.status(400).render( 'login', { info: 'Descuple, não foi possivel enviar o email, por favor tente novamente' } );
   }
 });
 
 
-router.post('/reset_password', async ( req, res ) => {
+router.post('/reset_password/:token', async ( req, res ) => {
 
-  const { email, token, password } = req.body;
+  const { email, password } = req.body;
+  const token = req.params.token;
 
   try {
 
@@ -116,25 +132,38 @@ router.post('/reset_password', async ( req, res ) => {
     .select('+passwordResetToken passwordResetExpires');
 
     if( !user )
-      return res.status(404).send( { error: 'User not found' } );
+      return res.status(404).render('passwordReset', { info: 'Usuário não encontrado', token: token });
 
     if( token !== user.passwordResetToken )
-      return res.status(400).send( { error: 'Token invalid' } );
+      return res.status(401).render('passwordReset', { info: 'Token inválido', token: token })
 
     const now = new Date();
 
     if( now > user.passwordResetExpires )
-      return res.status(400).send( { error: 'Token has expired, generate a new one' } );
+      return res.status(404).render('passwordReset', { info: 'Link expirado, gere um novo', token: token })
+
 
     user.password = password;
 
     user.save();
   
-    res.status(200).send( { ok: true } );
+    return res.status(200).render( 'passwordReset', { info: 'Senha alterada com sucesso!' } );
     
   } catch (error) {
-    res.status(400).send( { error: 'Cannot reset password, try it again' } )
-  }
+      return res.status(400).render('passwordReset', { info: 'Desculpe, houve um erro ao alterar a senha, por favor tente novamente', token: token });
+}
+});
+
+router.get('/reset_password/:token', ( req, res, next ) => {
+
+  const token = req.params.token;
+
+  res.status(200).render('passwordReset', { info: '', token: token } );
+
+});
+
+router.get('/logout', ( req, res, next ) => {
+  res.clearCookie('tokenkey').redirect('/');
 });
 
 router.get('/user', async ( req, res ) => {
@@ -163,5 +192,42 @@ router.get('/user/:email', async ( req, res ) => {
   }
 
 });
+
+router.delete('/user/:email', async (req, res) => {
+  try {
+    
+    const user = await User.findOne( { email: req.params.email } ).populate( 'projects' );
+
+    if ( !user )
+      return res.status(404).send( { error: 'User not found'} );
+
+    if ( user.projects.length > 0 ) {
+
+      user.projects.forEach( async ( project ) => {
+        console.log('project ', project);
+     
+        const validations = project.validations;
+
+        if ( validations )
+          validations.forEach( async ( v ) => { await Validation.findByIdAndDelete( v ); } );  
+
+        await Project.findByIdAndDelete( project._id );
+      });
+    }
+
+    if ( user.settings )
+      await Settings.findByIdAndDelete( user.settings );
+
+    await User.findByIdAndDelete( user._id );
+
+    res.status(200).send( {  ok: true } );
+
+  } catch (error) {
+    console.log(error);
+    res.status(400).send( {  ok: false } );
+
+  }
+});
+
 
 module.exports = ( app ) => app.use( '/auth', router );

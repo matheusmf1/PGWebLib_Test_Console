@@ -1,0 +1,98 @@
+/* Set a style for all buttons */
+ .button__deleteModal {
+  padding: 14px 20px;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.button__deleteModal:hover {
+  opacity:1;
+}
+
+.buttons__container {
+
+
+}
+
+/* Float cancel and delete buttons and add an equal width */
+.cancel__button, .delete__button {
+  float: left;
+  width: 50%;
+}
+
+/* Add a color to the cancel button */
+.cancel__button {
+  background-color: #ccc;
+  color: black;
+}
+
+/* Add a color to the delete button */
+.delete__button {
+  background-color: #f44336;
+  color: #fff;
+  border: thick;
+}
+
+/* Add padding and center-align text to the container */
+.warnings__container {
+  padding: 20px;
+  text-align: center;
+}
+
+/* The delete__container (background) */
+.delete__container {
+  width: 550px;
+  height: 300px; 
+  background-color: #474e5d;
+}
+
+.delete__container--title {
+  margin: 15px;
+  font-size: 23px;
+  font-family: Helvetica;
+}
+
+.delete__container--content {
+  font-size: 14px;
+  margin: 15px auto 15px;
+  font-family: Helvetica;
+}
+
+/* delete__container Content/Box */
+.delete__content {
+  background-color: #fefefe;
+  border: 1px solid #888;
+  width: 80%;
+  height: fit-content;
+  margin: 65px auto;
+}
+ 
+/* The delete__container Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Clear floats */
+.buttons__container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and delete button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancel__button, .delete__button {
+     width: 100%;
+  }
+}

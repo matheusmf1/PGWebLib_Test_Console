@@ -5,7 +5,7 @@
   <%- include( 'partials/head', {
     pageTitle: 'Console Web',
     styles: ['operacao', 'components']
-  } ) %>
+    }) %>
 </head>
 
 <body>
@@ -13,26 +13,41 @@
    
     <%- include( '../components/menu', {
       elements: [
-        { ref: '#input', content: 'Dados' },
-        { ref: '#comprovante__container', content: 'Resultados' },
-        { ref: '#validacao__container', content: 'Validação' },
-        { ref: '/main/logout', content: 'Sair'}
+        { ref: '/main', content: 'Home' },
+        { ref: '/settings', content: 'Ajustes' },
+        { ref: '/auth/logout', content: 'Sair'}
       ]
     }) %>
 
   </header>
 
+  <aside class="sidebar__container">
+    <%- include('../components/sideBar', {
+      elements: [
+
+        { title: 'Projetos', subMenu: [
+          { item: 'Criar Novo', id: 'newProj' },
+          { item: 'Visualizar', id: 'getProj' } ] },
+      
+        { title: 'Validações', subMenu: [ 
+          { item: 'Nova Validação', id: 'newVal' },
+          { item: 'Visualizar', id: 'getVal' } ] },
+
+        { title: 'Scripts', subMenu: [
+          { item: 'Exemplos', id: 'getScripts' },
+          { item: 'Novo', id: 'newScript' }] }
+      ]
+
+    }) %>
+  </aside>
+
   <main>
     <section class='main__container' id="input">
       <%- include( '../components/inputDados', {
         content: {
-          title: "Escolha entre as opções a seguir:",
-          subTitle: "Tipo de Teste:"
+          title: "Escolha um arquivo a seguir:",
+          subTitle: ""
         },
-        radioBtn: [ 
-          {titulo: 'Operação', name: 'inputData', value: 'transacao'},
-          {titulo: 'Validação', name: 'inputData', value: 'validacao'}
-        ],
         button: {
           type: 'submit',
           extraClass: 'button',
@@ -44,13 +59,11 @@
     </section>
   </main>
 
-  <section class='comprovante__container' id='comprovante__container' >
-    <%- include( 'partials/divisor', {title: 'Resultados'} )%>
+  <section class='comprovante__container' id='comprovante__container'>
 
   </section>
 
   <section class='validacao__container' id='validacao__container'>
-    <%- include( 'partials/divisor', {title: 'Validação'} )%>
   </section>
 
   <footer>   
@@ -58,7 +71,7 @@
   </footer>
 
   <%- include( 'partials/scripts', {
-    scripts: ['operacao', 'components']
+    scripts: ['operacao', 'components', 'sideBar']
   }) %>
   
 </body>

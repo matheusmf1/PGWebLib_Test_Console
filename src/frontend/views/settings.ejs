@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <%- include( 'partials/head', {
+    pageTitle: 'Console Web',
+    styles: ['settings', 'components']
+  }) %>
+
+</head>
+
+<body>
+  <header>
+
+    <%- include( '../components/menu', {
+      elements: [
+        { ref: '/main', content: 'Home' },
+        { ref: '/settings', content: 'Ajustes' },
+        { ref: '/auth/logout', content: 'Sair'}
+      ]
+    }) %>
+
+  </header>
+
+  <aside class="sidebar__container">
+    <%- include('../components/sideBar', {
+      elements: [
+
+        { title: 'Projetos', subMenu: [
+          { item: 'Criar Novo', id: 'newProj' },
+          { item: 'Visualizar', id: 'getProj' } ] },
+      
+        { title: 'Validações', subMenu: [ 
+          { item: 'Nova Validação', id: 'newVal' }
+        ] },
+
+        { title: 'Scripts', subMenu: [
+          { item: 'Exemplos', id: 'getScripts' },
+          { item: 'Novo', id: 'newScript' }] }
+      ]
+
+    }) %>
+  </aside>
+
+  <main>
+
+    <section class="settings__container">
+
+      <%- include('../components/setup', {
+        tabs: [
+          { title: 'PinPad', id: 'pinPad', extraClass: 'nav__items--active' },
+          { title: 'Controle Remoto', id: 'remoteControl', extraClass: '' },
+          { title: 'Servidor', id: 'server', extraClass: '' },
+          { start: { title: 'Iniciar Aplicação', id: 'wakeApp' } }
+        ],
+        tabContent: [
+          { id: 'pinPad', extraClass: 'tab__container',  title: 'Configurações PinPad', route: '/settings/pinpad', content: [
+            { label: `Endereço Tcp Atual: ${data.tcpIp}`, name: 'tcpIp' },
+            { label: `Porta Atual: ${data.tcpPort}`, name: 'tcpPort' }
+          ]},
+
+          { id: 'remoteControl', extraClass: 'noshow',  title: 'Configurações Controle Remoto', route: '/settings/remote', content: [
+            { label: `Porta Atual: ${data.remotePort}`, name: 'remotePort' }
+          ]},
+
+          { id: 'server', extraClass: 'noshow',  title: 'Configurações Servidor', route: '/settings/server', content: [
+            { label: `Endereço Host Atual: ${data.serverHost}`, name: 'serverHost' },
+            { label: `Porta Atual: ${data.serverPort}`, name: 'serverPort' }
+          ]},
+        ]
+      }) %>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <%- include( 'partials/footer' ) %>
+  </footer>
+
+  <%- include( 'partials/scripts', {
+    scripts: ['sideBar','settings']
+  }) %>
+
+</body>
+
+</html>

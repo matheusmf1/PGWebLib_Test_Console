@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <%- include( 'partials/head', {
+    pageTitle: 'Console Web',
+    styles: [ 'login', 'components' ]
+  }) %>
+</head>
+
+
+<body>
+
+  <header>
+    <%- include( '../components/menu', {
+      elements: [
+      { content: 'Bem Vindo ao PGWebLib Console' }
+      ]
+    }) %>
+  </header>
+
+  <main>
+    
+    <%- include( '../components/info_callback', { info: info }  ) %>
+
+    <section class="form">
+      
+      <ul class="tab-group">
+        <li class="tab active"><a class="tab__content" href="#signup"> Cadastre-se </a></li>
+        <li class="tab"><a class="tab__content" href="#login"> Login </a></li>
+      </ul>
+      
+      <div class="tab-content">
+  
+       <%- include('../components/sign_up') %>
+  
+       <%- include('../components/sign_in') %>
+
+       <%- include('../components/forgot_password') %>
+  
+      </div>
+      
+    </section>
+
+  </main>
+
+
+  <footer>   
+    <%- include( 'partials/footer' ) %>
+  </footer>
+
+  <%- include( 'partials/scripts', {
+    scripts: ['login']
+  }) %>
+
+</body>
+</html>
+
+
