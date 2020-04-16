@@ -37,6 +37,14 @@
   background-color: rgba(248, 245, 172, 1);
 }
 
+.comprovante__lista--conteudoValidacao {
+  text-align: left;
+  font-family: 'Courier New';
+  font-size: 1em;
+  white-space: pre-wrap;
+  max-width: fit-content;
+}
+
 @media screen and (max-width: 949.99px) {
   .comprovante__lista--titulo {
     margin: 10px 1rem;

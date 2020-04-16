@@ -73,15 +73,22 @@
           let tdContentID = document.createElement('td');
           let tdContent = document.createElement('td');
 
-          if ( Object.keys(item) == 'isValid' && Object.values(item) == 'false' ) {
+          const receipts = ['PWINFO_RCPTCHSHORT', '0x37', 'PWINFO_RCPTCHOLDER', '0x36', 'PWINFO_RCPTMERCH', '0x35' ]; 
+
+          if ( Object.keys(item) == 'isValid' && Object.values(item) == 'false' ) { // isValid feedback
 
             tdContentID.className = 'table__content--border table__content--left table__content--invalid';
             tdContent.className = 'table__content--border table__content--right table__content--invalid';
 
-          } else if ( Object.keys(item) == 'isValid' && Object.values(item) == 'true' ) {
+          } else if ( Object.keys(item) == 'isValid' && Object.values(item) == 'true' ) { // isValid feedback
 
             tdContentID.className = 'table__content--border table__content--left table__content--valid';
             tdContent.className = 'table__content--border table__content--right table__content--valid';
+
+          } else if ( receipts.includes(  String( Object.keys( item ) ) ) ) { // receipt feedback
+
+            tdContentID.className = 'table__content--border table__content--left';
+            tdContent.className = 'table__content--border comprovante__lista--conteudoValidacao';
 
           } else {
 
