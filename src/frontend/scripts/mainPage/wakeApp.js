@@ -1,8 +1,7 @@
 ( () => {
 
   const startApp = window.addEventListener( 'load', async () => {
-
-    console.log('page has loaded')
+    
     await fetch('/settings', {
       method:'post'
     }).then( (response) => {
@@ -17,13 +16,12 @@
     
     const setupFeedBack = setInterval( async () => {
 
-      await fetch( '/settings/setup',
-     {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      mode: 'cors'
-     }
-     ).then( ( response ) => {
+      await fetch( '/settings/setup', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'cors'
+     })
+     .then( ( response ) => {
           return response.json();
   
       }).then( ( resp ) => {

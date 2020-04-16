@@ -21,7 +21,7 @@
 }
 
 .alert__container--error {
-  background-color: #f44336; 
+  background-color: rgba(255, 81, 68,1); 
   display: block;
 }
 

@@ -12,12 +12,6 @@
       let sectionContainer = document.createElement( 'section' );
         sectionContainer.className = "delete__container";
 
-
-      // let deleteForm = document.createElement('form');
-      //   deleteForm.setAttribute( 'action', `/main/projs/${projectName}` );
-      //   deleteForm.setAttribute('method', 'delete');
-      //   deleteForm.className = 'delete__content';
-
       
       let deleteForm = document.createElement('div');
         deleteForm.className = 'delete__content';
@@ -47,13 +41,12 @@
         deletelBt.type = 'submit';
         deletelBt.addEventListener( 'click', async () => { 
 
-            await fetch( `/main/projs/${projectName}`,
-            {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            mode: 'cors'
-            }
-            ).then( ( response ) => {
+            await fetch( `/main/projs/${projectName}`, {
+              method: 'DELETE',
+              headers: { 'Content-Type': 'application/json' },
+              mode: 'cors'
+            })
+            .then( ( response ) => {
                 return response.json();
         
             }).then( ( resp ) => {

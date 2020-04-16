@@ -75,7 +75,7 @@ router.post('/authenticate', async ( req, res ) => {
 router.post('/forgot_password', async ( req, res ) => {
   const { email } = req.body;
   const ip = req.connection.remoteAddress;
-  const port = 3000;
+  const port = process.env.PORT;
   
   const ipAdd = `${ip}:${port}`;
 
@@ -84,7 +84,7 @@ router.post('/forgot_password', async ( req, res ) => {
     const user = await User.findOne( { email } );
 
     if( !user )
-      return res.status(404).render( 'login', { info: 'Usuário não encontrado' } );
+      return res.status(404).render( 'login', { type: 'alert__container--warning', info: 'Desculpe, usuário não encontrado!' } );
 
     const token = crypto.randomBytes(20).toString('hex');
 
@@ -109,14 +109,14 @@ router.post('/forgot_password', async ( req, res ) => {
 
     }, ( err ) => {
       if( err )
-        return res.status(400).render( 'login', { info: 'Descuple, não foi possivel enviar o email, por favor tente novamente!' } );
+        return res.status(400).render( 'login', { type: 'alert__container--error', info: 'Descuple, não foi possivel enviar o email, por favor tente novamente!' } );
 
-      return res.status(200).render( 'login', { info: 'Um link para recuperar sua senha foi enviado para seu email!' } );
+      return res.status(200).render( 'login', { type: 'alert__container--success', info: 'Um link para recuperar sua senha foi enviado para seu email!' } );
      });
 
   } catch (err) {
     console.log(err);
-    return res.status(400).render( 'login', { info: 'Descuple, não foi possivel enviar o email, por favor tente novamente' } );
+    return res.status(400).render( 'login', { type: 'alert__container--error', info: 'Descuple, não foi possivel enviar o email, por favor tente novamente!' } );
   }
 });
 
@@ -132,25 +132,25 @@ router.post('/reset_password/:token', async ( req, res ) => {
     .select('+passwordResetToken passwordResetExpires');
 
     if( !user )
-      return res.status(404).render('passwordReset', { info: 'Usuário não encontrado', token: token });
+      return res.status(404).render('passwordReset', { type: 'alert__container--warning', info: 'Usuário não encontrado', token: token });
 
     if( token !== user.passwordResetToken )
-      return res.status(401).render('passwordReset', { info: 'Token inválido', token: token })
+      return res.status(401).render('passwordReset', { type: 'alert__container--warning', info: 'Token inválido', token: token })
 
     const now = new Date();
 
     if( now > user.passwordResetExpires )
-      return res.status(404).render('passwordReset', { info: 'Link expirado, gere um novo', token: token })
+      return res.status(404).render('passwordReset', { type: 'alert__container--warning', info: 'Link expirado, gere um novo', token: token })
 
 
     user.password = password;
 
     user.save();
   
-    return res.status(200).render( 'passwordReset', { info: 'Senha alterada com sucesso!' } );
+    return res.status(200).render( 'passwordReset', { type: 'alert__container--success', info: 'Senha alterada com sucesso!', token: token } );
     
   } catch (error) {
-      return res.status(400).render('passwordReset', { info: 'Desculpe, houve um erro ao alterar a senha, por favor tente novamente', token: token });
+      return res.status(400).render('passwordReset', { type: 'alert__container--warning', info: 'Desculpe, houve um erro ao alterar a senha, por favor tente novamente', token: token });
 }
 });
 
@@ -158,7 +158,7 @@ router.get('/reset_password/:token', ( req, res, next ) => {
 
   const token = req.params.token;
 
-  res.status(200).render('passwordReset', { info: '', token: token } );
+  res.status(200).render('passwordReset', { type: '', info: '', token: token } );
 
 });
 
