@@ -11,11 +11,28 @@
 
     <% validacao.forEach( ( item ) => { %>
     <tr class="table__content">
-      <td class="table__content--border table__content--left"> <%= Object.keys(item) %> </td>
 
-      <td class="table__content--border table__content--right">
-        <%= Object.values(item) %>
-      </td>
+      <% if( Object.keys(item) == 'isValid' && Object.values(item) == 'false' ) { %> 
+        <td class="table__content--border table__content--left table__content--invalid"> <%= Object.keys(item) %> </td>
+
+        <td class="table__content--border table__content--right table__content--invalid">
+          <%= Object.values(item) %>
+        </td>
+      <% } else if( Object.keys(item) == 'isValid' && Object.values(item) == 'true' ) { %>
+        
+          <td class="table__content--border table__content--left table__content--valid"> <%= Object.keys(item) %> </td>
+
+          <td class="table__content--border table__content--right table__content--valid">
+            <%= Object.values(item) %>
+          </td>      
+        <% } else { %>
+          
+          <td class="table__content--border table__content--left"> <%= Object.keys(item) %> </td>
+
+          <td class="table__content--border table__content--right">
+            <%= Object.values(item) %>
+          </td>
+      <% } %>
 
     </tr>
     <%  }) %>

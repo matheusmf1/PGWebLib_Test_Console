@@ -71,10 +71,24 @@
           trContent.className = 'table__content';
 
           let tdContentID = document.createElement('td');
-          tdContentID.className = 'table__content--border table__content--left';
-
           let tdContent = document.createElement('td');
-          tdContent.className = 'table__content--border table__content--right';
+
+          if ( Object.keys(item) == 'isValid' && Object.values(item) == 'false' ) {
+
+            tdContentID.className = 'table__content--border table__content--left table__content--invalid';
+            tdContent.className = 'table__content--border table__content--right table__content--invalid';
+
+          } else if ( Object.keys(item) == 'isValid' && Object.values(item) == 'true' ) {
+
+            tdContentID.className = 'table__content--border table__content--left table__content--valid';
+            tdContent.className = 'table__content--border table__content--right table__content--valid';
+
+          } else {
+
+            tdContentID.className = 'table__content--border table__content--left';
+            tdContent.className = 'table__content--border table__content--right';
+
+          }
 
           tdContentID.innerHTML = Object.keys(item);
           tdContent.innerHTML = Object.values(item);
