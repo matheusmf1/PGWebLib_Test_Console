@@ -4,7 +4,7 @@
 
   logout.forEach( ( item ) => {
 
-    if ( item.pathname === '/auth/logout' ){
+    if ( item.pathname === '/auth/logout' ) {
 
       item.addEventListener('click', async () => { 
       
@@ -15,11 +15,20 @@
           return response.json;
         }).then( (resp) => console.log('resp: ', resp ) );
 
+      });
+    }  
+  });
 
-       });
+  window.addEventListener( 'unload', async () => {
+          
+    await fetch('/settings/close', {
+      method:'post'
+    }).then( (response) => {
+      console.log('response ', response);
+      return response.json;
+    }).then( (resp) => console.log('resp: ', resp ) );
 
-    }
-    
+
   });
   
 })();
