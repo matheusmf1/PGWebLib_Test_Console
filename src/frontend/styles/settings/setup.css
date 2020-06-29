@@ -51,6 +51,10 @@
   margin-bottom: 40px;
 }
 
+.token__content {
+  word-break: break-all;
+  margin-top: 20px;
+}
 
 .tab__form--label {
   position: absolute;

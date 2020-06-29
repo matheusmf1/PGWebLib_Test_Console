@@ -58,6 +58,9 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
 
+  const cookieToken = req.headers.cookie;
+  const token = cookieToken.split('=')[1];
+
   const loadSettings = await Settings.findOne( { title: 'wakeApp', assignedTo: req.userId } );
   
   let data = {};
@@ -68,10 +71,11 @@ router.get('/', async (req, res) => {
       tcpPort: loadSettings.tcp_port,
       remotePort: loadSettings.remote_port,
       serverHost: loadSettings.server_host,
-      serverPort: loadSettings.server_port
+      serverPort: loadSettings.server_port,
+      tokenKey: token
     }
   } else 
-    data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '' }
+    data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '', tokenKey: token }
 
   res.status(200).render('settings', {
     data: data
@@ -123,10 +127,11 @@ router.post('/pinpad', async ( req, res ) => {
         tcpPort: loadSettings.tcp_port,
         remotePort: loadSettings.remote_port,
         serverHost: loadSettings.server_host,
-        serverPort: loadSettings.server_port
+        serverPort: loadSettings.server_port,
+        tokenKey: token
       }
     } else 
-      data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '' }
+      data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '', tokenKey: token }
 
 
     res.status(200).render('settings', {
@@ -176,10 +181,11 @@ router.post('/remote', async ( req, res ) => {
         tcpPort: loadSettings.tcp_port,
         remotePort: loadSettings.remote_port,
         serverHost: loadSettings.server_host,
-        serverPort: loadSettings.server_port
+        serverPort: loadSettings.server_port,
+        tokenKey: token
       }
     } else 
-      data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '' }
+      data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '', tokenKey: token }
 
 
     res.status(200).render('settings', {
@@ -228,10 +234,11 @@ router.post('/server', async ( req, res ) => {
         tcpPort: loadSettings.tcp_port,
         remotePort: loadSettings.remote_port,
         serverHost: loadSettings.server_host,
-        serverPort: loadSettings.server_port
+        serverPort: loadSettings.server_port,
+        tokenKey: token
       }
     } else 
-      data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '' }
+      data = { tcpIp:'', tcpPort: '', remotePort: '', serverHost: '', serverPort: '', tokenKey: token }
 
 
     res.status(200).render('settings', {

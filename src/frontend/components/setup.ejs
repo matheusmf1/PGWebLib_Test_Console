@@ -18,20 +18,31 @@
   <% tabContent.forEach( ( tab ) => { %>
     <div id="<%= tab.id %>" class="<%= tab.extraClass %>">
       <h1 class="tab__container--title"><%= tab.title %></h1>
-      
-      <form action="<%= tab.route %>" method="POST">
-        
-        <% tab.content.forEach( ( c ) => { %>
- 
-          <div class="form__content">
-            <label class="form__content--label"><%= c.label %></label>
-            <input class="input" type="text" name="<%= c.name %>" required />
-          </div>         
 
-        <% }) %>
+      <% if ( tab.id === 'token' ) { %>
+
+        <div>
+          <h3>Utilize esse token: </h3>
+          <p class="token__content"><%= tab.content %></p>
+        </div>
+
+        <% } else { %>
+
+          <form action="<%= tab.route %>" method="POST">
         
-        <button type="submit" class="button-login button-block" />Salvar</button>
-      </form>
+            <% tab.content.forEach( ( c ) => { %>
+     
+              <div class="form__content">
+                <label class="form__content--label"><%= c.label %></label>
+                <input class="input" type="text" name="<%= c.name %>" required />
+              </div>         
+    
+            <% }) %>
+            
+            <button type="submit" class="button-login button-block" />Salvar</button>
+            </form>
+        <% } %>
+
     </div>
   <% }) %>
 

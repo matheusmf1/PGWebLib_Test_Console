@@ -21,7 +21,7 @@ app.get('/', ( req, res, next ) => {
   res.status(200).render( 'login', { type: '', info: '' } );
 });
 
-app.listen( port, hostname, ( err ) => {
+app.listen( port, ( err ) => {
   if ( err ) {
     console.error( err );
   } else {
