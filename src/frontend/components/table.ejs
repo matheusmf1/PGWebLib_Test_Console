@@ -9,6 +9,7 @@
 
   <tbody>
 
+    <% const receipts = ['PWINFO_RCPTCHSHORT', '0x37', 'PWINFO_RCPTCHOLDER', '0x36', 'PWINFO_RCPTMERCH', '0x35' ]; %>
     <% validacao.forEach( ( item ) => { %>
     <tr class="table__content">
 
@@ -24,14 +25,25 @@
 
           <td class="table__content--border table__content--right table__content--valid">
             <%= Object.values(item) %>
-          </td>      
-        <% } else { %>
+          </td>  
           
-          <td class="table__content--border table__content--left"> <%= Object.keys(item) %> </td>
+      <% } else if( receipts.includes(  String( Object.keys( item ) ) ) ) { %>
 
-          <td class="table__content--border table__content--right">
-            <%= Object.values(item) %>
-          </td>
+        <td class="table__content--border table__content--left">
+          <%= Object.keys(item) %>
+        </td>
+
+        <td class="table__content--border comprovante__lista--conteudoValidacao">
+          <%= Object.values(item) %>
+        </td>  
+
+      <% } else { %>
+          
+        <td class="table__content--border table__content--left"> <%= Object.keys(item) %> </td>
+
+        <td class="table__content--border table__content--right">
+          <%= Object.values(item) %>
+        </td>
       <% } %>
 
     </tr>
