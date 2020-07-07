@@ -100,6 +100,9 @@ router.post('/pinpad', async ( req, res ) => {
     const title = 'wakeApp';
     var settings;
 
+    const cookiesToken = req.headers.cookie;
+    const token = cookiesToken.split('=')[1];
+
     const userSettings = await User.findByIdAndUpdate( req.userId ).select('settings').populate( 'settings' ); 
     let loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
 
@@ -153,6 +156,9 @@ router.post('/remote', async ( req, res ) => {
     const title = 'wakeApp';
     var settings;
 
+    const cookiesToken = req.headers.cookie;
+    const token = cookiesToken.split('=')[1];
+
     const userSettings = await User.findByIdAndUpdate( req.userId ).select('settings').populate(['settings']);
    
     let loadSettings = await Settings.findOne( { title: title, assignedTo: req.userId } );
@@ -204,6 +210,9 @@ router.post('/server', async ( req, res ) => {
     const { serverHost, serverPort } = req.body;
     const title = 'wakeApp';
     var settings;
+
+    const cookiesToken = req.headers.cookie;
+    const token = cookiesToken.split('=')[1];
 
     const userSettings = await User.findByIdAndUpdate( req.userId ).select('settings').populate(['settings']);
 
