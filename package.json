@@ -20,8 +20,8 @@
     "firebase-admin": "^8.12.1",
     "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.20",
-    "nodemailer": "^6.4.10",
+    "mongoose": "^5.12.13",
+    "nodemailer": "^6.6.1",
     "nodemailer-express-handlebars": "^3.3.0",
     "nodemon": "^2.0.4"
   },
