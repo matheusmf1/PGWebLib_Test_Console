@@ -2,10 +2,12 @@
   "name": "webserver",
   "version": "1.0.0",
   "description": "\"WebService for PGWebLib_Aut_Test\"",
-  "main": "app.js",
+  "main": "main.js",
   "scripts": {
-    "start": "env-cmd -f ./.env nodemon app.js",
-    "watch": "gulp"
+    "start": "electron-forge start",
+    "watch": "gulp",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "Matheus Mandotti Franco",
   "license": "ISC",
@@ -14,6 +16,7 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "ejs": "^2.7.4",
+    "electron-squirrel-startup": "^1.0.0",
     "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "firebase": "^7.15.4",
@@ -26,11 +29,44 @@
     "nodemon": "^2.0.4"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.57",
+    "@electron-forge/maker-deb": "^6.0.0-beta.57",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.57",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
+    "@electron-forge/maker-zip": "^6.0.0-beta.57",
+    "electron": "^13.1.2",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-cli": "^2.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-jsmin": "^0.1.5",
     "gulp-tinifier": "^1.0.2"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "webserver"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }

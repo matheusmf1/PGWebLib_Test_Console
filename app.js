@@ -4,7 +4,8 @@ const path = require('path');
 const app = express();
 const os = require('os');
 
-const port = process.env.PORT;
+// const port = process.env.PORT;
+const port = 3000;
 const hostname = os.hostname();
 
 app.use( bodyParser.urlencoded( { extended: false } ) );
